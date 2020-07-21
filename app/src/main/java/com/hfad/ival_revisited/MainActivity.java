@@ -7,8 +7,10 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.app.usage.NetworkStats;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
 import android.net.sip.SipSession;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -25,6 +27,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements RecognitionListener {
@@ -34,7 +38,10 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     private TextView textOutput;
     SpeechRecognizer speech;
     private Intent recognizerIntent;
-
+    private Boolean activated = false;
+    private String make = "make";
+    private String miss = "miss";
+    private static int makeCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +58,9 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE,"US-en");
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         //recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3);
+        AudioManager amanager=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
+        amanager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
         ActivityCompat.requestPermissions (MainActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_RECORD_PERMISSION);
-        speech.startListening(recognizerIntent);
     }
 
     @Override
@@ -106,17 +114,21 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     public void onError(int error) {
         String errorMessage = getErrorText(error);
         textOutput.setText(errorMessage);
+        speech.startListening(recognizerIntent);
     }
 
     @Override
     public void onResults(Bundle results) {
         Log.i("results", "onResults: ");
         ArrayList<String> matches = results .getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+        Log.i("results", "onResults: " + matches);
         String text = "";
         for (String result : matches)
             text = result + "\n";
-        Log.i("results", "onResults: " + text);
+        makeCount += StringUtils.countMatches(text, make);
+        Log.i("results", "onResults: " + text + makeCount);
         textOutput.setText(text);
+        speech.startListening(recognizerIntent);
     }
 
     @Override
@@ -165,6 +177,7 @@ public static String getErrorText(int errorCode) {
             message = "Didn't understand, please try again.";
             break;
     }
+    Log.i("error", "getErrorText: " + message);
     return message;
 }
 

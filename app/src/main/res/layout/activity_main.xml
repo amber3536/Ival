@@ -24,7 +24,7 @@
         android:layout_marginTop="262dp"
         android:layout_marginEnd="156dp"
         android:layout_marginBottom="46dp"
-        android:text="Button"
+        android:text="STOP"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
