@@ -5,25 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
-import android.app.usage.NetworkStats;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
-import android.net.sip.SipSession;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.Looper;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,22 +27,25 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
 
     private Button btnSwitch;
     private static final int REQUEST_RECORD_PERMISSION = 100;
-    private TextView textOutput;
+    private TextView makeOutput;
+    private TextView missOutput;
     SpeechRecognizer speech;
     private Intent recognizerIntent;
     private Boolean activated = false;
     private String make = "make";
     private String miss = "miss";
     private static int makeCount = 0;
+    private static int missCount = 0;
+    private boolean turnOn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnSwitch = findViewById(R.id.button);
-        textOutput= (TextView) findViewById(R.id.textView);
-
+        btnSwitch = findViewById(R.id.startStopBtn);
+        makeOutput= (TextView) findViewById(R.id.showMake);
+        missOutput= (TextView) findViewById(R.id.showMiss);
         speech = SpeechRecognizer.createSpeechRecognizer(this);
         Log.i("speech", "onCreate: " + SpeechRecognizer.isRecognitionAvailable(this));
         speech.setRecognitionListener(this);
@@ -60,7 +55,28 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         //recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3);
         AudioManager amanager=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
         amanager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
-        ActivityCompat.requestPermissions (MainActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_RECORD_PERMISSION);
+
+        btnSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (turnOn == false) {
+                    btnSwitch.setText("STOP");
+                    turnOn = true;
+                    if (activated == false) {
+                        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_RECORD_PERMISSION);
+                        activated = true;
+                    }
+                }
+                else {
+                    makeCount = 0;
+                    missCount = 0;
+                    btnSwitch.setText("START");
+                    turnOn = false;
+                }
+            }
+        });
+
+
     }
 
     @Override
@@ -69,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         switch (requestCode) {
             case REQUEST_RECORD_PERMISSION:
                 if (grantResults.length > 0 && grantResults[0]== PackageManager.PERMISSION_GRANTED) {
+                    Log.i("permissions", "onRequestPermissionsResult: ");
                     speech.startListening(recognizerIntent);
                 } else {
                     Toast.makeText(MainActivity.this, "Permission Denied!", Toast .LENGTH_SHORT).show();
@@ -113,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     @Override
     public void onError(int error) {
         String errorMessage = getErrorText(error);
-        textOutput.setText(errorMessage);
+        makeOutput.setText(errorMessage);
         speech.startListening(recognizerIntent);
     }
 
@@ -126,8 +143,11 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         for (String result : matches)
             text = result + "\n";
         makeCount += StringUtils.countMatches(text, make);
-        Log.i("results", "onResults: " + text + makeCount);
-        textOutput.setText(text);
+        missCount += StringUtils.countMatches(text, miss);
+        Log.i("results", "onResults: " + text + "make: " + makeCount);
+        Log.i("results", "onResults: " + text + "miss: " + missCount);
+        makeOutput.setText(String.valueOf(makeCount));
+        missOutput.setText(String.valueOf(missCount));
         speech.startListening(recognizerIntent);
     }
 
