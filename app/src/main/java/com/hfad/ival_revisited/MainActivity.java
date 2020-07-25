@@ -16,6 +16,7 @@ import android.speech.SpeechRecognizer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     private static int makeCount = 0;
     private static int missCount = 0;
     private boolean turnOn = false;
+    Chronometer chronometer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,7 +132,8 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     @Override
     public void onError(int error) {
         String errorMessage = getErrorText(error);
-        makeOutput.setText(errorMessage);
+        Log.i("error", "onError: " + errorMessage);
+        //makeOutput.setText(errorMessage);
         speech.startListening(recognizerIntent);
     }
 
@@ -144,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
             text = result + "\n";
         makeCount += StringUtils.countMatches(text, make);
         missCount += StringUtils.countMatches(text, miss);
+        missCount += StringUtils.countMatches(text, "Miss");
         Log.i("results", "onResults: " + text + "make: " + makeCount);
         Log.i("results", "onResults: " + text + "miss: " + missCount);
         makeOutput.setText(String.valueOf(makeCount));
