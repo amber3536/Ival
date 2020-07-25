@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
@@ -22,6 +24,8 @@ import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements RecognitionListener {
@@ -38,7 +42,9 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     private static int makeCount = 0;
     private static int missCount = 0;
     private boolean turnOn = false;
-    Chronometer chronometer;
+    private long startTime;
+    private Handler stopWatchHandler;
+    private TextView timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,9 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         btnSwitch = findViewById(R.id.startStopBtn);
         makeOutput= (TextView) findViewById(R.id.showMake);
         missOutput= (TextView) findViewById(R.id.showMiss);
+        timer = (TextView) findViewById(R.id.simpleTimer);
+        stopWatchHandler = new Handler();
+
         speech = SpeechRecognizer.createSpeechRecognizer(this);
         Log.i("speech", "onCreate: " + SpeechRecognizer.isRecognitionAvailable(this));
         speech.setRecognitionListener(this);
@@ -58,10 +67,14 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         AudioManager amanager=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
         amanager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
 
+
         btnSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (turnOn == false) {
+                    startTime = SystemClock.uptimeMillis();
+                    stopWatchHandler.postDelayed(updateTimerThread, 0);
                     btnSwitch.setText("STOP");
                     turnOn = true;
                     if (activated == false) {
@@ -70,6 +83,8 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
                     }
                 }
                 else {
+                    stopWatchHandler.removeCallbacks(updateTimerThread);
+                    timer.setText("00:00:00");
                     makeCount = 0;
                     missCount = 0;
                     btnSwitch.setText("START");
@@ -81,6 +96,19 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
 
     }
 
+    private Runnable updateTimerThread = new Runnable() {
+        public void run() {
+            long elapsedMiliseconds = (SystemClock.uptimeMillis() - startTime);
+            updateTime(elapsedMiliseconds);
+            stopWatchHandler.postDelayed(this, 0);
+        }
+    };
+
+    private void updateTime(long updatedTime) {
+        DateFormat format = new SimpleDateFormat("mm:ss.SS");
+        String displayTime = format.format(updatedTime);
+        timer.setText(displayTime);
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
