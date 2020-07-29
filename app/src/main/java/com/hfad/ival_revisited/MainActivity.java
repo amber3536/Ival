@@ -73,6 +73,9 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
             public void onClick(View v) {
 
                 if (turnOn == false) {
+                    timer.setText("00:00:00");
+                    makeOutput.setText("0");
+                    missOutput.setText("0");
                     startTime = SystemClock.uptimeMillis();
                     stopWatchHandler.postDelayed(updateTimerThread, 0);
                     btnSwitch.setText("STOP");
@@ -84,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
                 }
                 else {
                     stopWatchHandler.removeCallbacks(updateTimerThread);
-                    timer.setText("00:00:00");
                     makeCount = 0;
                     missCount = 0;
                     btnSwitch.setText("START");

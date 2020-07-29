@@ -84,4 +84,16 @@
         app:layout_constraintStart_toEndOf="@+id/textMiss"
         app:layout_constraintTop_toBottomOf="@+id/showMake" />
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:itemIconTint="@color/colorPrimaryDark"
+        app:itemTextColor="#000000"
+        app:menu="@menu/bottom_navigation_menu"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

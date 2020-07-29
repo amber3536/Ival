@@ -39,4 +39,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.cloud:google-cloud-speech:1.23.0'
     implementation 'com.google.cloud:google-cloud-storage:1.111.0'
+    implementation 'com.google.android.material:material:1.1.0'
 }
