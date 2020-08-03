@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.os.Bundle;
@@ -28,6 +29,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import static java.lang.Integer.parseInt;
+
 public class MainActivity extends AppCompatActivity implements RecognitionListener {
 
     private Button btnSwitch;
@@ -41,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     private String miss = "miss";
     private static int makeCount = 0;
     private static int missCount = 0;
+    private int totalMakeCount = 0;
+    private int totalMissCount = 0;
     private boolean turnOn = false;
     private long startTime;
     private Handler stopWatchHandler;
@@ -87,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
                 }
                 else {
                     stopWatchHandler.removeCallbacks(updateTimerThread);
+                    save(v);
                     makeCount = 0;
                     missCount = 0;
                     btnSwitch.setText("START");
@@ -196,44 +202,59 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     }
 
 
-public static String getErrorText(int errorCode) {
-    String message;
-    switch (errorCode) {
-        case SpeechRecognizer.ERROR_AUDIO:
-            message = "Audio recording error";
-            break;
-        case SpeechRecognizer.ERROR_CLIENT:
-            message = "Client side error";
-            break;
-        case
-                SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
-            message = "Insufficient permissions";
-            break;
-        case SpeechRecognizer.ERROR_NETWORK:
-            message = "Network error";
-            break;
-        case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
-            message = "Network timeout";
-            break;
-        case SpeechRecognizer.ERROR_NO_MATCH:
-            message = "No match";
-            break;
-        case SpeechRecognizer.ERROR_RECOGNIZER_BUSY:
-            message = "RecognitionService busy";
-            break;
-        case SpeechRecognizer.ERROR_SERVER:
-            message = "error from server";
-            break;
-        case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
-            message = "No speech input";
-            break;
-        default:
-            message = "Didn't understand, please try again.";
-            break;
+    public static String getErrorText(int errorCode) {
+        String message;
+        switch (errorCode) {
+            case SpeechRecognizer.ERROR_AUDIO:
+                message = "Audio recording error";
+                break;
+            case SpeechRecognizer.ERROR_CLIENT:
+                message = "Client side error";
+                break;
+            case
+                    SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
+                message = "Insufficient permissions";
+                break;
+            case SpeechRecognizer.ERROR_NETWORK:
+                message = "Network error";
+                break;
+            case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
+                message = "Network timeout";
+                break;
+            case SpeechRecognizer.ERROR_NO_MATCH:
+                message = "No match";
+                break;
+            case SpeechRecognizer.ERROR_RECOGNIZER_BUSY:
+                message = "RecognitionService busy";
+                break;
+            case SpeechRecognizer.ERROR_SERVER:
+                message = "error from server";
+                break;
+            case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
+                message = "No speech input";
+                break;
+            default:
+                message = "Didn't understand, please try again.";
+                break;
+        }
+        Log.i("error", "getErrorText: " + message);
+        return message;
     }
-    Log.i("error", "getErrorText: " + message);
-    return message;
-}
+
+    public void save(View view) {
+        SharedPreferences sharedPreferences = getSharedPreferences("num_shots", MODE_PRIVATE);
+        totalMakeCount = sharedPreferences.getInt("make_num", 0);
+        totalMakeCount += parseInt(makeOutput.getText().toString());
+        totalMissCount = sharedPreferences.getInt("miss_num", 0);
+        totalMissCount += parseInt(missOutput.getText().toString());
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("make_num", totalMakeCount);
+        editor.putInt("miss_num", totalMissCount);
+
+        Log.i("saved", "save make count: " + totalMakeCount);
+        editor.apply();
+    }
 
 }
 
