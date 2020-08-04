@@ -96,4 +96,18 @@
         app:layout_constraintRight_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
+    <TextView
+        android:id="@+id/percentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="174dp"
+        android:layout_marginTop="148dp"
+        android:layout_marginEnd="178dp"
+        android:layout_marginBottom="133dp"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showMake" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

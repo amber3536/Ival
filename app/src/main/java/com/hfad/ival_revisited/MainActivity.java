@@ -26,6 +26,7 @@ import android.widget.Toast;
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     private static final int REQUEST_RECORD_PERMISSION = 100;
     private TextView makeOutput;
     private TextView missOutput;
+    private TextView percentageOutput;
     SpeechRecognizer speech;
     private Intent recognizerIntent;
     private Boolean activated = false;
@@ -59,7 +61,9 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         btnSwitch = findViewById(R.id.startStopBtn);
         makeOutput= (TextView) findViewById(R.id.showMake);
         missOutput= (TextView) findViewById(R.id.showMiss);
+        percentageOutput = findViewById(R.id.percentage);
         timer = (TextView) findViewById(R.id.simpleTimer);
+        displayPercentage();
         stopWatchHandler = new Handler();
 
         speech = SpeechRecognizer.createSpeechRecognizer(this);
@@ -93,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
                 else {
                     stopWatchHandler.removeCallbacks(updateTimerThread);
                     save(v);
+                    displayPercentage();
                     makeCount = 0;
                     missCount = 0;
                     btnSwitch.setText("START");
@@ -254,6 +259,16 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
 
         Log.i("saved", "save make count: " + totalMakeCount);
         editor.apply();
+    }
+
+    public void displayPercentage() {
+        SharedPreferences sharedPreferences = getSharedPreferences("num_shots", MODE_PRIVATE);
+        totalMakeCount = sharedPreferences.getInt("make_num", 0);
+        totalMissCount = sharedPreferences.getInt("miss_num", 0);
+        Log.i("percent", "displayPercentage: makeCount" + totalMakeCount);
+        float accuracyCount = (float) totalMakeCount / (totalMakeCount + totalMissCount);
+        DecimalFormat df = new DecimalFormat("0.00");
+        percentageOutput.setText("Accuracy: " + df.format(accuracyCount) + "%");
     }
 
 }
