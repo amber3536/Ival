@@ -81,15 +81,15 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
             @Override
             public void onClick(View v) {
 
-                if (turnOn == false) {
-                    timer.setText("00:00:00");
+                if (!turnOn) {
+                    timer.setText(R.string.timer_txt);
                     makeOutput.setText("0");
                     missOutput.setText("0");
                     startTime = SystemClock.uptimeMillis();
                     stopWatchHandler.postDelayed(updateTimerThread, 0);
-                    btnSwitch.setText("STOP");
+                    btnSwitch.setText(R.string.stop_txt);
                     turnOn = true;
-                    if (activated == false) {
+                    if (!activated) {
                         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_RECORD_PERMISSION);
                         activated = true;
                     }
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
                     displayPercentage();
                     makeCount = 0;
                     missCount = 0;
-                    btnSwitch.setText("START");
+                    btnSwitch.setText(R.string.start_txt);
                     turnOn = false;
                 }
             }
@@ -269,6 +269,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         float accuracyCount = (float) totalMakeCount / (totalMakeCount + totalMissCount);
         DecimalFormat df = new DecimalFormat("0.00");
         percentageOutput.setText("Accuracy: " + df.format(accuracyCount) + "%");
+       // percentageOutput.setText(R.string.accuracy_txt, df.format(accuracyCount));
     }
 
 }
