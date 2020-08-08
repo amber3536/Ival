@@ -266,9 +266,12 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         totalMakeCount = sharedPreferences.getInt("make_num", 0);
         totalMissCount = sharedPreferences.getInt("miss_num", 0);
         Log.i("percent", "displayPercentage: makeCount" + totalMakeCount);
-        float accuracyCount = (float) totalMakeCount / (totalMakeCount + totalMissCount);
-        DecimalFormat df = new DecimalFormat("0.00");
-        percentageOutput.setText("Accuracy: " + df.format(accuracyCount) + "%");
+        float accuracyCount = (float) totalMakeCount / (totalMakeCount + totalMissCount) * 100;
+        int accuracyCountRounded = Math.round(accuracyCount);
+        String str = getResources().getString(R.string.accuracy_txt, accuracyCountRounded);
+        percentageOutput.setText(str);
+        //DecimalFormat df = new DecimalFormat("0.00");
+        //percentageOutput.setText("Accuracy: " + df.format(accuracyCount) + "%");
        // percentageOutput.setText(R.string.accuracy_txt, df.format(accuracyCount));
     }
 
