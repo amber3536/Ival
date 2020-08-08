@@ -96,8 +96,6 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
                 }
                 else {
                     stopWatchHandler.removeCallbacks(updateTimerThread);
-                    save(v);
-                    displayPercentage();
                     makeCount = 0;
                     missCount = 0;
                     btnSwitch.setText(R.string.start_txt);
@@ -193,6 +191,8 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         Log.i("results", "onResults: " + text + "miss: " + missCount);
         makeOutput.setText(String.valueOf(makeCount));
         missOutput.setText(String.valueOf(missCount));
+        save();
+        displayPercentage();
         speech.startListening(recognizerIntent);
     }
 
@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         return message;
     }
 
-    public void save(View view) {
+    public void save() {
         SharedPreferences sharedPreferences = getSharedPreferences("num_shots", MODE_PRIVATE);
         totalMakeCount = sharedPreferences.getInt("make_num", 0);
         totalMakeCount += parseInt(makeOutput.getText().toString());
@@ -266,13 +266,11 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         totalMakeCount = sharedPreferences.getInt("make_num", 0);
         totalMissCount = sharedPreferences.getInt("miss_num", 0);
         Log.i("percent", "displayPercentage: makeCount" + totalMakeCount);
+        Log.i("percent", "displayPercentage: missCount" + totalMissCount);
         float accuracyCount = (float) totalMakeCount / (totalMakeCount + totalMissCount) * 100;
         int accuracyCountRounded = Math.round(accuracyCount);
         String str = getResources().getString(R.string.accuracy_txt, accuracyCountRounded);
         percentageOutput.setText(str);
-        //DecimalFormat df = new DecimalFormat("0.00");
-        //percentageOutput.setText("Accuracy: " + df.format(accuracyCount) + "%");
-       // percentageOutput.setText(R.string.accuracy_txt, df.format(accuracyCount));
     }
 
 }
