@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     private TextView percentageOutput;
     SpeechRecognizer speech;
     private Intent recognizerIntent;
+    private AudioManager amanager;
     private Boolean activated = false;
     private String make = "make";
     private String miss = "miss";
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE,"US-en");
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         //recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3);
-        AudioManager amanager=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
+        amanager=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
         amanager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
 
 
@@ -141,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
             speech.destroy();
             Log.i("destroy", "destroy");
         }
+        amanager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_UNMUTE, 0);
     }
 
     @Override
