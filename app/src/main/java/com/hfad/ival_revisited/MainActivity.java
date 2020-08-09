@@ -5,11 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -17,16 +22,17 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -39,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     private TextView makeOutput;
     private TextView missOutput;
     private TextView percentageOutput;
+    private BottomNavigationView bottomNavigationView;
     SpeechRecognizer speech;
     private Intent recognizerIntent;
     private AudioManager amanager;
@@ -64,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         missOutput= (TextView) findViewById(R.id.showMiss);
         percentageOutput = findViewById(R.id.percentage);
         timer = (TextView) findViewById(R.id.simpleTimer);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
         displayPercentage();
         stopWatchHandler = new Handler();
 
@@ -75,7 +83,23 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         //recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3);
         amanager=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
-        amanager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        //TODO Make Do Not Disturb access straightforward
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                && !notificationManager.isNotificationPolicyAccessGranted()) {
+
+            Intent intent = new Intent(
+                    android.provider.Settings
+                            .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+
+            startActivity(intent);
+        }
+
+        if (amanager != null) {
+            amanager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_TOGGLE_MUTE, 0);
+        }
 
 
         btnSwitch.setOnClickListener(new View.OnClickListener() {
@@ -105,8 +129,35 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
             }
         });
 
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.position:
+                        btnSwitch.setEnabled(false);
+                        loadFragment(new PositionFragment());
+                    break;
+
+                }
+                return true;
+            }
+        });
+
 
     }
+
+//    @Override
+//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.action_tab0:
+//
+//                break;
+//            case R.id.action_tab1:
+//
+//                break;
+//        }
+//        return true; // not false!
+//    }
 
     private Runnable updateTimerThread = new Runnable() {
         public void run() {
@@ -273,6 +324,16 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         int accuracyCountRounded = Math.round(accuracyCount);
         String str = getResources().getString(R.string.accuracy_txt, accuracyCountRounded);
         percentageOutput.setText(str);
+    }
+
+    private void loadFragment(Fragment fragment) {
+// create a FragmentManager
+        FragmentManager fm = getFragmentManager();
+// create a FragmentTransaction to begin the transaction and replace the Fragment
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+// replace the FrameLayout with new Fragment
+        fragmentTransaction.replace(R.id.frameLayout, fragment);
+        fragmentTransaction.commit(); // save the changes
     }
 
 }
