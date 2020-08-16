@@ -16,7 +16,7 @@ public class PositionFragment extends Fragment {
                              Bundle savedInstanceState) {
 // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_position, container, false);
-        leftBtn = view.findViewById(R.id.shot_bottom_left);
+        leftBtn = view.findViewById(R.id.shot_bottom_3);
 
         leftBtn.setOnClickListener(new View.OnClickListener() {
             @Override
