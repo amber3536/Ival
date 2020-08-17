@@ -88,4 +88,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
+    <TextView
+        android:id="@+id/dead_space_bottom2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/shot_bottom_4"
+        app:layout_constraintStart_toEndOf="@id/shot_center_bottom"
+        />
+
+    <TextView
+        android:id="@+id/dead_space_bottom1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@id/shot_bottom_1"
+        app:layout_constraintEnd_toStartOf="@id/shot_center_bottom"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <Button
+        android:id="@+id/shot_center_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        android:text=""
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/shot_bottom_3"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
