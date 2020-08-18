@@ -96,7 +96,7 @@
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/shot_bottom_4"
-        app:layout_constraintStart_toEndOf="@id/shot_center_bottom"
+        app:layout_constraintStart_toEndOf="@id/shot_center_4"
         />
 
     <TextView
@@ -105,19 +105,65 @@
         android:layout_height="wrap_content"
         android:text=""
         app:layout_constraintBottom_toTopOf="@id/shot_bottom_1"
-        app:layout_constraintEnd_toStartOf="@id/shot_center_bottom"
+        app:layout_constraintEnd_toStartOf="@id/shot_center_4"
         app:layout_constraintStart_toStartOf="parent"
         />
 
     <Button
-        android:id="@+id/shot_center_bottom"
+        android:id="@+id/shot_center_4"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:alpha="0"
         android:text=""
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/shot_bottom_3"/>
+        app:layout_constraintBottom_toTopOf="@id/shot_bottom_3"
+        app:layout_constraintTop_toBottomOf="@id/shot_center_3"/>
+
+    <Button
+        android:id="@+id/shot_center_1"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:alpha="0"
+        android:text=""
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dead_space_center_top"
+        app:layout_constraintBottom_toTopOf="@id/shot_center_2"/>
+
+    <Button
+        android:id="@+id/shot_center_2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:alpha="0"
+        android:text=""
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/shot_center_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/shot_center_3"/>
+
+    <Button
+        android:id="@+id/shot_center_3"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:alpha="0"
+        android:text=""
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/shot_center_2"
+        app:layout_constraintBottom_toTopOf="@id/shot_center_4"/>
+
+    <TextView
+        android:id="@+id/dead_space_center_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/basketballCourt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
