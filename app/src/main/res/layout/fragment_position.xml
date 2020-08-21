@@ -147,7 +147,7 @@
 
     <Button
         android:id="@+id/shot_center_3"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="0dp"
         android:alpha="0"
         android:text=""
@@ -165,5 +165,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/basketballCourt" />
+
+    <Button
+        android:id="@+id/shot_left_side_center_3"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        android:text=""
+        android:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@id/shot_center_3"
+        app:layout_constraintTop_toBottomOf="@id/shot_center_2"/>
+
+    <Button
+        android:id="@+id/shot_right_side_center_3"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        android:text=""
+        android:visibility="visible"
+        app:layout_constraintStart_toEndOf="@id/shot_center_3"
+        app:layout_constraintTop_toBottomOf="@id/shot_center_2"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
