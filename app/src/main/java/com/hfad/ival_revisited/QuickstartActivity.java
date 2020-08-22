@@ -89,6 +89,9 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         switch (getIntent().getStringExtra("EXTRA")) {
             case "openFragment":
                 loadFragment(new PositionFragment());
+                break;
+            case "regularAccess":
+                break;
         }
         //TODO Make Do Not Disturb access straightforward
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
