@@ -86,6 +86,10 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
+        switch (getIntent().getStringExtra("EXTRA")) {
+            case "openFragment":
+                loadFragment(new PositionFragment());
+        }
         //TODO Make Do Not Disturb access straightforward
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
                 && !notificationManager.isNotificationPolicyAccessGranted()) {
