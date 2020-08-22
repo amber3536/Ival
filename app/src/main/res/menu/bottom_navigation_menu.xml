@@ -6,7 +6,13 @@
         android:icon="@drawable/ic_insert_chart_black_24dp" />
 
     <item
+        android:id="@+id/home"
+        android:title='home'
+        android:icon="@drawable/ic_home_black_24dp" />
+    
+    <item
         android:id="@+id/position"
         android:title="position"
         android:icon="@drawable/ic_place_black_24dp" />
+
 </menu>
