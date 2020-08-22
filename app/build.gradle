@@ -22,7 +22,7 @@ android {
     }
 
     packagingOptions {
-        pickFirst  'META-INF/DEPENDENCIES'
+        pickFirst 'META-INF/DEPENDENCIES'
         pickFirst 'META-INF/INDEX.LIST'
 
     }

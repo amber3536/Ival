@@ -38,7 +38,7 @@ import java.util.ArrayList;
 
 import static java.lang.Integer.parseInt;
 
-public class MainActivity extends AppCompatActivity implements RecognitionListener {
+public class QuickstartActivity extends AppCompatActivity implements RecognitionListener {
 
     private Button btnSwitch;
     private static final int REQUEST_RECORD_PERMISSION = 100;
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
                     btnSwitch.setText(R.string.stop_txt);
                     turnOn = true;
                     if (!activated) {
-                        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_RECORD_PERMISSION);
+                        ActivityCompat.requestPermissions(QuickstartActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_RECORD_PERMISSION);
                         activated = true;
                     }
                 }
@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
                     Log.i("permissions", "onRequestPermissionsResult: ");
                     speech.startListening(recognizerIntent);
                 } else {
-                    Toast.makeText(MainActivity.this, "Permission Denied!", Toast .LENGTH_SHORT).show();
+                    Toast.makeText(QuickstartActivity.this, "Permission Denied!", Toast .LENGTH_SHORT).show();
                 }
         }
     }
