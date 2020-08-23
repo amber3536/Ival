@@ -144,6 +144,9 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
                         btnSwitch.setEnabled(false);
                         loadFragment(new PositionFragment());
                     break;
+                    case R.id.home:
+                        finish();
+                        break;
 
                 }
                 return true;
