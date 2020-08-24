@@ -10,26 +10,23 @@
         android:id="@+id/showMake"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
         android:text="@string/zero"
         android:background="@color/colorAccent"
         android:elevation="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/textMake"
+        app:layout_constraintTop_toTopOf="@id/textMake"/>
 
     <TextView
         android:id="@+id/simpleTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="189dp"
-        android:layout_marginTop="187dp"
-        android:layout_marginEnd="176dp"
-        android:layout_marginBottom="56dp"
+        android:layout_marginTop="30dp"
         android:text="@string/timer_txt"
+        android:textSize="35dp"
+        android:textStyle="bold|italic"
         android:background="@color/colorAccent"
         android:elevation="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/startStopBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -38,14 +35,12 @@
         android:id="@+id/startStopBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="167dp"
-        android:layout_marginTop="262dp"
-        android:layout_marginEnd="156dp"
-        android:layout_marginBottom="46dp"
+        android:layout_marginStart="30dp"
         android:text="@string/start_txt"
+        android:fontFamily="@font/permanent_marker_reg"
+        android:textSize="20dp"
         android:background="@color/colorAccent"
-        app:layout_constraintBottom_toTopOf="@+id/showMake"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,46 +48,32 @@
         android:id="@+id/textMake"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="105dp"
-        android:layout_marginEnd="38dp"
         android:text="@string/make_txt"
         android:background="@color/colorAccent"
         android:elevation="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/textMiss"
         app:layout_constraintEnd_toStartOf="@+id/showMake"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@id/startStopBtn"
+        app:layout_constraintTop_toBottomOf="@id/startStopBtn" />
 
     <TextView
         android:id="@+id/textMiss"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="105dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="33dp"
-        android:layout_marginBottom="297dp"
         android:text="@string/miss_txt"
         android:elevation="2dp"
         android:background="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/showMiss"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/startStopBtn"
         app:layout_constraintTop_toBottomOf="@+id/textMake" />
 
     <TextView
         android:id="@+id/showMiss"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="47dp"
-        android:layout_marginEnd="155dp"
-        android:layout_marginBottom="290dp"
         android:text="@string/zero"
         android:elevation="2dp"
         android:background="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textMiss"
+        app:layout_constraintStart_toStartOf="@id/showMake"
         app:layout_constraintTop_toBottomOf="@+id/showMake" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
