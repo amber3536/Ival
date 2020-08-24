@@ -2,4 +2,5 @@
 <resources>
 
     <dimen name="home_button_side_margin">35dp</dimen>
+    <dimen name="make_miss_text_size">15sp</dimen>
 </resources>

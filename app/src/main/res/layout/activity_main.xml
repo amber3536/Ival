@@ -13,8 +13,10 @@
         android:layout_marginStart="30dp"
         android:text="@string/zero"
         android:background="@color/colorAccent"
+        android:textSize="@dimen/make_miss_text_size"
         android:elevation="2dp"
         app:layout_constraintStart_toEndOf="@id/textMake"
+        app:layout_constraintBottom_toBottomOf="@id/textMake"
         app:layout_constraintTop_toTopOf="@id/textMake"/>
 
     <TextView
@@ -23,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="@string/timer_txt"
-        android:textSize="35dp"
+        android:textSize="35sp"
         android:textStyle="bold|italic"
         android:background="@color/colorAccent"
         android:elevation="2dp"
@@ -35,10 +37,10 @@
         android:id="@+id/startStopBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="50dp"
         android:text="@string/start_txt"
         android:fontFamily="@font/permanent_marker_reg"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:background="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,10 +53,12 @@
         android:text="@string/make_txt"
         android:background="@color/colorAccent"
         android:elevation="2dp"
-        app:layout_constraintBottom_toBottomOf="@id/textMiss"
+        android:fontFamily="@font/permanent_marker_reg"
+        android:textSize="@dimen/make_miss_text_size"
+        app:layout_constraintBottom_toTopOf="@id/textMiss"
         app:layout_constraintEnd_toStartOf="@+id/showMake"
         app:layout_constraintStart_toStartOf="@id/startStopBtn"
-        app:layout_constraintTop_toBottomOf="@id/startStopBtn" />
+       />
 
     <TextView
         android:id="@+id/textMiss"
@@ -62,9 +66,12 @@
         android:layout_height="wrap_content"
         android:text="@string/miss_txt"
         android:elevation="2dp"
+        android:fontFamily="@font/permanent_marker_reg"
+        android:textSize="@dimen/make_miss_text_size"
         android:background="@color/colorAccent"
         app:layout_constraintStart_toStartOf="@id/startStopBtn"
-        app:layout_constraintTop_toBottomOf="@+id/textMake" />
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+        android:layout_marginBottom="30dp" />
 
     <TextView
         android:id="@+id/showMiss"
@@ -72,9 +79,11 @@
         android:layout_height="wrap_content"
         android:text="@string/zero"
         android:elevation="2dp"
+        android:textSize="@dimen/make_miss_text_size"
         android:background="@color/colorAccent"
         app:layout_constraintStart_toStartOf="@id/showMake"
-        app:layout_constraintTop_toBottomOf="@+id/showMake" />
+        app:layout_constraintTop_toTopOf="@id/textMiss"
+        app:layout_constraintBottom_toBottomOf="@id/textMiss"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -92,17 +101,15 @@
         android:id="@+id/percentage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="174dp"
-        android:layout_marginTop="148dp"
-        android:layout_marginEnd="178dp"
-        android:layout_marginBottom="133dp"
         android:text=""
+        android:fontFamily="@font/permanent_marker_reg"
+        android:textSize="@dimen/make_miss_text_size"
         android:background="@color/colorAccent"
         android:elevation="2dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/showMake" />
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="30dp"/>
 
     <FrameLayout
         android:id="@+id/frameLayout"
