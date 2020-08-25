@@ -15,6 +15,10 @@ public class PositionFragment extends Fragment {
     Button bottom4;
     Button bottom5;
     Button bottom6;
+    Button center1;
+    Button center2;
+    Button center3;
+    Button center4;
 
 
     @Override
@@ -28,6 +32,10 @@ public class PositionFragment extends Fragment {
         bottom4 = view.findViewById(R.id.shot_bottom_4);
         bottom5 = view.findViewById(R.id.shot_bottom_5);
         bottom6 = view.findViewById(R.id.shot_bottom_6);
+        center1 = view.findViewById(R.id.shot_center_1);
+        center2 = view.findViewById(R.id.shot_center_2);
+        center3 = view.findViewById(R.id.shot_center_3);
+        center4 = view.findViewById(R.id.shot_center_4);
 
         bottom1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +76,34 @@ public class PositionFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "bottom 6", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        center1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "center 1", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        center2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "center 2", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        center3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "center 3", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        center4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "center 4", Toast.LENGTH_SHORT).show();
             }
         });
 // get the reference of Button
