@@ -12,6 +12,9 @@ public class PositionFragment extends Fragment {
     Button bottom1;
     Button bottom2;
     Button bottom3;
+    Button bottom4;
+    Button bottom5;
+    Button bottom6;
 
 
     @Override
@@ -22,6 +25,9 @@ public class PositionFragment extends Fragment {
         bottom1 = view.findViewById(R.id.shot_bottom_1);
         bottom2 = view.findViewById(R.id.shot_bottom_2);
         bottom3 = view.findViewById(R.id.shot_bottom_3);
+        bottom4 = view.findViewById(R.id.shot_bottom_4);
+        bottom5 = view.findViewById(R.id.shot_bottom_5);
+        bottom6 = view.findViewById(R.id.shot_bottom_6);
 
         bottom1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,6 +47,27 @@ public class PositionFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "bottom 3", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        bottom4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "bottom 4", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        bottom5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "bottom 5", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        bottom6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "bottom 6", Toast.LENGTH_SHORT).show();
             }
         });
 // get the reference of Button

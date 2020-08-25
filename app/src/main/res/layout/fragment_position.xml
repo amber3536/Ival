@@ -243,4 +243,16 @@
         app:layout_constraintStart_toEndOf="@id/shot_center_2"
         app:layout_constraintTop_toBottomOf="@id/dead_space_center_top"/>
 
+    <Button
+        android:id="@+id/shot_left_side_center_2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0"
+        android:text=""
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/shot_far_left_side_center_3"
+        app:layout_constraintEnd_toStartOf="@id/shot_center_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dead_space_center_top"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
