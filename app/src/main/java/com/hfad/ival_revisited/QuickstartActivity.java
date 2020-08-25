@@ -156,18 +156,6 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
 
     }
 
-//    @Override
-//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.action_tab0:
-//
-//                break;
-//            case R.id.action_tab1:
-//
-//                break;
-//        }
-//        return true; // not false!
-//    }
 
     private Runnable updateTimerThread = new Runnable() {
         public void run() {

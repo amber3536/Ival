@@ -9,19 +9,38 @@ import android.widget.Toast;
 
 public class PositionFragment extends Fragment {
     View view;
-    Button leftBtn;
+    Button bottom1;
+    Button bottom2;
+    Button bottom3;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_position, container, false);
-        leftBtn = view.findViewById(R.id.shot_bottom_3);
+        bottom1 = view.findViewById(R.id.shot_bottom_1);
+        bottom2 = view.findViewById(R.id.shot_bottom_2);
+        bottom3 = view.findViewById(R.id.shot_bottom_3);
 
-        leftBtn.setOnClickListener(new View.OnClickListener() {
+        bottom1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "left", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "bottom 1", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        bottom2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "bottom 2", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        bottom3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "bottom 3", Toast.LENGTH_SHORT).show();
             }
         });
 // get the reference of Button
