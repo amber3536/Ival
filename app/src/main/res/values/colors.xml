@@ -7,4 +7,6 @@
     <color name="colorPink">#ff3399</color>
     <color name="colorOrange">#ffbf00</color>
     <color name="colorBlack">#000000</color>
+    <color name="electricBlue">#7df9ff</color>
+    <color name="purple">#BA55D3</color>
 </resources>

@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -36,5 +39,14 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        ImageView image = (ImageView)findViewById(R.id.basketball_home);
+        Animation animation1 =
+                AnimationUtils.loadAnimation(getBaseContext(), R.anim.move);
+        image.startAnimation(animation1);
+    }
+
+    public void move(View view){
+
     }
 }

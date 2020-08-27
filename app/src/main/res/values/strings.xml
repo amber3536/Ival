@@ -8,4 +8,6 @@
     <string name="stop_txt">STOP</string>
     <string name="accuracy_txt">Accuracy: %1$d%%</string>
     <string name="quickstart">Quickstart</string>
+    <string name="position">Position</string>
+    <string name="stats">Stats</string>
 </resources>

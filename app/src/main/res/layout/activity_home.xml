@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorOrange"
+    android:background="@color/electricBlue"
     tools:context=".HomeActivity">
 
     <Button
@@ -12,13 +12,13 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/home_button_side_margin"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="@dimen/home_button_side_margin"
         android:layout_marginBottom="20dp"
         android:background="@drawable/home_buttons"
         android:fontFamily="@font/permanent_marker_reg"
         android:text="@string/quickstart"
-        android:textSize="45sp"
+        android:textSize="@dimen/home_activity_text_size"
         app:layout_constraintBottom_toTopOf="@id/position"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,8 +28,8 @@
         android:id="@+id/position"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="Position"
-        android:textSize="45sp"
+        android:text="@string/position"
+        android:textSize="@dimen/home_activity_text_size"
         android:fontFamily="@font/permanent_marker_reg"
         android:layout_marginStart="@dimen/home_button_side_margin"
         android:layout_marginEnd="@dimen/home_button_side_margin"
@@ -43,12 +43,12 @@
         android:id="@+id/stats"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="Stats"
-        android:textSize="45sp"
+        android:text="@string/stats"
+        android:textSize="@dimen/home_activity_text_size"
         android:fontFamily="@font/permanent_marker_reg"
         android:layout_marginStart="@dimen/home_button_side_margin"
         android:layout_marginEnd="@dimen/home_button_side_margin"
-        android:layout_marginBottom="90dp"
+        android:layout_marginBottom="300dp"
         android:layout_marginTop="20dp"
         android:shadowDx="2"
         android:shadowColor="@color/colorBlack"
@@ -58,5 +58,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/position"
         />
+
+    <ImageView
+        android:id="@+id/basketball_home"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/basketball_free"
+        app:layout_constraintTop_toBottomOf="@id/stats"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
