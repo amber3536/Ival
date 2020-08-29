@@ -91,6 +91,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
                 loadFragment(new PositionFragment());
                 break;
             case "regularAccess":
+                Log.i("here", "onCreate: "+ amanager.getRingerMode());
                 break;
         }
         //TODO Make Do Not Disturb access straightforward
@@ -104,8 +105,10 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
             startActivity(intent);
         }
 
+        Log.i("here", "onCreate: " + amanager);
         if (amanager != null) {
-            amanager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_TOGGLE_MUTE, 0);
+            Log.i("here", "onCreate: made it in");
+            amanager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
         }
 
 
@@ -192,6 +195,13 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
             Log.i("destroy", "destroy");
         }
         amanager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_UNMUTE, 0);
+    }
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+        amanager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
     }
 
     @Override
