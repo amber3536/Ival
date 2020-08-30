@@ -35,7 +35,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, QuickstartActivity.class);
-                intent.putExtra("EXTRA", "openFragment");
+                intent.putExtra("EXTRA", "positionFragment");
                 startActivity(intent);
             }
         });

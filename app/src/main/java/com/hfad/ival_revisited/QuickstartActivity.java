@@ -52,15 +52,24 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
     private Intent recognizerIntent;
     private TextView makeOutput;
     private TextView missOutput;
-    private TextView percentageOutput;
+    private TextView makeText;
+    private TextView missText;
+    private TextView totalPercentageOutput;
+    private TextView positionsPercentageOutput;
 
     private Boolean activated = false;
+    private Boolean quickstart_position_mode = false;
+
     private String make = "make";
     private String miss = "miss";
     private static int makeCount = 0;
     private static int missCount = 0;
     private int totalMakeCount = 0;
     private int totalMissCount = 0;
+    private int totalMakePrev = 0;
+    private int totalMissPrev = 0;
+    private int positionMakeCount = 0;
+    private int positionMissCount = 0;
     private boolean turnOn = false;
     private long startTime;
     private Handler stopWatchHandler;
@@ -75,7 +84,10 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         btnSwitch = findViewById(R.id.startStopBtn);
         makeOutput= (TextView) findViewById(R.id.showMake);
         missOutput= (TextView) findViewById(R.id.showMiss);
-        percentageOutput = findViewById(R.id.percentage);
+        makeText = findViewById(R.id.textMake);
+        missText = findViewById(R.id.textMiss);
+        totalPercentageOutput = findViewById(R.id.total_percentage);
+        positionsPercentageOutput = findViewById(R.id.position_percentage);
         timer = (TextView) findViewById(R.id.simpleTimer);
         displayPercentage();
         stopWatchHandler = new Handler();
@@ -93,13 +105,20 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         switch (getIntent().getStringExtra("EXTRA")) {
-            case "openFragment":
-                timer.setVisibility(View.GONE);
+            case "positionFragment":
+                Log.i("here", "onCreate: position intent");
+                positionView();
                 loadFragment(new PositionFragment());
                 break;
             case "regularAccess":
+                quickstart_position_mode = false;
                 loadFragment(new QuickstartFragment());
                 //Log.i("here", "onCreate: "+ amanager.getRingerMode());
+                break;
+            default:
+//                positionsPercentageOutput.setVisibility(View.VISIBLE);
+//                positionsPercentageOutput.setText("bottom shot");
+                loadFragment(new QuickstartFragment());
                 break;
         }
 
@@ -159,7 +178,8 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
                 switch (item.getItemId()) {
                     case R.id.position:
                         //btnSwitch.setEnabled(false);
-                        timer.setVisibility(View.GONE);
+                        //timer.setVisibility(View.GONE);
+                        positionView();
                         loadFragment(new PositionFragment());
                     break;
                     case R.id.home:
@@ -174,7 +194,29 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
 
     }
 
+    public void positionView() {
+        timer.setVisibility(View.GONE);
+        btnSwitch.setEnabled(false);
+        makeText.setVisibility(View.GONE);
+        missText.setVisibility(View.GONE);
+        makeOutput.setVisibility(View.GONE);
+        missOutput.setVisibility(View.GONE);
+        totalPercentageOutput.setVisibility(View.GONE);
+        positionsPercentageOutput.setVisibility(View.GONE);
+    }
 
+    public void showView() {
+        quickstart_position_mode = true;
+        timer.setVisibility(View.VISIBLE);
+        btnSwitch.setEnabled(true);
+        makeText.setVisibility(View.VISIBLE);
+        missText.setVisibility(View.VISIBLE);
+        makeOutput.setVisibility(View.VISIBLE);
+        missOutput.setVisibility(View.VISIBLE);
+        totalPercentageOutput.setVisibility(View.VISIBLE);
+        positionsPercentageOutput.setVisibility(View.VISIBLE);
+        displayPositionPercentage();
+    }
 
     private Runnable updateTimerThread = new Runnable() {
         public void run() {
@@ -272,6 +314,10 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         missOutput.setText(String.valueOf(missCount));
         save();
         displayPercentage();
+        if (quickstart_position_mode) {
+            savePosition();
+            displayPositionPercentage();
+        }
         speech.startListening(recognizerIntent);
     }
 
@@ -328,9 +374,11 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
     public void save() {
         SharedPreferences sharedPreferences = getSharedPreferences("num_shots", MODE_PRIVATE);
         totalMakeCount = sharedPreferences.getInt("make_num", 0);
-        totalMakeCount += parseInt(makeOutput.getText().toString());
+        int num = parseInt(makeOutput.getText().toString()) - totalMakePrev;
+        totalMakeCount += num;
         totalMissCount = sharedPreferences.getInt("miss_num", 0);
-        totalMissCount += parseInt(missOutput.getText().toString());
+        num = parseInt(missOutput.getText().toString()) - totalMissPrev;
+        totalMissCount += num;
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("make_num", totalMakeCount);
@@ -338,6 +386,36 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
 
         Log.i("saved", "save make count: " + totalMakeCount);
         editor.apply();
+        totalMakePrev = parseInt(makeOutput.getText().toString());
+        totalMissPrev = parseInt(missOutput.getText().toString());
+    }
+
+    public void savePosition() {
+        SharedPreferences sharedPreferences = getSharedPreferences("num_position_shots", MODE_PRIVATE);
+        positionMakeCount = sharedPreferences.getInt("pos_make_num", 0);
+        Log.i("saved", "savePosition: " + positionMakeCount + " " + makeOutput.getText().toString());
+        positionMakeCount += parseInt(makeOutput.getText().toString());
+        positionMissCount = sharedPreferences.getInt("pos_miss_num", 0);
+        positionMissCount += parseInt(missOutput.getText().toString());
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("pos_make_num", positionMakeCount);
+        editor.putInt("pos_miss_num", positionMissCount);
+
+        Log.i("saved", "save pos make count: " + positionMakeCount);
+        editor.apply();
+    }
+
+    public void displayPositionPercentage() {
+        SharedPreferences sharedPreferences = getSharedPreferences("num_position_shots", MODE_PRIVATE);
+        positionMakeCount = sharedPreferences.getInt("pos_make_num", 0);
+        positionMissCount = sharedPreferences.getInt("pos_miss_num", 0);
+        Log.i("percent", "displayPositionPercentage: makeCount" + positionMakeCount);
+        Log.i("percent", "displayPositionPercentage: missCount" + positionMissCount);
+        float accuracyCount = (float) positionMakeCount / (positionMissCount + positionMakeCount) * 100;
+        int accuracyCountRounded = Math.round(accuracyCount);
+        String str = getResources().getString(R.string.pos_accuracy_txt, accuracyCountRounded);
+        positionsPercentageOutput.setText(str);
     }
 
     public void displayPercentage() {
@@ -349,7 +427,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         float accuracyCount = (float) totalMakeCount / (totalMakeCount + totalMissCount) * 100;
         int accuracyCountRounded = Math.round(accuracyCount);
         String str = getResources().getString(R.string.accuracy_txt, accuracyCountRounded);
-        percentageOutput.setText(str);
+        totalPercentageOutput.setText(str);
     }
 
 
