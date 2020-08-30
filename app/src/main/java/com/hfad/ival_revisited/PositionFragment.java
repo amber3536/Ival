@@ -19,6 +19,8 @@ public class PositionFragment extends Fragment {
     Button center2;
     Button center3;
     Button center4;
+    Button left_center4;
+    Button right_center4;
 
 
     @Override
@@ -36,6 +38,8 @@ public class PositionFragment extends Fragment {
         center2 = view.findViewById(R.id.shot_center_2);
         center3 = view.findViewById(R.id.shot_center_3);
         center4 = view.findViewById(R.id.shot_center_4);
+        left_center4 = view.findViewById(R.id.shot_left_side_center_4);
+        right_center4 = view.findViewById(R.id.shot_right_side_center_4);
 
         bottom1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +108,20 @@ public class PositionFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "center 4", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        left_center4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "left center 4", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        right_center4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "right center 4", Toast.LENGTH_SHORT).show();
             }
         });
 // get the reference of Button

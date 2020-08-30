@@ -201,6 +201,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
     protected void onResume() {
 
         super.onResume();
+        Log.i("resume", "onResume: ");
         amanager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
     }
 
