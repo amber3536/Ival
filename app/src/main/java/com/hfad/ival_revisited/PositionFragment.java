@@ -1,5 +1,7 @@
 package com.hfad.ival_revisited;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
-
-import androidx.fragment.app.FragmentTransaction;
 
 public class PositionFragment extends Fragment {
     View view;
@@ -59,8 +59,22 @@ public class PositionFragment extends Fragment {
         bottom1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Toast.makeText(getActivity(), "bottom 1", Toast.LENGTH_SHORT).show();
+//               // Toast.makeText(getActivity(), "bottom 1", Toast.LENGTH_SHORT).show();
+//                FragmentManager fm = getFragmentManager();
+//// create a FragmentTransaction to begin the transaction and replace the Fragment
+//                FragmentTransaction fragmentTransaction = fm.beginTransaction();
+//// replace the FrameLayout with new Fragment
+//                fragmentTransaction.replace(this, R.id.frameLayout);
+//                fragmentTransaction.commit();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
+// Replace whatever is in the fragment_container view with this fragment,
+// and add the transaction to the back stack so the user can navigate back
+                transaction.replace(R.id.frameLayout, new QuickstartFragment());
+                transaction.addToBackStack(null);
+
+// Commit the transaction
+                transaction.commit();
             }
         });
 
