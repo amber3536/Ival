@@ -21,6 +21,12 @@ public class PositionFragment extends Fragment {
     Button center4;
     Button left_center4;
     Button right_center4;
+    Button left_center3;
+    Button right_center3;
+    Button far_left_center3;
+    Button far_right_center3;
+    Button left_center2;
+    Button right_center2;
 
 
     @Override
@@ -40,6 +46,12 @@ public class PositionFragment extends Fragment {
         center4 = view.findViewById(R.id.shot_center_4);
         left_center4 = view.findViewById(R.id.shot_left_side_center_4);
         right_center4 = view.findViewById(R.id.shot_right_side_center_4);
+        left_center3 = view.findViewById(R.id.shot_left_side_center_3);
+        right_center3 = view.findViewById(R.id.shot_right_side_center_3);
+        far_left_center3 = view.findViewById(R.id.shot_far_left_side_center_3);
+        far_right_center3 = view.findViewById(R.id.shot_far_right_side_center_3);
+        left_center2 = view.findViewById(R.id.shot_left_side_center_2);
+        right_center2 = view.findViewById(R.id.shot_right_side_center_2);
 
         bottom1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,16 +136,49 @@ public class PositionFragment extends Fragment {
                 Toast.makeText(getActivity(), "right center 4", Toast.LENGTH_SHORT).show();
             }
         });
-// get the reference of Button
-//        firstButton = (Button) view.findViewById(R.id.firstButton);
-//// perform setOnClickListener on first Button
-//        firstButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//// display a message by using a Toast
-//                Toast.makeText(getActivity(), "First Fragment", Toast.LENGTH_LONG).show();
-//            }
-//        });
+
+        left_center3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "left center 3", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        right_center3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "right center 3", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        far_left_center3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "far left center 3", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        far_right_center3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "far right center 3", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        left_center2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "left center 2", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        right_center2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "right center 2", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return view;
     }
 }
