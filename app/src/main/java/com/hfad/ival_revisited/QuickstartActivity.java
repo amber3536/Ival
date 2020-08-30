@@ -40,15 +40,16 @@ import static java.lang.Integer.parseInt;
 
 public class QuickstartActivity extends AppCompatActivity implements RecognitionListener {
 
+    private BottomNavigationView bottomNavigationView;
+    private AudioManager amanager;
     private Button btnSwitch;
     private static final int REQUEST_RECORD_PERMISSION = 100;
+    SpeechRecognizer speech;
+    private Intent recognizerIntent;
     private TextView makeOutput;
     private TextView missOutput;
     private TextView percentageOutput;
-    private BottomNavigationView bottomNavigationView;
-    SpeechRecognizer speech;
-    private Intent recognizerIntent;
-    private AudioManager amanager;
+
     private Boolean activated = false;
     private String make = "make";
     private String miss = "miss";
@@ -66,12 +67,12 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
         btnSwitch = findViewById(R.id.startStopBtn);
         makeOutput= (TextView) findViewById(R.id.showMake);
         missOutput= (TextView) findViewById(R.id.showMiss);
         percentageOutput = findViewById(R.id.percentage);
         timer = (TextView) findViewById(R.id.simpleTimer);
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
         displayPercentage();
         stopWatchHandler = new Handler();
 
@@ -82,18 +83,23 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE,"US-en");
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         //recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3);
+
         amanager=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         switch (getIntent().getStringExtra("EXTRA")) {
             case "openFragment":
+                timer.setVisibility(View.GONE);
                 loadFragment(new PositionFragment());
                 break;
             case "regularAccess":
-                Log.i("here", "onCreate: "+ amanager.getRingerMode());
+                loadFragment(new QuickstartFragment());
+                //Log.i("here", "onCreate: "+ amanager.getRingerMode());
                 break;
         }
+
+
         //TODO Make Do Not Disturb access straightforward
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
                 && !notificationManager.isNotificationPolicyAccessGranted()) {
@@ -110,6 +116,8 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
             Log.i("here", "onCreate: made it in");
             amanager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
         }
+
+
 
 
         btnSwitch.setOnClickListener(new View.OnClickListener() {
@@ -139,12 +147,15 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
             }
         });
 
+
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.position:
-                        btnSwitch.setEnabled(false);
+                        //btnSwitch.setEnabled(false);
+                        timer.setVisibility(View.GONE);
                         loadFragment(new PositionFragment());
                     break;
                     case R.id.home:
@@ -158,6 +169,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
 
 
     }
+
 
 
     private Runnable updateTimerThread = new Runnable() {
@@ -204,6 +216,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         Log.i("resume", "onResume: ");
         amanager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
     }
+
 
     @Override
     public void onReadyForSpeech(Bundle arg0) {
@@ -334,6 +347,9 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         String str = getResources().getString(R.string.accuracy_txt, accuracyCountRounded);
         percentageOutput.setText(str);
     }
+
+
+
 
     private void loadFragment(Fragment fragment) {
 // create a FragmentManager

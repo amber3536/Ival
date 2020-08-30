@@ -1,11 +1,14 @@
 package com.hfad.ival_revisited;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.fragment.app.FragmentTransaction;
 
 public class PositionFragment extends Fragment {
     View view;
@@ -56,7 +59,8 @@ public class PositionFragment extends Fragment {
         bottom1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "bottom 1", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(), "bottom 1", Toast.LENGTH_SHORT).show();
+
             }
         });
 
