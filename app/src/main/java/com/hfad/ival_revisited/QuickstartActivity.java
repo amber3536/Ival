@@ -5,9 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+//import android.app.Fragment;
+import androidx.fragment.app.Fragment;
+//import android.app.FragmentManager;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+//import android.app.FragmentTransaction;
+//import android.app.FragmentTransaction;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -353,7 +357,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
 
     private void loadFragment(Fragment fragment) {
 // create a FragmentManager
-        FragmentManager fm = getFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
 // create a FragmentTransaction to begin the transaction and replace the Fragment
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
 // replace the FrameLayout with new Fragment
