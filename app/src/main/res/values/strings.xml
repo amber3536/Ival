@@ -11,4 +11,5 @@
     <string name="quickstart">Quickstart</string>
     <string name="position">Position</string>
     <string name="stats">Stats</string>
+    <string name="select_a_position_to_shoot_from">Select a position to shoot from</string>
 </resources>

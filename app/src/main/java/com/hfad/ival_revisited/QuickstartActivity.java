@@ -70,6 +70,8 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
     private int totalMissPrev = 0;
     private int positionMakeCount = 0;
     private int positionMissCount = 0;
+    private int positionMakePrev = 0;
+    private int positionMissPrev = 0;
     private boolean turnOn = false;
     private long startTime;
     private Handler stopWatchHandler;
@@ -394,9 +396,11 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         SharedPreferences sharedPreferences = getSharedPreferences("num_position_shots", MODE_PRIVATE);
         positionMakeCount = sharedPreferences.getInt("pos_make_num", 0);
         Log.i("saved", "savePosition: " + positionMakeCount + " " + makeOutput.getText().toString());
-        positionMakeCount += parseInt(makeOutput.getText().toString());
+        int num = parseInt(makeOutput.getText().toString()) - positionMakePrev;
+        positionMakeCount += num;
         positionMissCount = sharedPreferences.getInt("pos_miss_num", 0);
-        positionMissCount += parseInt(missOutput.getText().toString());
+        num = parseInt(missOutput.getText().toString()) - positionMissPrev;
+        positionMissCount += num;
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("pos_make_num", positionMakeCount);
@@ -404,6 +408,8 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
 
         Log.i("saved", "save pos make count: " + positionMakeCount);
         editor.apply();
+        positionMakePrev = parseInt(makeOutput.getText().toString());
+        positionMissPrev = parseInt(missOutput.getText().toString());
     }
 
     public void displayPositionPercentage() {

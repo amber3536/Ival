@@ -9,4 +9,7 @@
     <color name="colorBlack">#000000</color>
     <color name="electricBlue">#7df9ff</color>
     <color name="purple">#BA55D3</color>
+    <color name="lilac">#c8a2c8</color>
+    <color name="lightYellow">#F0E68C</color>
+    <color name="powderBlue">#B0E0E6</color>
 </resources>
