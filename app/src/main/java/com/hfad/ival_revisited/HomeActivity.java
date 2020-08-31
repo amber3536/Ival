@@ -46,7 +46,4 @@ public class HomeActivity extends AppCompatActivity {
         image.startAnimation(animation1);
     }
 
-    public void move(View view){
-
-    }
 }

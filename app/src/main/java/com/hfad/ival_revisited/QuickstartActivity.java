@@ -113,14 +113,15 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
                 loadFragment(new PositionFragment());
                 break;
             case "regularAccess":
+                positionsPercentageOutput.setVisibility(View.INVISIBLE);
                 quickstart_position_mode = false;
-                loadFragment(new QuickstartFragment());
+                //loadFragment(new QuickstartFragment());
                 //Log.i("here", "onCreate: "+ amanager.getRingerMode());
                 break;
             default:
-//                positionsPercentageOutput.setVisibility(View.VISIBLE);
+                positionsPercentageOutput.setVisibility(View.INVISIBLE);
 //                positionsPercentageOutput.setText("bottom shot");
-                loadFragment(new QuickstartFragment());
+                //loadFragment(new QuickstartFragment());
                 break;
         }
 
