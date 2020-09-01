@@ -14,7 +14,8 @@ import static java.lang.Integer.parseInt;
 
 public class QuickstartFragment extends Fragment {
     View view;
-    TextView tv;
+    TextView positionTxt;
+    String position;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -22,13 +23,19 @@ public class QuickstartFragment extends Fragment {
 // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_quickstart, container, false);
        // tv.findViewById(R.id.position_accuracy);
+        positionTxt = view.findViewById(R.id.position_txt);
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            String result = bundle.getString("position", "");
-            Log.i("here", "onCreateView: " + result);
+            position = bundle.getString("position", "");
+            Log.i("here", "onCreateView: " + position);
         }
+
+        ((QuickstartActivity) getActivity()).setPositionName(position);
         ((QuickstartActivity) getActivity()).showView();
+        String str = getResources().getString(R.string.you_have_selected, position);
+        positionTxt.setText(str);
+
         //((QuickstartActivity) getActivity()).savePosition();
 //            //tv.setText(result);
 //            tv.setText("animal");

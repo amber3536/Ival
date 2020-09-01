@@ -62,6 +62,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
 
     private String make = "make";
     private String miss = "miss";
+    private String positionName;
     private static int makeCount = 0;
     private static int missCount = 0;
     private int totalMakeCount = 0;
@@ -182,7 +183,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
                     case R.id.position:
                         //btnSwitch.setEnabled(false);
                         //timer.setVisibility(View.GONE);
-                        positionView();
+                        //positionView();
                         loadFragment(new PositionFragment());
                     break;
                     case R.id.home:
@@ -394,7 +395,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
     }
 
     public void savePosition() {
-        SharedPreferences sharedPreferences = getSharedPreferences("num_position_shots", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(positionName, MODE_PRIVATE);
         positionMakeCount = sharedPreferences.getInt("pos_make_num", 0);
         Log.i("saved", "savePosition: " + positionMakeCount + " " + makeOutput.getText().toString());
         int num = parseInt(makeOutput.getText().toString()) - positionMakePrev;
@@ -414,7 +415,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
     }
 
     public void displayPositionPercentage() {
-        SharedPreferences sharedPreferences = getSharedPreferences("num_position_shots", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(positionName, MODE_PRIVATE);
         positionMakeCount = sharedPreferences.getInt("pos_make_num", 0);
         positionMissCount = sharedPreferences.getInt("pos_miss_num", 0);
         Log.i("percent", "displayPositionPercentage: makeCount" + positionMakeCount);
@@ -448,6 +449,10 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
 // replace the FrameLayout with new Fragment
         fragmentTransaction.replace(R.id.frameLayout, fragment);
         fragmentTransaction.commit(); // save the changes
+    }
+
+    public void setPositionName(String pos) {
+        positionName = pos;
     }
 
 }

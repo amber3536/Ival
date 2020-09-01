@@ -60,17 +60,15 @@ public class PositionFragment extends Fragment {
         left_center2 = view.findViewById(R.id.shot_left_side_center_2);
         right_center2 = view.findViewById(R.id.shot_right_side_center_2);
 
+        ((QuickstartActivity)getActivity()).positionView();
+
         bottom1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//               // Toast.makeText(getActivity(), "bottom 1", Toast.LENGTH_SHORT).show();
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
                 Bundle result = new Bundle();
-                result.putString("position", "bottom 1");
-
-                //getParentFragmentManager().setFragmentResult("positionKey", result);
+                result.putString("position", "right 3pt corner");
                 quickstartFragment.setArguments(result);
-                //getParentFragment().setArguments(result);
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.frameLayout, quickstartFragment);
@@ -82,35 +80,75 @@ public class PositionFragment extends Fragment {
         bottom2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "bottom 2", Toast.LENGTH_SHORT).show();
+                QuickstartFragment quickstartFragment = new QuickstartFragment();
+                Bundle result = new Bundle();
+                result.putString("position", "right baseline midrange");
+                quickstartFragment.setArguments(result);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, quickstartFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
         bottom3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "bottom 3", Toast.LENGTH_SHORT).show();
+                QuickstartFragment quickstartFragment = new QuickstartFragment();
+                Bundle result = new Bundle();
+                result.putString("position", "right layup");
+                quickstartFragment.setArguments(result);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, quickstartFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
         bottom4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "bottom 4", Toast.LENGTH_SHORT).show();
+                QuickstartFragment quickstartFragment = new QuickstartFragment();
+                Bundle result = new Bundle();
+                result.putString("position", "left layup");
+                quickstartFragment.setArguments(result);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, quickstartFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
         bottom5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "bottom 5", Toast.LENGTH_SHORT).show();
+                QuickstartFragment quickstartFragment = new QuickstartFragment();
+                Bundle result = new Bundle();
+                result.putString("position", "left baseline midrange");
+                quickstartFragment.setArguments(result);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, quickstartFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
         bottom6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "bottom 6", Toast.LENGTH_SHORT).show();
+                QuickstartFragment quickstartFragment = new QuickstartFragment();
+                Bundle result = new Bundle();
+                result.putString("position", "left 3pt corner");
+                quickstartFragment.setArguments(result);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, quickstartFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 

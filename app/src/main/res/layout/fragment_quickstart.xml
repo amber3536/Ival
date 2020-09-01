@@ -7,6 +7,16 @@
     tools:context="com.hfad.ival_revisited.QuickstartFragment">
 
 
-
-
+    <TextView
+        android:id="@+id/position_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:fontFamily="@font/permanent_marker_reg"
+        android:textSize="20sp"
+        android:background="@color/gray"
+        android:layout_marginTop="3dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

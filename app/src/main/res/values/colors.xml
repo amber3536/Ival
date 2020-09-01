@@ -12,4 +12,8 @@
     <color name="lilac">#c8a2c8</color>
     <color name="lightYellow">#F0E68C</color>
     <color name="powderBlue">#B0E0E6</color>
+    <color name="brightPurple">#651fff</color>
+    <color name="lightPink">#FFE2FE</color>
+    <color name="white">#FFFFFF</color>
+    <color name="gray">#a7a6ba</color>
 </resources>
