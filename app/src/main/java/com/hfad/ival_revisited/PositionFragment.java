@@ -155,84 +155,180 @@ public class PositionFragment extends Fragment {
         center1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "center 1", Toast.LENGTH_SHORT).show();
+                QuickstartFragment quickstartFragment = new QuickstartFragment();
+                Bundle result = new Bundle();
+                result.putString("position", "center deep 3pt");
+                quickstartFragment.setArguments(result);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, quickstartFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
         center2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "center 2", Toast.LENGTH_SHORT).show();
+                QuickstartFragment quickstartFragment = new QuickstartFragment();
+                Bundle result = new Bundle();
+                result.putString("position", "center 3pt");
+                quickstartFragment.setArguments(result);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, quickstartFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
         center3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "center 3", Toast.LENGTH_SHORT).show();
+                QuickstartFragment quickstartFragment = new QuickstartFragment();
+                Bundle result = new Bundle();
+                result.putString("position", "free throw");
+                quickstartFragment.setArguments(result);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, quickstartFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
         center4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "center 4", Toast.LENGTH_SHORT).show();
+                QuickstartFragment quickstartFragment = new QuickstartFragment();
+                Bundle result = new Bundle();
+                result.putString("position", "form shot");
+                quickstartFragment.setArguments(result);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, quickstartFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
         left_center4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "left center 4", Toast.LENGTH_SHORT).show();
+                QuickstartFragment quickstartFragment = new QuickstartFragment();
+                Bundle result = new Bundle();
+                result.putString("position", "right midrange wing");
+                quickstartFragment.setArguments(result);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, quickstartFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
         right_center4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "right center 4", Toast.LENGTH_SHORT).show();
+                QuickstartFragment quickstartFragment = new QuickstartFragment();
+                Bundle result = new Bundle();
+                result.putString("position", "left midrange wing");
+                quickstartFragment.setArguments(result);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, quickstartFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
         left_center3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "left center 3", Toast.LENGTH_SHORT).show();
+                QuickstartFragment quickstartFragment = new QuickstartFragment();
+                Bundle result = new Bundle();
+                result.putString("position", "right elbow");
+                quickstartFragment.setArguments(result);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, quickstartFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
         right_center3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "right center 3", Toast.LENGTH_SHORT).show();
+                QuickstartFragment quickstartFragment = new QuickstartFragment();
+                Bundle result = new Bundle();
+                result.putString("position", "left elbow");
+                quickstartFragment.setArguments(result);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, quickstartFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
         far_left_center3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "far left center 3", Toast.LENGTH_SHORT).show();
+                QuickstartFragment quickstartFragment = new QuickstartFragment();
+                Bundle result = new Bundle();
+                result.putString("position", "right 3pt wing");
+                quickstartFragment.setArguments(result);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, quickstartFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
         far_right_center3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "far right center 3", Toast.LENGTH_SHORT).show();
+                QuickstartFragment quickstartFragment = new QuickstartFragment();
+                Bundle result = new Bundle();
+                result.putString("position", "left 3pt wing");
+                quickstartFragment.setArguments(result);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, quickstartFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
         left_center2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "left center 2", Toast.LENGTH_SHORT).show();
+                QuickstartFragment quickstartFragment = new QuickstartFragment();
+                Bundle result = new Bundle();
+                result.putString("position", "right deep 3pt");
+                quickstartFragment.setArguments(result);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, quickstartFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
         right_center2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "right center 2", Toast.LENGTH_SHORT).show();
+                QuickstartFragment quickstartFragment = new QuickstartFragment();
+                Bundle result = new Bundle();
+                result.putString("position", "left deep 3pt");
+                quickstartFragment.setArguments(result);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, quickstartFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 

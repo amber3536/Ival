@@ -36,11 +36,6 @@ public class QuickstartFragment extends Fragment {
         String str = getResources().getString(R.string.you_have_selected, position);
         positionTxt.setText(str);
 
-        //((QuickstartActivity) getActivity()).savePosition();
-//            //tv.setText(result);
-//            tv.setText("animal");
-//        }
-
         return view;
     }
 
