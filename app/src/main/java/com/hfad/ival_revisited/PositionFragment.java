@@ -15,9 +15,9 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 public class PositionFragment extends Fragment {
-    View view;
-    Button bottom1;
-    Button bottom2;
+    private View view;
+    private Button bottom1;
+    private Button bottom2;
     Button bottom3;
     Button bottom4;
     Button bottom5;
@@ -39,7 +39,7 @@ public class PositionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-// Inflate the layout for this fragment
+
         view = inflater.inflate(R.layout.fragment_position, container, false);
         bottom1 = view.findViewById(R.id.shot_bottom_1);
         bottom2 = view.findViewById(R.id.shot_bottom_2);

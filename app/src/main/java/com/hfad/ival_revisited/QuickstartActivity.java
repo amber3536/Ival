@@ -5,13 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
-//import android.app.Fragment;
 import androidx.fragment.app.Fragment;
-//import android.app.FragmentManager;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-//import android.app.FragmentTransaction;
-//import android.app.FragmentTransaction;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -60,8 +56,6 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
     private Boolean activated = false;
     private Boolean quickstart_position_mode = false;
 
-    private String make = "make";
-    private String miss = "miss";
     private String positionName;
     private static int makeCount = 0;
     private static int missCount = 0;
@@ -116,13 +110,9 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
             case "regularAccess":
                 positionsPercentageOutput.setVisibility(View.INVISIBLE);
                 quickstart_position_mode = false;
-                //loadFragment(new QuickstartFragment());
-                //Log.i("here", "onCreate: "+ amanager.getRingerMode());
                 break;
             default:
                 positionsPercentageOutput.setVisibility(View.INVISIBLE);
-//                positionsPercentageOutput.setText("bottom shot");
-                //loadFragment(new QuickstartFragment());
                 break;
         }
 
@@ -298,26 +288,35 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         String errorMessage = getErrorText(error);
         Log.i("error", "onError: " + errorMessage);
         //makeOutput.setText(errorMessage);
+        Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
         speech.startListening(recognizerIntent);
     }
 
     @Override
     public void onResults(Bundle results) {
+        String make = "make";
+        String miss = "miss";
+        String text = "";
+
         Log.i("results", "onResults: ");
+
         ArrayList<String> matches = results .getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
         Log.i("results", "onResults: " + matches);
-        String text = "";
+
         for (String result : matches)
             text = result + "\n";
         makeCount += StringUtils.countMatches(text, make);
         missCount += StringUtils.countMatches(text, miss);
         missCount += StringUtils.countMatches(text, "Miss");
+
         Log.i("results", "onResults: " + text + "make: " + makeCount);
         Log.i("results", "onResults: " + text + "miss: " + missCount);
+
         makeOutput.setText(String.valueOf(makeCount));
         missOutput.setText(String.valueOf(missCount));
         save();
         displayPercentage();
+
         if (quickstart_position_mode) {
             savePosition();
             displayPositionPercentage();
@@ -442,19 +441,15 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
 
 
     private void loadFragment(Fragment fragment) {
-// create a FragmentManager
         FragmentManager fm = getSupportFragmentManager();
-// create a FragmentTransaction to begin the transaction and replace the Fragment
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
-// replace the FrameLayout with new Fragment
         fragmentTransaction.replace(R.id.frameLayout, fragment);
-        fragmentTransaction.commit(); // save the changes
+        fragmentTransaction.commit();
     }
 
     public void setPositionName(String pos) {
         positionName = pos;
     }
-
 }
 
 
