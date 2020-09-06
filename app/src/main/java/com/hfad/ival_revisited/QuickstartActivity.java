@@ -180,6 +180,10 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
                         finish();
                         break;
 
+                    case R.id.stats:
+                        loadFragment(new StatsFragment());
+                        break;
+
                 }
                 return true;
             }
