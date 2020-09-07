@@ -1,6 +1,7 @@
 package com.hfad.ival_revisited;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,9 +58,10 @@ public PositionAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewT
 //        textView.setText(contact.getName());
         Position positions = mPositions.get(position);
         TextView tv = holder.positionTV;
-       // TextView tv2 = holder.percentTV;
+        TextView tv2 = holder.percentTV;
         tv.setText(positions.getPosition());
-        //tv2.setText(positions.getPercentage());
+        Log.i("positions", "onBindViewHolder: " + positions.getPercentage());
+        tv2.setText(String.valueOf(positions.getPercentage()));
 //        TextView tv2 = holder.positionTV;
 //        tv2.setText(positions.getPercentage());
 
