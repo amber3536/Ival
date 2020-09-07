@@ -26,9 +26,13 @@ public class StatsFragment extends Fragment {
         ((QuickstartActivity)getActivity()).positionView();
 
         RecyclerView rv = view.findViewById(R.id.rvPositions);
+        int makeCount[] = new int[3];
+        int missCount[] = new int[3];
 
         for (int i = 0; i < positionNames.length; i++) {
             positionAccuracy[i] = ((QuickstartActivity)getActivity()).returnPositionAccuracy(positionNames[i]);
+            makeCount[i] = ((QuickstartActivity)getActivity()).getMakeCount();
+            missCount[i] = ((QuickstartActivity)getActivity()).getMissCount();
         }
         positions = Position.createContactsList(positionNames, positionAccuracy);
 

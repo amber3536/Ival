@@ -111,6 +111,8 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
                 positionsPercentageOutput.setVisibility(View.INVISIBLE);
                 quickstart_position_mode = false;
                 break;
+            case "statsFragment":
+                loadFragment(new StatsFragment());
             default:
                 positionsPercentageOutput.setVisibility(View.INVISIBLE);
                 break;
@@ -438,6 +440,14 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         float accuracyCount = (float) positionMakeCount / (positionMissCount + positionMakeCount) * 100;
         int accuracyCountRounded = Math.round(accuracyCount);
         return accuracyCountRounded;
+    }
+
+    public int getMakeCount() {
+        return positionMakeCount;
+    }
+
+    public int getMissCount() {
+        return positionMissCount;
     }
 
     public void displayPercentage() {

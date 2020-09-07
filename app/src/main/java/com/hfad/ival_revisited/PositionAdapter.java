@@ -49,9 +49,6 @@ public class PositionAdapter extends RecyclerView.Adapter<PositionAdapter.ViewHo
         Log.i("positions", "onBindViewHolder: " + positions.getPercentage());
         String str = context.getResources().getString(R.string.accuracy_txt, positions.getPercentage());
         tv2.setText(str);
-//        TextView tv2 = holder.positionTV;
-//        tv2.setText(positions.getPercentage());
-
 
     }
 
