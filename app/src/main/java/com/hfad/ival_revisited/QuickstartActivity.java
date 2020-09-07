@@ -448,7 +448,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         Log.i("percent", "displayPercentage: missCount" + totalMissCount);
         float accuracyCount = (float) totalMakeCount / (totalMakeCount + totalMissCount) * 100;
         int accuracyCountRounded = Math.round(accuracyCount);
-        String str = getResources().getString(R.string.accuracy_txt, accuracyCountRounded);
+        String str = getResources().getString(R.string.total_accuracy_txt, accuracyCountRounded);
         totalPercentageOutput.setText(str);
     }
 

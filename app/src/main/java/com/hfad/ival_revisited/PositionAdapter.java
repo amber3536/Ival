@@ -13,39 +13,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class PositionAdapter extends RecyclerView.Adapter<PositionAdapter.ViewHolder> {
-//    @NonNull
-//    @Override
-//    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        return null;
-//    }
-//
-//    @Override
-//    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//
-//    }
-//
-//    @Override
-//    public int getItemCount() {
-//        return 0;
-//    }
 
+    private Context context;
     private List<Position> mPositions;
     public PositionAdapter(List<Position> positions) {
         mPositions = positions;
     }
 
-@Override
-public PositionAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    Context context = parent.getContext();
-    LayoutInflater inflater = LayoutInflater.from(context);
+    @Override
+    public PositionAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
 
-    // Inflate the custom layout
-    View contactView = inflater.inflate(R.layout.item_position, parent, false);
+        // Inflate the custom layout
+        View contactView = inflater.inflate(R.layout.item_position, parent, false);
 
-    // Return a new holder instance
-    ViewHolder viewHolder = new ViewHolder(contactView);
-    return viewHolder;
-}
+        // Return a new holder instance
+        ViewHolder viewHolder = new ViewHolder(contactView);
+        return viewHolder;
+    }
 
     // Involves populating data into the item through holder
     @Override
@@ -61,7 +47,8 @@ public PositionAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewT
         TextView tv2 = holder.percentTV;
         tv.setText(positions.getPosition());
         Log.i("positions", "onBindViewHolder: " + positions.getPercentage());
-        tv2.setText(String.valueOf(positions.getPercentage()));
+        String str = context.getResources().getString(R.string.accuracy_txt, positions.getPercentage());
+        tv2.setText(str);
 //        TextView tv2 = holder.positionTV;
 //        tv2.setText(positions.getPercentage());
 
