@@ -56,8 +56,10 @@ public PositionAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewT
  //       TextView textView = holder.nameTextView;
 //        textView.setText(contact.getName());
         Position positions = mPositions.get(position);
-        TextView tv = holder.percentTV;
+        TextView tv = holder.positionTV;
+       // TextView tv2 = holder.percentTV;
         tv.setText(positions.getPosition());
+        //tv2.setText(positions.getPercentage());
 //        TextView tv2 = holder.positionTV;
 //        tv2.setText(positions.getPercentage());
 

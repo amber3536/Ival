@@ -4,4 +4,5 @@
     <dimen name="home_button_side_margin">35dp</dimen>
     <dimen name="make_miss_text_size">15sp</dimen>
     <dimen name="home_activity_text_size">40sp</dimen>
+    <dimen name="quickstart_bottom_margin">80dp</dimen>
 </resources>

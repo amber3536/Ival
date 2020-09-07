@@ -14,6 +14,9 @@ import java.util.ArrayList;
 public class StatsFragment extends Fragment {
     private View view;
     ArrayList<Position> positions;
+    String positionNames[] = new String[] {
+            "left layup", "right layup", "free throw" };
+    int positionAccuracy[] = new int[3];
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -23,7 +26,12 @@ public class StatsFragment extends Fragment {
         ((QuickstartActivity)getActivity()).positionView();
 
         RecyclerView rv = view.findViewById(R.id.rvPositions);
-        positions = Position.createContactsList(20);
+
+        for (int i = 0; i < positionNames.length; i++) {
+            positionAccuracy[i] = ((QuickstartActivity)getActivity()).returnPositionAccuracy(positionNames[i]);
+        }
+        positions = Position.createContactsList(positionNames, positionAccuracy);
+
         PositionAdapter adapter = new PositionAdapter(positions);
         rv.setAdapter(adapter);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));

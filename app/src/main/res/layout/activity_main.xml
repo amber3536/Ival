@@ -72,7 +72,7 @@
         android:background="@color/colorAccent"
         app:layout_constraintStart_toStartOf="@id/startStopBtn"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="75dp" />
+        android:layout_marginBottom="@dimen/quickstart_bottom_margin" />
 
     <TextView
         android:id="@+id/showMiss"
@@ -111,7 +111,7 @@
         android:elevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="75dp"
+        android:layout_marginBottom="@dimen/quickstart_bottom_margin"
         android:layout_marginEnd="25dp"/>
 
     <ImageView

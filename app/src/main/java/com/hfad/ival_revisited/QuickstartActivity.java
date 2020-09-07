@@ -429,6 +429,17 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         positionsPercentageOutput.setText(str);
     }
 
+    public int returnPositionAccuracy(String pos) {
+        SharedPreferences sharedPreferences = getSharedPreferences(pos, MODE_PRIVATE);
+        positionMakeCount = sharedPreferences.getInt("pos_make_num", 0);
+        positionMissCount = sharedPreferences.getInt("pos_miss_num", 0);
+        Log.i("percent", "displayPositionPercentage: makeCount" + positionMakeCount);
+        Log.i("percent", "displayPositionPercentage: missCount" + positionMissCount);
+        float accuracyCount = (float) positionMakeCount / (positionMissCount + positionMakeCount) * 100;
+        int accuracyCountRounded = Math.round(accuracyCount);
+        return accuracyCountRounded;
+    }
+
     public void displayPercentage() {
         SharedPreferences sharedPreferences = getSharedPreferences("num_shots", MODE_PRIVATE);
         totalMakeCount = sharedPreferences.getInt("make_num", 0);
