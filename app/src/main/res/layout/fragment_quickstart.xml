@@ -15,7 +15,7 @@
         android:fontFamily="@font/permanent_marker_reg"
         android:textSize="20sp"
         android:background="@color/gray"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="80dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
