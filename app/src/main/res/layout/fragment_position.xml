@@ -26,7 +26,7 @@
         android:alpha="0"
         android:text=""
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/basketballCourt"
+        app:layout_constraintTop_toTopOf="@+id/basketballCourt"
         app:layout_constraintStart_toEndOf="@id/shot_bottom_2"
         app:layout_constraintEnd_toStartOf="@id/shot_bottom_4"/>
 
@@ -37,7 +37,7 @@
         android:alpha="0"
         android:text=""
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/basketballCourt"
+        app:layout_constraintTop_toTopOf="@+id/basketballCourt"
         app:layout_constraintEnd_toStartOf="@id/shot_bottom_5"
         app:layout_constraintStart_toEndOf="@+id/shot_bottom_3" />
 
@@ -48,7 +48,7 @@
         android:alpha="0"
         android:text=""
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/basketballCourt"
+        app:layout_constraintTop_toTopOf="@+id/basketballCourt"
         app:layout_constraintStart_toEndOf="@id/shot_bottom_1"
         app:layout_constraintEnd_toStartOf="@id/shot_bottom_3"
         />
@@ -60,7 +60,7 @@
         android:alpha="0"
         android:text=""
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/basketballCourt"
+        app:layout_constraintTop_toTopOf="@+id/basketballCourt"
         app:layout_constraintStart_toEndOf="@id/shot_bottom_4"
         app:layout_constraintEnd_toStartOf="@id/shot_bottom_6"
         />
@@ -72,7 +72,7 @@
         android:alpha="0"
         android:text=""
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/basketballCourt"
+        app:layout_constraintTop_toTopOf="@+id/basketballCourt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/shot_bottom_2"
         />
@@ -84,7 +84,7 @@
         android:alpha="0"
         android:text=""
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/basketballCourt"
+        app:layout_constraintTop_toTopOf="@+id/basketballCourt"
         app:layout_constraintStart_toEndOf="@id/shot_bottom_5"
         app:layout_constraintEnd_toEndOf="parent"
         />
@@ -96,7 +96,7 @@
         android:layout_marginStart="16dp"
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/shot_bottom_4"
+        app:layout_constraintTop_toBottomOf="@id/shot_bottom_4"
         app:layout_constraintStart_toEndOf="@id/shot_center_4"
         />
 
@@ -105,7 +105,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text=""
-        app:layout_constraintBottom_toTopOf="@id/shot_bottom_1"
+        app:layout_constraintTop_toBottomOf="@id/shot_bottom_1"
         app:layout_constraintEnd_toStartOf="@id/shot_center_4"
         app:layout_constraintStart_toStartOf="parent"
         />
@@ -119,8 +119,8 @@
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/shot_bottom_3"
-        app:layout_constraintTop_toBottomOf="@id/shot_center_3"/>
+        app:layout_constraintTop_toBottomOf="@id/shot_bottom_3"
+        app:layout_constraintBottom_toTopOf="@id/shot_center_3"/>
 
     <Button
         android:id="@+id/shot_center_1"
@@ -131,8 +131,8 @@
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dead_space_center_top"
-        app:layout_constraintBottom_toTopOf="@id/shot_center_2"/>
+        app:layout_constraintBottom_toTopOf="@id/dead_space_center_top"
+        app:layout_constraintTop_toBottomOf="@id/shot_center_2"/>
 
     <Button
         android:id="@+id/shot_center_2"
@@ -141,10 +141,10 @@
         android:alpha="0"
         android:text=""
         android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@id/shot_center_1"
+        app:layout_constraintBottom_toTopOf="@id/shot_center_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/shot_center_3"/>
+        app:layout_constraintTop_toBottomOf="@id/shot_center_3"/>
 
     <Button
         android:id="@+id/shot_center_3"
@@ -155,8 +155,8 @@
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/shot_center_2"
-        app:layout_constraintBottom_toTopOf="@id/shot_center_4"/>
+        app:layout_constraintBottom_toTopOf="@id/shot_center_2"
+        app:layout_constraintTop_toBottomOf="@id/shot_center_4"/>
 
     <TextView
         android:id="@+id/dead_space_center_top"
@@ -165,7 +165,7 @@
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/basketballCourt" />
+        app:layout_constraintBottom_toBottomOf="@id/basketballCourt" />
 
     <Button
         android:id="@+id/shot_left_side_center_3"
@@ -174,8 +174,8 @@
         android:alpha="0"
         android:text=""
         android:visibility="visible"
-        app:layout_constraintEnd_toStartOf="@id/shot_center_3"
-        app:layout_constraintTop_toBottomOf="@id/shot_center_2"/>
+        app:layout_constraintStart_toEndOf="@id/shot_center_3"
+        app:layout_constraintBottom_toTopOf="@id/shot_center_2"/>
 
     <Button
         android:id="@+id/shot_right_side_center_3"
@@ -184,8 +184,8 @@
         android:alpha="0"
         android:text=""
         android:visibility="visible"
-        app:layout_constraintStart_toEndOf="@id/shot_center_3"
-        app:layout_constraintTop_toBottomOf="@id/shot_center_2"/>
+        app:layout_constraintEnd_toStartOf="@id/shot_center_3"
+        app:layout_constraintBottom_toTopOf="@id/shot_center_2"/>
 
     <Button
         android:id="@+id/shot_left_side_center_4"
@@ -194,9 +194,9 @@
         android:alpha="0"
         android:text=""
         android:visibility="visible"
-        app:layout_constraintEnd_toStartOf="@id/shot_center_4"
-        app:layout_constraintBottom_toTopOf="@id/dead_space_bottom1"
-        app:layout_constraintTop_toBottomOf="@id/shot_far_left_side_center_3"/>
+        app:layout_constraintStart_toEndOf="@id/shot_center_4"
+        app:layout_constraintTop_toBottomOf="@id/dead_space_bottom2"
+        app:layout_constraintBottom_toTopOf="@id/shot_far_left_side_center_3"/>
 
     <Button
         android:id="@+id/shot_right_side_center_4"
@@ -205,9 +205,9 @@
         android:alpha="0"
         android:text=""
         android:visibility="visible"
-        app:layout_constraintStart_toEndOf="@id/shot_center_4"
-        app:layout_constraintBottom_toTopOf="@id/dead_space_bottom2"
-        app:layout_constraintTop_toBottomOf="@id/shot_far_right_side_center_3"/>
+        app:layout_constraintEnd_toStartOf="@id/shot_center_4"
+        app:layout_constraintTop_toBottomOf="@id/dead_space_bottom1"
+        app:layout_constraintBottom_toTopOf="@id/shot_far_right_side_center_3"/>
 
     <Button
         android:id="@+id/shot_far_left_side_center_3"
@@ -217,9 +217,9 @@
         android:alpha="0"
         android:text=""
         android:visibility="visible"
-        app:layout_constraintTop_toTopOf="@id/shot_left_side_center_3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/shot_left_side_center_4"/>
+        app:layout_constraintBottom_toBottomOf="@id/shot_left_side_center_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/shot_left_side_center_4"/>
 
     <Button
         android:id="@+id/shot_far_right_side_center_3"
@@ -228,9 +228,9 @@
         android:alpha="0"
         android:text=""
         android:visibility="visible"
-        app:layout_constraintTop_toTopOf="@id/shot_right_side_center_3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/shot_right_side_center_4"/>
+        app:layout_constraintBottom_toBottomOf="@id/shot_right_side_center_3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/shot_right_side_center_4"/>
 
     <Button
         android:id="@+id/shot_right_side_center_2"
@@ -239,10 +239,10 @@
         android:alpha="0"
         android:text=""
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@id/shot_far_right_side_center_3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/shot_center_2"
-        app:layout_constraintTop_toBottomOf="@id/dead_space_center_top"/>
+        app:layout_constraintTop_toBottomOf="@id/shot_far_right_side_center_3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/shot_center_2"
+        app:layout_constraintBottom_toTopOf="@id/dead_space_center_top"/>
 
     <Button
         android:id="@+id/shot_left_side_center_2"
@@ -251,10 +251,10 @@
         android:alpha="0"
         android:text=""
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@id/shot_far_left_side_center_3"
-        app:layout_constraintEnd_toStartOf="@id/shot_center_2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dead_space_center_top"/>
+        app:layout_constraintTop_toBottomOf="@id/shot_far_left_side_center_3"
+        app:layout_constraintStart_toEndOf="@id/shot_center_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/dead_space_center_top"/>
 
     <TextView
         android:id="@+id/select_position_txt"

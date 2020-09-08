@@ -67,7 +67,7 @@ public class PositionFragment extends Fragment {
             public void onClick(View v) {
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
                 Bundle result = new Bundle();
-                result.putString("position", "right 3pt corner");
+                result.putString("position", "left 3pt corner");
                 quickstartFragment.setArguments(result);
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -82,7 +82,7 @@ public class PositionFragment extends Fragment {
             public void onClick(View v) {
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
                 Bundle result = new Bundle();
-                result.putString("position", "right baseline midrange");
+                result.putString("position", "left baseline midrange");
                 quickstartFragment.setArguments(result);
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -97,7 +97,7 @@ public class PositionFragment extends Fragment {
             public void onClick(View v) {
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
                 Bundle result = new Bundle();
-                result.putString("position", "right layup");
+                result.putString("position", "left layup");
                 quickstartFragment.setArguments(result);
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -112,7 +112,7 @@ public class PositionFragment extends Fragment {
             public void onClick(View v) {
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
                 Bundle result = new Bundle();
-                result.putString("position", "left layup");
+                result.putString("position", "right layup");
                 quickstartFragment.setArguments(result);
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -127,7 +127,7 @@ public class PositionFragment extends Fragment {
             public void onClick(View v) {
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
                 Bundle result = new Bundle();
-                result.putString("position", "left baseline midrange");
+                result.putString("position", "right baseline midrange");
                 quickstartFragment.setArguments(result);
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -142,7 +142,7 @@ public class PositionFragment extends Fragment {
             public void onClick(View v) {
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
                 Bundle result = new Bundle();
-                result.putString("position", "left 3pt corner");
+                result.putString("position", "right 3pt corner");
                 quickstartFragment.setArguments(result);
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
