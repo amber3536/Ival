@@ -15,19 +15,21 @@ public class PositionFragment extends Fragment {
     private Button top1;
     private Button top2;
     Button top3;
-    Button bottom4;
-    Button bottom5;
-    Button bottom6;
+    Button top4;
+    Button top5;
+    Button top6;
     Button center1;
     Button center2;
     Button center3;
     Button center4;
+    Button right_center1;
+    Button left_center1;
     Button left_center4;
     Button right_center4;
     Button left_center3;
     Button right_center3;
-    Button far_left_center3;
-    Button far_right_center3;
+    Button far_left_center2;
+    Button far_right_center2;
     Button left_center2;
     Button right_center2;
 
@@ -40,21 +42,21 @@ public class PositionFragment extends Fragment {
         top1 = view.findViewById(R.id.shot_top_1);
         top2 = view.findViewById(R.id.shot_top_2);
         top3 = view.findViewById(R.id.shot_top_3);
-        bottom4 = view.findViewById(R.id.shot_top_4);
-        bottom5 = view.findViewById(R.id.shot_top_5);
-        bottom6 = view.findViewById(R.id.shot_top_6);
-        center1 = view.findViewById(R.id.shot_center_4);
-        center2 = view.findViewById(R.id.shot_center_3);
-        center3 = view.findViewById(R.id.shot_center_2);
-        center4 = view.findViewById(R.id.shot_center_1);
-        left_center4 = view.findViewById(R.id.shot_right_side_center_1);
-        right_center4 = view.findViewById(R.id.shot_left_side_center_1);
-        left_center3 = view.findViewById(R.id.shot_right_side_center_2);
-        right_center3 = view.findViewById(R.id.shot_left_side_center_2);
-        far_left_center3 = view.findViewById(R.id.shot_far_right_side_center_2);
-        far_right_center3 = view.findViewById(R.id.shot_far_left_side_center_2);
-        left_center2 = view.findViewById(R.id.shot_right_side_center_3);
-        right_center2 = view.findViewById(R.id.shot_left_side_center_3);
+        top4 = view.findViewById(R.id.shot_top_4);
+        top5 = view.findViewById(R.id.shot_top_5);
+        top6 = view.findViewById(R.id.shot_top_6);
+        center4 = view.findViewById(R.id.shot_center_4);
+        center3 = view.findViewById(R.id.shot_center_3);
+        center2 = view.findViewById(R.id.shot_center_2);
+        center1 = view.findViewById(R.id.shot_center_1);
+        right_center1 = view.findViewById(R.id.shot_right_side_center_1);
+        left_center1 = view.findViewById(R.id.shot_left_side_center_1);
+        right_center2 = view.findViewById(R.id.shot_right_side_center_2);
+        left_center2 = view.findViewById(R.id.shot_left_side_center_2);
+        far_right_center2 = view.findViewById(R.id.shot_far_right_side_center_2);
+        far_left_center2 = view.findViewById(R.id.shot_far_left_side_center_2);
+        right_center3 = view.findViewById(R.id.shot_right_side_center_3);
+        left_center3 = view.findViewById(R.id.shot_left_side_center_3);
 
         ((QuickstartActivity)getActivity()).positionView();
 
@@ -103,7 +105,7 @@ public class PositionFragment extends Fragment {
             }
         });
 
-        bottom4.setOnClickListener(new View.OnClickListener() {
+        top4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
@@ -118,7 +120,7 @@ public class PositionFragment extends Fragment {
             }
         });
 
-        bottom5.setOnClickListener(new View.OnClickListener() {
+        top5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
@@ -133,7 +135,7 @@ public class PositionFragment extends Fragment {
             }
         });
 
-        bottom6.setOnClickListener(new View.OnClickListener() {
+        top6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
@@ -148,7 +150,7 @@ public class PositionFragment extends Fragment {
             }
         });
 
-        center1.setOnClickListener(new View.OnClickListener() {
+        center4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
@@ -163,7 +165,7 @@ public class PositionFragment extends Fragment {
             }
         });
 
-        center2.setOnClickListener(new View.OnClickListener() {
+        center3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
@@ -178,7 +180,7 @@ public class PositionFragment extends Fragment {
             }
         });
 
-        center3.setOnClickListener(new View.OnClickListener() {
+        center2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
@@ -193,7 +195,7 @@ public class PositionFragment extends Fragment {
             }
         });
 
-        center4.setOnClickListener(new View.OnClickListener() {
+        center1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
@@ -208,7 +210,7 @@ public class PositionFragment extends Fragment {
             }
         });
 
-        left_center4.setOnClickListener(new View.OnClickListener() {
+        right_center1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
@@ -223,7 +225,7 @@ public class PositionFragment extends Fragment {
             }
         });
 
-        right_center4.setOnClickListener(new View.OnClickListener() {
+        left_center1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
@@ -238,7 +240,7 @@ public class PositionFragment extends Fragment {
             }
         });
 
-        left_center3.setOnClickListener(new View.OnClickListener() {
+        right_center2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
@@ -253,7 +255,7 @@ public class PositionFragment extends Fragment {
             }
         });
 
-        right_center3.setOnClickListener(new View.OnClickListener() {
+        left_center2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
@@ -268,7 +270,7 @@ public class PositionFragment extends Fragment {
             }
         });
 
-        far_left_center3.setOnClickListener(new View.OnClickListener() {
+        far_right_center2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
@@ -283,7 +285,7 @@ public class PositionFragment extends Fragment {
             }
         });
 
-        far_right_center3.setOnClickListener(new View.OnClickListener() {
+        far_left_center2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
@@ -298,7 +300,7 @@ public class PositionFragment extends Fragment {
             }
         });
 
-        left_center2.setOnClickListener(new View.OnClickListener() {
+        right_center3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
@@ -313,7 +315,7 @@ public class PositionFragment extends Fragment {
             }
         });
 
-        right_center2.setOnClickListener(new View.OnClickListener() {
+        left_center3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
