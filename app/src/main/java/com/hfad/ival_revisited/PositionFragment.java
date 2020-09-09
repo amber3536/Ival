@@ -1,17 +1,13 @@
 package com.hfad.ival_revisited;
 //import android.app.Fragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 //import android.app.FragmentManager;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 public class PositionFragment extends Fragment {
@@ -41,24 +37,24 @@ public class PositionFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_position, container, false);
-        bottom1 = view.findViewById(R.id.shot_bottom_1);
-        bottom2 = view.findViewById(R.id.shot_bottom_2);
-        bottom3 = view.findViewById(R.id.shot_bottom_3);
-        bottom4 = view.findViewById(R.id.shot_bottom_4);
-        bottom5 = view.findViewById(R.id.shot_bottom_5);
-        bottom6 = view.findViewById(R.id.shot_bottom_6);
-        center1 = view.findViewById(R.id.shot_center_1);
-        center2 = view.findViewById(R.id.shot_center_2);
-        center3 = view.findViewById(R.id.shot_center_3);
-        center4 = view.findViewById(R.id.shot_center_4);
-        left_center4 = view.findViewById(R.id.shot_left_side_center_4);
-        right_center4 = view.findViewById(R.id.shot_right_side_center_4);
-        left_center3 = view.findViewById(R.id.shot_left_side_center_3);
-        right_center3 = view.findViewById(R.id.shot_right_side_center_3);
-        far_left_center3 = view.findViewById(R.id.shot_far_left_side_center_3);
-        far_right_center3 = view.findViewById(R.id.shot_far_right_side_center_3);
-        left_center2 = view.findViewById(R.id.shot_left_side_center_2);
-        right_center2 = view.findViewById(R.id.shot_right_side_center_2);
+        bottom1 = view.findViewById(R.id.shot_top_1);
+        bottom2 = view.findViewById(R.id.shot_top_2);
+        bottom3 = view.findViewById(R.id.shot_top_3);
+        bottom4 = view.findViewById(R.id.shot_top_4);
+        bottom5 = view.findViewById(R.id.shot_top_5);
+        bottom6 = view.findViewById(R.id.shot_top_6);
+        center1 = view.findViewById(R.id.shot_center_4);
+        center2 = view.findViewById(R.id.shot_center_3);
+        center3 = view.findViewById(R.id.shot_center_2);
+        center4 = view.findViewById(R.id.shot_center_1);
+        left_center4 = view.findViewById(R.id.shot_right_side_center_1);
+        right_center4 = view.findViewById(R.id.shot_left_side_center_1);
+        left_center3 = view.findViewById(R.id.shot_right_side_center_2);
+        right_center3 = view.findViewById(R.id.shot_left_side_center_2);
+        far_left_center3 = view.findViewById(R.id.shot_far_right_side_center_2);
+        far_right_center3 = view.findViewById(R.id.shot_far_left_side_center_2);
+        left_center2 = view.findViewById(R.id.shot_right_side_center_3);
+        right_center2 = view.findViewById(R.id.shot_left_side_center_3);
 
         ((QuickstartActivity)getActivity()).positionView();
 
