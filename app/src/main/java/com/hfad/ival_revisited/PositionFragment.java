@@ -12,9 +12,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class PositionFragment extends Fragment {
     private View view;
-    private Button bottom1;
-    private Button bottom2;
-    Button bottom3;
+    private Button top1;
+    private Button top2;
+    Button top3;
     Button bottom4;
     Button bottom5;
     Button bottom6;
@@ -37,9 +37,9 @@ public class PositionFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_position, container, false);
-        bottom1 = view.findViewById(R.id.shot_top_1);
-        bottom2 = view.findViewById(R.id.shot_top_2);
-        bottom3 = view.findViewById(R.id.shot_top_3);
+        top1 = view.findViewById(R.id.shot_top_1);
+        top2 = view.findViewById(R.id.shot_top_2);
+        top3 = view.findViewById(R.id.shot_top_3);
         bottom4 = view.findViewById(R.id.shot_top_4);
         bottom5 = view.findViewById(R.id.shot_top_5);
         bottom6 = view.findViewById(R.id.shot_top_6);
@@ -58,7 +58,7 @@ public class PositionFragment extends Fragment {
 
         ((QuickstartActivity)getActivity()).positionView();
 
-        bottom1.setOnClickListener(new View.OnClickListener() {
+        top1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
@@ -73,7 +73,7 @@ public class PositionFragment extends Fragment {
             }
         });
 
-        bottom2.setOnClickListener(new View.OnClickListener() {
+        top2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
@@ -88,7 +88,7 @@ public class PositionFragment extends Fragment {
             }
         });
 
-        bottom3.setOnClickListener(new View.OnClickListener() {
+        top3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 QuickstartFragment quickstartFragment = new QuickstartFragment();
