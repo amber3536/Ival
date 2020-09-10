@@ -24,8 +24,6 @@ public class PositionFragment extends Fragment {
     Button center4;
     Button right_center1;
     Button left_center1;
-    Button left_center4;
-    Button right_center4;
     Button left_center3;
     Button right_center3;
     Button far_left_center2;
