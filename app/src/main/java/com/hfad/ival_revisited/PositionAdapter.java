@@ -45,10 +45,13 @@ public class PositionAdapter extends RecyclerView.Adapter<PositionAdapter.ViewHo
         Position positions = mPositions.get(position);
         TextView tv = holder.positionTV;
         TextView tv2 = holder.percentTV;
+        TextView tv3 = holder.missedMadeTV;
         tv.setText(positions.getPosition());
         Log.i("positions", "onBindViewHolder: " + positions.getPercentage());
         String str = context.getResources().getString(R.string.accuracy_txt, positions.getPercentage());
         tv2.setText(str);
+        String str2 = context.getResources().getString(R.string.stats_missed_made, positions.getMade(), positions.getMissed());
+        tv3.setText(str2);
 
     }
 
@@ -63,6 +66,7 @@ public class PositionAdapter extends RecyclerView.Adapter<PositionAdapter.ViewHo
         // for any view that will be set as you render a row
         public TextView positionTV;
         public TextView percentTV;
+        public TextView missedMadeTV;
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
@@ -73,6 +77,7 @@ public class PositionAdapter extends RecyclerView.Adapter<PositionAdapter.ViewHo
 
             positionTV = (TextView) itemView.findViewById(R.id.stats_position);
             percentTV = itemView.findViewById(R.id.stats_percentage);
+            missedMadeTV = itemView.findViewById(R.id.missed_made_TV);
 
         }
     }

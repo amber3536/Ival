@@ -38,7 +38,7 @@ public class StatsFragment extends Fragment {
             makeCount[i] = ((QuickstartActivity)getActivity()).getMakeCount();
             missCount[i] = ((QuickstartActivity)getActivity()).getMissCount();
         }
-        positions = Position.createContactsList(positionNames, positionAccuracy);
+        positions = Position.createContactsList(positionNames, positionAccuracy, makeCount, missCount);
 
         PositionAdapter adapter = new PositionAdapter(positions);
         rv.setAdapter(adapter);
