@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.apache.commons.lang3.StringUtils;
+import org.threeten.bp.LocalDateTime;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -403,6 +404,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         SharedPreferences sharedPreferences = getSharedPreferences(positionName, MODE_PRIVATE);
         positionMakeCount = sharedPreferences.getInt("pos_make_num", 0);
         Log.i("saved", "savePosition: " + positionMakeCount + " " + makeOutput.getText().toString());
+        Log.i("saved", "savePosition: " + LocalDateTime.now());
         int num = parseInt(makeOutput.getText().toString()) - positionMakePrev;
         positionMakeCount += num;
         positionMissCount = sharedPreferences.getInt("pos_miss_num", 0);

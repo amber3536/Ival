@@ -6,10 +6,11 @@ android {
 
     defaultConfig {
         applicationId "com.hfad.ival_revisited"
-        minSdkVersion 26
+        minSdkVersion 17
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -27,6 +28,12 @@ android {
 
     }
 
+    allprojects {
+        repositories {
+            maven { url 'https://jitpack.io' }
+        }
+    }
+
 }
 
 dependencies {
@@ -40,4 +47,6 @@ dependencies {
     implementation 'com.google.cloud:google-cloud-speech:1.23.0'
     implementation 'com.google.cloud:google-cloud-storage:1.111.0'
     implementation 'com.google.android.material:material:1.2.0'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.android.support:multidex:1.0.3'
 }
