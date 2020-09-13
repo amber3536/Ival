@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,8 @@ public class PositionAdapter extends RecyclerView.Adapter<PositionAdapter.ViewHo
 
         // Return a new holder instance
         ViewHolder viewHolder = new ViewHolder(contactView);
+        
+        
         return viewHolder;
     }
 
@@ -43,15 +46,23 @@ public class PositionAdapter extends RecyclerView.Adapter<PositionAdapter.ViewHo
  //       TextView textView = holder.nameTextView;
 //        textView.setText(contact.getName());
         Position positions = mPositions.get(position);
-        TextView tv = holder.positionTV;
+        final Button positionBtn = holder.positionTV;
         TextView tv2 = holder.percentTV;
         TextView tv3 = holder.missedMadeTV;
-        tv.setText(positions.getPosition());
+        positionBtn.setText(positions.getPosition());
         Log.i("positions", "onBindViewHolder: " + positions.getPercentage());
         String str = context.getResources().getString(R.string.accuracy_txt, positions.getPercentage());
         tv2.setText(str);
         String str2 = context.getResources().getString(R.string.stats_missed_made, positions.getMade(), positions.getMissed());
         tv3.setText(str2);
+        
+        positionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((QuickstartActivity)context).loadFragment(new StatsDetailFragment());
+                //((QuickstartActivity)getActivity()).loadFragment(new StatsDetailFragment());
+            }
+        });
 
     }
 
@@ -64,7 +75,7 @@ public class PositionAdapter extends RecyclerView.Adapter<PositionAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
-        public TextView positionTV;
+        public Button positionTV;
         public TextView percentTV;
         public TextView missedMadeTV;
 
@@ -75,7 +86,7 @@ public class PositionAdapter extends RecyclerView.Adapter<PositionAdapter.ViewHo
             // to access the context from any ViewHolder instance.
             super(itemView);
 
-            positionTV = (TextView) itemView.findViewById(R.id.stats_position);
+            positionTV = itemView.findViewById(R.id.stats_position);
             percentTV = itemView.findViewById(R.id.stats_percentage);
             missedMadeTV = itemView.findViewById(R.id.missed_made_TV);
 

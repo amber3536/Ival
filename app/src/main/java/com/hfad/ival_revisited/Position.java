@@ -33,6 +33,7 @@ public class Position {
 
     public int getMissed() { return missed; }
 
+
     private static int lastContactId = 0;
 
     public static ArrayList<Position> createContactsList(String names[], int percent[], int md[], int msd[]) {

@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StatsDetailActivity"></activity>
+        <activity android:name=".StatsDetailFragment"></activity>
         <activity android:name=".QuickstartActivity" />
         <activity android:name=".HomeActivity">
             <intent-filter>

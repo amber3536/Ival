@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StatsDetailActivity"
+    tools:context=".StatsDetailFragment"
     android:orientation="vertical"
+    android:background="@color/lilac"
     android:padding="30dp">
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
