@@ -38,7 +38,7 @@ public class PositionAdapter extends RecyclerView.Adapter<PositionAdapter.ViewHo
 
     // Involves populating data into the item through holder
     @Override
-    public void onBindViewHolder(PositionAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(PositionAdapter.ViewHolder holder, final int position) {
         // Get the data model based on position
 //        Contact contact = mContacts.get(position);
 //
@@ -59,6 +59,8 @@ public class PositionAdapter extends RecyclerView.Adapter<PositionAdapter.ViewHo
         positionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Position positions = mPositions.get(position);
+                Log.i("idk", "onClick: " + positions.getPosition());
                 ((QuickstartActivity)context).loadFragment(new StatsDetailFragment());
                 //((QuickstartActivity)getActivity()).loadFragment(new StatsDetailFragment());
             }

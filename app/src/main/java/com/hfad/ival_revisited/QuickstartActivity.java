@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,11 +32,14 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.apache.commons.lang3.StringUtils;
+import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import static java.lang.Integer.parseInt;
 
@@ -72,6 +76,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
     private long startTime;
     private Handler stopWatchHandler;
     private TextView timer;
+    private DBHelper mydb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +94,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         timer = (TextView) findViewById(R.id.simpleTimer);
         displayPercentage();
         stopWatchHandler = new Handler();
+        mydb = new DBHelper(this);
 
         speech = SpeechRecognizer.createSpeechRecognizer(this);
         Log.i("speech", "onCreate: " + SpeechRecognizer.isRecognitionAvailable(this));
@@ -295,7 +301,8 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         String errorMessage = getErrorText(error);
         Log.i("error", "onError: " + errorMessage);
         //makeOutput.setText(errorMessage);
-        Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
+        if (turnOn)
+            Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
         speech.startListening(recognizerIntent);
     }
 
@@ -325,7 +332,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         displayPercentage();
 
         if (quickstart_position_mode) {
-            savePosition();
+            savePosition(positionName);
             displayPositionPercentage();
         }
         speech.startListening(recognizerIntent);
@@ -384,11 +391,11 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
     public void save() {
         SharedPreferences sharedPreferences = getSharedPreferences("num_shots", MODE_PRIVATE);
         totalMakeCount = sharedPreferences.getInt("make_num", 0);
-        int num = parseInt(makeOutput.getText().toString()) - totalMakePrev;
-        totalMakeCount += num;
+        int makeNum = parseInt(makeOutput.getText().toString()) - totalMakePrev;
+        totalMakeCount += makeNum;
         totalMissCount = sharedPreferences.getInt("miss_num", 0);
-        num = parseInt(missOutput.getText().toString()) - totalMissPrev;
-        totalMissCount += num;
+        int missNum = parseInt(missOutput.getText().toString()) - totalMissPrev;
+        totalMissCount += missNum;
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("make_num", totalMakeCount);
@@ -400,20 +407,26 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         totalMissPrev = parseInt(missOutput.getText().toString());
     }
 
-    public void savePosition() {
-        SharedPreferences sharedPreferences = getSharedPreferences(positionName, MODE_PRIVATE);
+    public void savePosition(String posName) {
+        SharedPreferences sharedPreferences = getSharedPreferences(posName, MODE_PRIVATE);
         positionMakeCount = sharedPreferences.getInt("pos_make_num", 0);
         Log.i("saved", "savePosition: " + positionMakeCount + " " + makeOutput.getText().toString());
         Log.i("saved", "savePosition: " + LocalDateTime.now());
-        int num = parseInt(makeOutput.getText().toString()) - positionMakePrev;
-        positionMakeCount += num;
+
+        int madeNum = parseInt(makeOutput.getText().toString()) - positionMakePrev;
+        positionMakeCount += madeNum;
         positionMissCount = sharedPreferences.getInt("pos_miss_num", 0);
-        num = parseInt(missOutput.getText().toString()) - positionMissPrev;
-        positionMissCount += num;
+        int missedNum = parseInt(missOutput.getText().toString()) - positionMissPrev;
+        positionMissCount += missedNum;
+
+        LocalDate localDate = LocalDate.now();
+        mydb.insertContact(posName, madeNum, missedNum, localDate.getDayOfMonth(), localDate.getMonthValue(), localDate.getYear(), localDate.getDayOfYear());
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("pos_make_num", positionMakeCount);
         editor.putInt("pos_miss_num", positionMissCount);
+
+       // editor.putLong("timestamp", System.currentTimeMillis());
 
         Log.i("saved", "save pos make count: " + positionMakeCount);
         editor.apply();
