@@ -1,6 +1,7 @@
 package com.hfad.ival_revisited;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -61,8 +63,7 @@ public class PositionAdapter extends RecyclerView.Adapter<PositionAdapter.ViewHo
             public void onClick(View v) {
                 Position positions = mPositions.get(position);
                 Log.i("idk", "onClick: " + positions.getPosition());
-                ((QuickstartActivity)context).loadFragment(new StatsDetailFragment());
-                //((QuickstartActivity)getActivity()).loadFragment(new StatsDetailFragment());
+                ((QuickstartActivity)context).loadFragment(new StatsDetailFragment(), "position", positions.getPosition());
             }
         });
 

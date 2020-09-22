@@ -16,6 +16,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,15 +26,21 @@ import java.util.ArrayList;
 public class StatsDetailFragment extends Fragment {
     private View view;
     private DBHelper dbHelper;
+    private String position;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_stats_detail, container, false);
+        Log.i("statsDetail", "onCreateView: arrived");
         dbHelper = new DBHelper(view.getContext());
 
         BarChart chart = (BarChart) view.findViewById(R.id.chart);
-
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            position = bundle.getString("position", "");
+            Log.i("statsDetail", "onCreateView: " + position);
+        }
         //BarData data = new BarData(getXAxisValues(), getDataSet());
         BarData data = new BarData(getDataSet());
         chart.setData(data);
@@ -48,6 +55,24 @@ public class StatsDetailFragment extends Fragment {
         ArrayList dataSets = null;
 
         ArrayList valueSet1 = new ArrayList();
+
+        ArrayList<Integer> list = dbHelper.shotsMadeWithinLastWeek(position);
+        Log.i("statsDetail", "getDataSet: " + list);
+
+      BarEntry dayZero = new BarEntry(0, list.get(0));
+      valueSet1.add(dayZero);
+      BarEntry dayOne = new BarEntry(1, list.get(1));
+      valueSet1.add(dayOne);
+      BarEntry dayTwo = new BarEntry(2, list.get(2));
+      valueSet1.add(dayTwo);
+      BarEntry dayThree = new BarEntry(3, list.get(3));
+      valueSet1.add(dayThree);
+      BarEntry dayFour = new BarEntry(4, list.get(4));
+      valueSet1.add(dayFour);
+      BarEntry dayFive = new BarEntry(5, list.get(5));
+      valueSet1.add(dayFive);
+      BarEntry daySix = new BarEntry(6, list.get(6));
+      valueSet1.add(daySix);
 
        // dbHelper.
 //        BarEntry v1e1 = new BarEntry(110.000f, 0); // Jan
@@ -77,7 +102,7 @@ public class StatsDetailFragment extends Fragment {
 //        BarEntry v2e6 = new BarEntry(80.000f, 5); // Jun
 //        valueSet2.add(v2e6);
 
-        BarDataSet barDataSet1 = new BarDataSet(valueSet1, "Brand 1");
+        BarDataSet barDataSet1 = new BarDataSet(valueSet1, "Past week");
         barDataSet1.setColors(ColorTemplate.JOYFUL_COLORS);
         //barDataSet1.setBarBorderWidth(30);
         //BarDataSet barDataSet2 = new BarDataSet(valueSet2, "Brand 2");

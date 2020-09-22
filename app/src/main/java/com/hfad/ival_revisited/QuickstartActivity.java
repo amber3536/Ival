@@ -484,6 +484,19 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayout, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    public void loadFragment(Fragment fragment, String key, String message) {
+        FragmentManager fm = getSupportFragmentManager();
+        Bundle result = new Bundle();
+        result.putString(key, message);
+        fragment.setArguments(result);
+
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout, fragment);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 

@@ -35,7 +35,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // TODO Auto-generated method stub
         db.execSQL(
                 "create table scores " +
-                        "(position string primary key, made integer,missed integer,day integer,month integer,year integer,day_of_year integer)"
+                        "(id integer primary key,position text,made integer,missed integer,day integer,month integer,year integer,day_of_year integer)"
         );
     }
 
@@ -51,7 +51,7 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
 
         contentValues.put("position", position);
-        contentValues.put("phone", made);
+        contentValues.put("made", made);
         contentValues.put("missed", missed);
         contentValues.put("day", day);
         contentValues.put("month", month);
@@ -61,7 +61,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public ArrayList<Integer> shotsMadeWithinLastWeek(String position) {
+    public ArrayList<Integer> shotsMadeWithinLastWeek(String myPosition) {
         ArrayList<Integer> arrayList = new ArrayList<Integer>();
         SQLiteDatabase db = this.getReadableDatabase();
         // int month1 = LocalDate.now().getMonthValue();
@@ -73,13 +73,15 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         Log.i(TAG, "shotsMadeWithinLastWeek: " + day0 + " " + day1);
 
-        Cursor res =  db.rawQuery("SELECT *,SUM(phone) as sumPhone FROM scores WHERE position = '" + position + "' AND WHERE day_of_year BETWEEN '" + day0  + "' AND '" + day1 + "' GROUP BY day_of_year", null );
+       Cursor res =  db.rawQuery("SELECT *,SUM(made) as sumMade FROM scores WHERE position = '" + myPosition + "' AND day_of_year BETWEEN '" + day0  + "' AND '" + day1 + "' GROUP BY day_of_year", null );
+        //
+            //   Cursor res = db.rawQuery("SELECT * FROM scores WHERE position = '" + myPosition + "'", null);
         res.moveToFirst();
 
         while(res.isAfterLast() == false){
             Log.i(TAG, "withinLastMonth: " + res);
-
-            arrayList.set(res.getInt(res.getColumnIndex("day_of_year")) - day0, res.getInt(res.getColumnIndex("sumPhone")));
+            arrayList.add(res.getInt(res.getColumnIndex("sumMade")));
+            //arrayList.set(res.getInt(res.getColumnIndex("day_of_year")) - day0, res.getInt(res.getColumnIndex("sumMade")));
             res.moveToNext();
         }
         return arrayList;
