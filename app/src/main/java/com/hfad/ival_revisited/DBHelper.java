@@ -80,8 +80,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
         while(res.isAfterLast() == false){
             Log.i(TAG, "withinLastMonth: " + res);
-            arrayList.add(res.getInt(res.getColumnIndex("sumMade")));
-            //arrayList.set(res.getInt(res.getColumnIndex("day_of_year")) - day0, res.getInt(res.getColumnIndex("sumMade")));
+            //arrayList.add(res.getInt(res.getColumnIndex("sumMade")));
+            arrayList.set(res.getInt(res.getColumnIndex("day_of_year")) - day0, res.getInt(res.getColumnIndex("sumMade")));
             res.moveToNext();
         }
         return arrayList;

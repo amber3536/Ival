@@ -11,6 +11,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 
@@ -20,6 +21,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import org.threeten.bp.LocalDate;
 
 import java.util.ArrayList;
 
@@ -44,6 +47,10 @@ public class StatsDetailFragment extends Fragment {
         //BarData data = new BarData(getXAxisValues(), getDataSet());
         BarData data = new BarData(getDataSet());
         chart.setData(data);
+        chart.getXAxis().setDrawGridLines(false);
+        chart.getAxisLeft().setDrawGridLines(false);
+        chart.getAxisRight().setDrawGridLines(false);
+        chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(getXAxisValues()));
         //chart.setDescription("My Chart");
        // chart.animateXY(2000, 2000);
         chart.invalidate();
@@ -58,6 +65,7 @@ public class StatsDetailFragment extends Fragment {
 
         ArrayList<Integer> list = dbHelper.shotsMadeWithinLastWeek(position);
         Log.i("statsDetail", "getDataSet: " + list);
+        Log.i("statsDetail", "getDataSet: " + list.get(6));
 
       BarEntry dayZero = new BarEntry(0, list.get(0));
       valueSet1.add(dayZero);
@@ -116,12 +124,33 @@ public class StatsDetailFragment extends Fragment {
 
     private ArrayList getXAxisValues() {
         ArrayList xAxis = new ArrayList();
-        xAxis.add("JAN");
-        xAxis.add("FEB");
-        xAxis.add("MAR");
-        xAxis.add("APR");
-        xAxis.add("MAY");
-        xAxis.add("JUN");
+        LocalDate localDate = LocalDate.now();
+        Log.i("statsDetail", "getXAxisValues: " + localDate.minusDays(0).getDayOfWeek());
+        for (int i = 6; i >= 0; i--) {
+           // xAxis.add(localDate.minusDays(i).getDayOfWeek());
+            String day = localDate.minusDays(i).getDayOfWeek().toString();
+
+            if (day.equals("MONDAY"))
+                xAxis.add("MON");
+            else if (day.equals("TUESDAY"))
+                xAxis.add("TUES");
+            else if (day.equals("WEDNESDAY"))
+                xAxis.add("WED");
+            else if (day.equals("THURSDAY"))
+                xAxis.add("THUR");
+            else if (day.equals("FRIDAY"))
+                xAxis.add("FRI");
+            else if (day.equals("SATURDAY"))
+                xAxis.add("SAT");
+            else
+                xAxis.add("SUN");
+        }
+//        xAxis.add("JAN");
+//        xAxis.add("FEB");
+//        xAxis.add("MAR");
+//        xAxis.add("APR");
+//        xAxis.add("MAY");
+//        xAxis.add("JUN");
         return xAxis;
     }
 }

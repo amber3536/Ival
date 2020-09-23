@@ -15,6 +15,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.media.AudioManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -503,6 +504,8 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
     public void setPositionName(String pos) {
         positionName = pos;
     }
+
+
 }
 
 
