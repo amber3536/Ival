@@ -302,8 +302,8 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         String errorMessage = getErrorText(error);
         Log.i("error", "onError: " + errorMessage);
         //makeOutput.setText(errorMessage);
-        if (turnOn)
-            Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
+//        if (turnOn)
+//            Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
         speech.startListening(recognizerIntent);
     }
 
