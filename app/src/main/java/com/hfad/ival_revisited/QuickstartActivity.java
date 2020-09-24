@@ -152,6 +152,10 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
             public void onClick(View v) {
 
                 if (!turnOn) {
+                    if (!activated) {
+                        ActivityCompat.requestPermissions(QuickstartActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_RECORD_PERMISSION);
+                        activated = true;
+                    }
                     timer.setText(R.string.timer_txt);
                     makeOutput.setText("0");
                     missOutput.setText("0");
@@ -159,10 +163,6 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
                     stopWatchHandler.postDelayed(updateTimerThread, 0);
                     btnSwitch.setText(R.string.stop_txt);
                     turnOn = true;
-                    if (!activated) {
-                        ActivityCompat.requestPermissions(QuickstartActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_RECORD_PERMISSION);
-                        activated = true;
-                    }
                 }
                 else {
                     stopWatchHandler.removeCallbacks(updateTimerThread);
@@ -327,14 +327,16 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         Log.i("results", "onResults: " + text + "make: " + makeCount);
         Log.i("results", "onResults: " + text + "miss: " + missCount);
 
-        makeOutput.setText(String.valueOf(makeCount));
-        missOutput.setText(String.valueOf(missCount));
-        save();
-        displayPercentage();
+        if (turnOn) {
+            makeOutput.setText(String.valueOf(makeCount));
+            missOutput.setText(String.valueOf(missCount));
+            save();
+            displayPercentage();
 
-        if (quickstart_position_mode) {
-            savePosition(positionName);
-            displayPositionPercentage();
+            if (quickstart_position_mode) {
+                savePosition(positionName);
+                displayPositionPercentage();
+            }
         }
         speech.startListening(recognizerIntent);
     }

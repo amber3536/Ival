@@ -21,7 +21,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        android:backgroundTint="@color/powderBlue"
+        android:background="?android:attr/selectableItemBackground"/>
 
     <TextView
         android:id="@+id/stats_percentage"
@@ -37,7 +39,7 @@
         android:id="@+id/missed_made_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="20dp"
+        android:paddingStart="40dp"
         android:paddingEnd="10dp"/>
 
 </LinearLayout>
