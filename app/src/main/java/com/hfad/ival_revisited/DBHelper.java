@@ -87,6 +87,32 @@ public class DBHelper extends SQLiteOpenHelper {
         return arrayList;
     }
 
+    public ArrayList<Integer> shotsMissedWithinLastWeek(String myPosition) {
+        ArrayList<Integer> arrayList = new ArrayList<Integer>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        // int month1 = LocalDate.now().getMonthValue();
+        int day1 = LocalDate.now().getDayOfYear();
+        int day0 = day1 - 6;
+        // Log.i(TAG, "shotsMadeWithinLastMonth: " + month1);
+        for (int i = 0; i < 7; i++) {
+            arrayList.add(0);
+        }
+        Log.i(TAG, "shotsMadeWithinLastWeek: " + day0 + " " + day1);
+
+        Cursor res =  db.rawQuery("SELECT *,SUM(missed) as sumMissed FROM scores WHERE position = '" + myPosition + "' AND day_of_year BETWEEN '" + day0  + "' AND '" + day1 + "' GROUP BY day_of_year", null );
+        //
+        //   Cursor res = db.rawQuery("SELECT * FROM scores WHERE position = '" + myPosition + "'", null);
+        res.moveToFirst();
+
+        while(res.isAfterLast() == false){
+            Log.i(TAG, "withinLastMonth: " + res);
+            //arrayList.add(res.getInt(res.getColumnIndex("sumMade")));
+            arrayList.set(res.getInt(res.getColumnIndex("day_of_year")) - day0, res.getInt(res.getColumnIndex("sumMissed")));
+            res.moveToNext();
+        }
+        return arrayList;
+    }
+
     public ArrayList<Integer> shotsMadeWithinLastMonth() {
         ArrayList<Integer> arrayList = new ArrayList<Integer>();
         SQLiteDatabase db = this.getReadableDatabase();

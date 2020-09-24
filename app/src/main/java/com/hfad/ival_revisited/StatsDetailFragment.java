@@ -63,7 +63,18 @@ public class StatsDetailFragment extends Fragment {
 
         ArrayList valueSet1 = new ArrayList();
 
-        ArrayList<Integer> list = dbHelper.shotsMadeWithinLastWeek(position);
+        ArrayList<Integer> madeList = dbHelper.shotsMadeWithinLastWeek(position);
+        ArrayList<Integer> missedList = dbHelper.shotsMissedWithinLastWeek(position);
+        ArrayList<Float> list = new ArrayList<>();
+
+        for (int i = 0; i < madeList.size(); i++) {
+            if (madeList.get(i) > 0)
+                list.add(((float) madeList.get(i)/(madeList.get(i)+missedList.get(i))));
+            else
+                list.add(0f);
+        }
+
+        //ArrayList<Integer> list = dbHelper.shotsMadeWithinLastWeek(position);
         Log.i("statsDetail", "getDataSet: " + list);
         Log.i("statsDetail", "getDataSet: " + list.get(6));
 
