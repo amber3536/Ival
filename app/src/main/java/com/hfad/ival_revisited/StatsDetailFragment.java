@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -51,6 +52,11 @@ public class StatsDetailFragment extends Fragment {
         chart.getAxisLeft().setDrawGridLines(false);
         chart.getAxisRight().setDrawGridLines(false);
         chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(getXAxisValues()));
+        Description description = new Description();
+        description.setText("");
+        chart.setDescription(description);
+        chart.getLegend().setEnabled(false);
+        //chart.setDescription("");
         //chart.setDescription("My Chart");
        // chart.animateXY(2000, 2000);
         chart.invalidate();
@@ -122,6 +128,7 @@ public class StatsDetailFragment extends Fragment {
 //        valueSet2.add(v2e6);
 
         BarDataSet barDataSet1 = new BarDataSet(valueSet1, "Past week");
+        barDataSet1.setDrawValues(false);
         barDataSet1.setColors(ColorTemplate.JOYFUL_COLORS);
         //barDataSet1.setBarBorderWidth(30);
         //BarDataSet barDataSet2 = new BarDataSet(valueSet2, "Brand 2");
