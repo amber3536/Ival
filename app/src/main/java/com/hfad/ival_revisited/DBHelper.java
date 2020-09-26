@@ -113,6 +113,33 @@ public class DBHelper extends SQLiteOpenHelper {
         return arrayList;
     }
 
+    public int totalShotsMade(String myPosition) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int num = 0;
+       // Cursor res =  db.rawQuery("SELECT *,SUM(made) as totalMade FROM scores", null);
+        Cursor res =  db.rawQuery("SELECT SUM(made) as totalMade FROM scores WHERE position = '" + myPosition + "'", null );
+        res.moveToFirst();
+
+        while (res.isAfterLast() == false) {
+            Log.i(TAG, "totalShotsMade: " + res.getInt(res.getColumnIndex("totalMade")));
+            num = res.getInt(res.getColumnIndex("totalMade"));
+            res.moveToNext();
+        }
+        //num = res.getInt(res.getColumnIndex("sumMade"));
+        return num;
+    }
+
+    public int totalShotsMissed(String myPosition) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int num = 0;
+        Cursor res =  db.rawQuery("SELECT SUM(missed) as sumMissed FROM scores WHERE position = '" + myPosition + "'", null );
+        res.moveToFirst();
+        num = res.getInt(res.getColumnIndex("sumMissed"));
+        Log.i(TAG, "totalShotsMissed: " + res);
+        //num = res.getInt(res.getColumnIndex("sumMissed"));
+        return num;
+    }
+
     public ArrayList<Integer> shotsMadeWithinLastMonth() {
         ArrayList<Integer> arrayList = new ArrayList<Integer>();
         SQLiteDatabase db = this.getReadableDatabase();

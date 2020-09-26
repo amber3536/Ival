@@ -17,6 +17,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -53,7 +54,15 @@ public class StatsDetailFragment extends Fragment {
         chart.getAxisRight().setDrawGridLines(false);
         chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(getXAxisValues()));
         Description description = new Description();
-        description.setText("");
+        int totalMade = dbHelper.totalShotsMade(position);
+        int totalMissed = dbHelper.totalShotsMissed(position);
+        String str = getContext().getResources().getString(R.string.stats_detail_total_made, totalMade, totalMade + totalMissed);
+        description.setText(str);
+        //description.setText("Total Shots Made");
+        description.setTextSize(15f);
+        Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "permanent_marker_reg.ttf");
+        description.setTypeface(tf);
+        //description.setTypeface();
         chart.setDescription(description);
         chart.getLegend().setEnabled(false);
         //chart.setDescription("");
