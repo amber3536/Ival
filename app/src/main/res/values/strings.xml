@@ -16,4 +16,7 @@
     <string name="you_have_selected">Position: %1$s</string>
     <string name="stats_missed_made">Made: %1$d  Missed: %2$d</string>
     <string name="stats_detail_total_made">Total shots made: %1$d / %2$d</string>
+    <string name="w">W</string>
+    <string name="m">M</string>
+    <string name="y">Y</string>
 </resources>

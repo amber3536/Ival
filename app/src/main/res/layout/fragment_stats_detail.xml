@@ -11,7 +11,46 @@
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
 
+    </com.github.mikephil.charting.charts.BarChart>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="30dp"
+        style="?android:attr/buttonBarStyle"
+        android:showDividers="middle"
+        android:divider="?android:listDivider"
+        >
+    <Button
+        android:id="@+id/stats_week_btn"
+        android:layout_width="0dp"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_height="wrap_content"
+       android:layout_weight="1"
+        android:text="@string/w"
+        android:textColor="@color/purple"/>
+
+        <Button
+            android:id="@+id/stats_month_btn"
+            android:layout_width="0dp"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/m"
+            android:textColor="@color/purple" />
+
+        <Button
+            android:id="@+id/stats_year_btn"
+            android:layout_width="0dp"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/y"
+            android:textColor="@color/purple" />
+    </LinearLayout>
 </LinearLayout>
