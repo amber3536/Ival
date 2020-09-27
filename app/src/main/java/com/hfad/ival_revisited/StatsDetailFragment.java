@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import org.threeten.bp.LocalDate;
 
@@ -32,6 +33,11 @@ public class StatsDetailFragment extends Fragment {
     private View view;
     private DBHelper dbHelper;
     private String position;
+    private Button monthBtn;
+    private Description description;
+    private BarChart chart;
+    private BarData data;
+    private ArrayList dataSets;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,20 +46,23 @@ public class StatsDetailFragment extends Fragment {
         Log.i("statsDetail", "onCreateView: arrived");
         dbHelper = new DBHelper(view.getContext());
 
-        BarChart chart = (BarChart) view.findViewById(R.id.chart);
+        chart = (BarChart) view.findViewById(R.id.chart);
+        monthBtn = view.findViewById(R.id.stats_month_btn);
+
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             position = bundle.getString("position", "");
             Log.i("statsDetail", "onCreateView: " + position);
         }
         //BarData data = new BarData(getXAxisValues(), getDataSet());
-        BarData data = new BarData(getDataSet());
+        dataSets = new ArrayList();
+        data = new BarData(getWeekDataSet());
         chart.setData(data);
         chart.getXAxis().setDrawGridLines(false);
         chart.getAxisLeft().setDrawGridLines(false);
         chart.getAxisRight().setDrawGridLines(false);
         chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(getXAxisValues()));
-        Description description = new Description();
+        description = new Description();
         int totalMade = dbHelper.totalShotsMade(position);
         int totalMissed = dbHelper.totalShotsMissed(position);
         String str = getContext().getResources().getString(R.string.stats_detail_total_made, totalMade, totalMade + totalMissed);
@@ -70,11 +79,20 @@ public class StatsDetailFragment extends Fragment {
        // chart.animateXY(2000, 2000);
         chart.invalidate();
 
+        monthBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BarData data1 = new BarData(getMonthDataSet());
+                chart.setData(data1);
+                chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(getXAxisValues2()));
+                chart.invalidate();
+            }
+        });
+
         return view;
     }
 
-    private ArrayList getDataSet() {
-        ArrayList dataSets = null;
+    private ArrayList getWeekDataSet() {
 
         ArrayList valueSet1 = new ArrayList();
 
@@ -143,9 +161,39 @@ public class StatsDetailFragment extends Fragment {
         //BarDataSet barDataSet2 = new BarDataSet(valueSet2, "Brand 2");
         //barDataSet2.setColors(ColorTemplate.COLORFUL_COLORS);
 
-        dataSets = new ArrayList();
         dataSets.add(barDataSet1);
         //dataSets.add(barDataSet2);
+        return dataSets;
+    }
+
+    private ArrayList getMonthDataSet() {
+
+        ArrayList valueSet1 = new ArrayList();
+
+        ArrayList<Integer> madeList = dbHelper.shotsMadeWithinLastMonth(position);
+        ArrayList<Integer> missedList = dbHelper.shotsMissedWithinLastMonth(position);
+        ArrayList<Float> list = new ArrayList<>();
+
+        for (int i = 0; i < madeList.size(); i++) {
+            if (madeList.get(i) > 0)
+                list.add(((float) madeList.get(i)/(madeList.get(i)+missedList.get(i))));
+            else
+                list.add(0f);
+        }
+
+        Log.i("statsDetail", "getDataSet: " + list);
+        Log.i("statsDetail", "getDataSet: " + list.get(6));
+
+        for (int i = 0; i < list.size(); i++) {
+            BarEntry barEntry = new BarEntry(i, list.get(i));
+            valueSet1.add(barEntry);
+        }
+
+        BarDataSet barDataSet1 = new BarDataSet(valueSet1, "Past month");
+        barDataSet1.setDrawValues(false);
+        barDataSet1.setColors(ColorTemplate.JOYFUL_COLORS);
+
+        dataSets.add(barDataSet1);
         return dataSets;
     }
 
@@ -172,12 +220,20 @@ public class StatsDetailFragment extends Fragment {
             else
                 xAxis.add("SUN");
         }
-//        xAxis.add("JAN");
-//        xAxis.add("FEB");
-//        xAxis.add("MAR");
-//        xAxis.add("APR");
-//        xAxis.add("MAY");
-//        xAxis.add("JUN");
+        return xAxis;
+    }
+
+    private ArrayList getXAxisValues2() {
+        ArrayList xAxis = new ArrayList();
+        LocalDate localDate = LocalDate.now();
+        int currDay = localDate.getDayOfMonth();
+
+        Log.i("statsDetail", "getXAxisValues: " + localDate.minusDays(0).getDayOfWeek());
+        for (int i = currDay-1; i >= 0; i--) {
+            // xAxis.add(localDate.minusDays(i).getDayOfWeek());
+           // String day = localDate.minusDays(i).getDayOfWeek().toString();
+            xAxis.add(Integer.toString(i+1));
+        }
         return xAxis;
     }
 }

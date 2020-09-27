@@ -120,11 +120,9 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor res =  db.rawQuery("SELECT SUM(made) as totalMade FROM scores WHERE position = '" + myPosition + "'", null );
         res.moveToFirst();
 
-        while (res.isAfterLast() == false) {
-            Log.i(TAG, "totalShotsMade: " + res.getInt(res.getColumnIndex("totalMade")));
-            num = res.getInt(res.getColumnIndex("totalMade"));
-            res.moveToNext();
-        }
+        Log.i(TAG, "totalShotsMade: " + res.getInt(res.getColumnIndex("totalMade")));
+        num = res.getInt(res.getColumnIndex("totalMade"));
+
         //num = res.getInt(res.getColumnIndex("sumMade"));
         return num;
     }
@@ -140,7 +138,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return num;
     }
 
-    public ArrayList<Integer> shotsMadeWithinLastMonth() {
+    public ArrayList<Integer> shotsMadeWithinLastMonth(String myPosition) {
         ArrayList<Integer> arrayList = new ArrayList<Integer>();
         SQLiteDatabase db = this.getReadableDatabase();
         int month1 = LocalDate.now().getMonthValue();
@@ -150,13 +148,35 @@ public class DBHelper extends SQLiteOpenHelper {
             arrayList.add(0);
         }
 
-        Cursor res =  db.rawQuery("SELECT *,SUM(phone) as sumPhone FROM scores WHERE month = '" + month1  + "' GROUP BY day", null );
+        Cursor res =  db.rawQuery("SELECT *,SUM(made) as sumMade FROM scores WHERE position = '\" + myPosition + \"' AND month = '" + month1  + "' GROUP BY day", null );
         res.moveToFirst();
 
         while(res.isAfterLast() == false){
             Log.i(TAG, "withinLastMonth: " + res);
 
-            arrayList.set(res.getInt(res.getColumnIndex("day"))-1, res.getInt(res.getColumnIndex("sumPhone")));
+            arrayList.set(res.getInt(res.getColumnIndex("day"))-1, res.getInt(res.getColumnIndex("sumMade")));
+            res.moveToNext();
+        }
+        return arrayList;
+    }
+
+    public ArrayList<Integer> shotsMissedWithinLastMonth(String myPosition) {
+        ArrayList<Integer> arrayList = new ArrayList<Integer>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        int month1 = LocalDate.now().getMonthValue();
+        int day1 = LocalDate.now().getDayOfMonth();
+        Log.i(TAG, "shotsMissedWithinLastMonth: " + month1);
+        for (int i = 0; i < day1; i++) {
+            arrayList.add(0);
+        }
+
+        Cursor res =  db.rawQuery("SELECT *,SUM(missed) as sumMissed FROM scores WHERE position = '\" + myPosition + \"' AND month = '" + month1  + "' GROUP BY day", null );
+        res.moveToFirst();
+
+        while(res.isAfterLast() == false){
+            Log.i(TAG, "withinLastMonth: " + res);
+
+            arrayList.set(res.getInt(res.getColumnIndex("day"))-1, res.getInt(res.getColumnIndex("sumMissed")));
             res.moveToNext();
         }
         return arrayList;
