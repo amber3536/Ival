@@ -63,7 +63,9 @@ public class StatsDetailFragment extends Fragment {
         chart.getAxisRight().setDrawGridLines(false);
         chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(getXAxisValues()));
         description = new Description();
-        int totalMade = dbHelper.totalShotsMade(position);
+
+        int day = LocalDate.now().getDayOfYear();
+        int totalMade = dbHelper.totalShotsMade(position, day-6, day);
         int totalMissed = dbHelper.totalShotsMissed(position);
         String str = getContext().getResources().getString(R.string.stats_detail_total_made, totalMade, totalMade + totalMissed);
         description.setText(str);
@@ -82,6 +84,11 @@ public class StatsDetailFragment extends Fragment {
         monthBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //removeDataSet(data);
+                chart.clearValues();
+                //chart.setData(null);
+                chart.notifyDataSetChanged();
+                chart.invalidate();
                 BarData data1 = new BarData(getMonthDataSet());
                 chart.setData(data1);
                 chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(getXAxisValues2()));
@@ -229,11 +236,13 @@ public class StatsDetailFragment extends Fragment {
         int currDay = localDate.getDayOfMonth();
 
         Log.i("statsDetail", "getXAxisValues: " + localDate.minusDays(0).getDayOfWeek());
-        for (int i = currDay-1; i >= 0; i--) {
+        for (int i = 1; i <= currDay; i++) {
             // xAxis.add(localDate.minusDays(i).getDayOfWeek());
            // String day = localDate.minusDays(i).getDayOfWeek().toString();
-            xAxis.add(Integer.toString(i+1));
+            xAxis.add(Integer.toString(i));
         }
+
+        Log.i("statsDetail", "getXAxisValues: " + xAxis);
         return xAxis;
     }
 }

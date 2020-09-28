@@ -113,11 +113,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return arrayList;
     }
 
-    public int totalShotsMade(String myPosition) {
+    public int totalShotsMade(String myPosition, int start, int end) {
         SQLiteDatabase db = this.getReadableDatabase();
         int num = 0;
        // Cursor res =  db.rawQuery("SELECT *,SUM(made) as totalMade FROM scores", null);
-        Cursor res =  db.rawQuery("SELECT SUM(made) as totalMade FROM scores WHERE position = '" + myPosition + "'", null );
+        Cursor res =  db.rawQuery("SELECT SUM(made) as totalMade FROM scores WHERE position = '" + myPosition + "' AND day_of_year BETWEEN '" + start  + "' AND '" + end + "'", null );
         res.moveToFirst();
 
         Log.i(TAG, "totalShotsMade: " + res.getInt(res.getColumnIndex("totalMade")));
@@ -148,7 +148,7 @@ public class DBHelper extends SQLiteOpenHelper {
             arrayList.add(0);
         }
 
-        Cursor res =  db.rawQuery("SELECT *,SUM(made) as sumMade FROM scores WHERE position = '\" + myPosition + \"' AND month = '" + month1  + "' GROUP BY day", null );
+        Cursor res =  db.rawQuery("SELECT *,SUM(made) as sumMade FROM scores WHERE position = '" + myPosition + "' AND month = '" + month1  + "' GROUP BY day", null );
         res.moveToFirst();
 
         while(res.isAfterLast() == false){
@@ -157,6 +157,8 @@ public class DBHelper extends SQLiteOpenHelper {
             arrayList.set(res.getInt(res.getColumnIndex("day"))-1, res.getInt(res.getColumnIndex("sumMade")));
             res.moveToNext();
         }
+
+        Log.i(TAG, "shotsMadeWithinLastMonth: " + arrayList);
         return arrayList;
     }
 
@@ -170,7 +172,7 @@ public class DBHelper extends SQLiteOpenHelper {
             arrayList.add(0);
         }
 
-        Cursor res =  db.rawQuery("SELECT *,SUM(missed) as sumMissed FROM scores WHERE position = '\" + myPosition + \"' AND month = '" + month1  + "' GROUP BY day", null );
+        Cursor res =  db.rawQuery("SELECT *,SUM(missed) as sumMissed FROM scores WHERE position = '" + myPosition + "' AND month = '" + month1  + "' GROUP BY day", null );
         res.moveToFirst();
 
         while(res.isAfterLast() == false){
