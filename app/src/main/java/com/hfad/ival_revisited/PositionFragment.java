@@ -329,5 +329,7 @@ public class PositionFragment extends Fragment {
         });
 
         return view;
+
     }
+
 }

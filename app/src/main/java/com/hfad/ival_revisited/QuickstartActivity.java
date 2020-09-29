@@ -1,6 +1,7 @@
 package com.hfad.ival_revisited;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -48,6 +49,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
 
     private BottomNavigationView bottomNavigationView;
     private AudioManager amanager;
+    private NotificationManager notificationManager;
     private Button btnSwitch;
     private static final int REQUEST_RECORD_PERMISSION = 100;
     SpeechRecognizer speech;
@@ -106,7 +108,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         //recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3);
 
         amanager=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
-        NotificationManager notificationManager =
+        notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         switch (getIntent().getStringExtra("EXTRA")) {
@@ -116,6 +118,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
                 loadFragment(new PositionFragment());
                 break;
             case "regularAccess":
+                standardView();
                 positionsPercentageOutput.setVisibility(View.INVISIBLE);
                 quickstart_position_mode = false;
                 break;
@@ -123,6 +126,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
                 loadFragment(new StatsFragment());
             default:
                 positionsPercentageOutput.setVisibility(View.INVISIBLE);
+                standardView();
                 break;
         }
 
@@ -134,12 +138,12 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
             Intent intent = new Intent(
                     android.provider.Settings
                             .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
-
-            startActivity(intent);
+           // startActivity(intent);
+            startActivityForResult(intent, 55);
         }
 
         Log.i("here", "onCreate: " + amanager);
-        if (amanager != null) {
+        if (amanager != null && notificationManager.isNotificationPolicyAccessGranted()) {
             Log.i("here", "onCreate: made it in");
             amanager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
         }
@@ -202,6 +206,28 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 55) {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                NotificationManager mNotificationManager = (NotificationManager) getApplication().getSystemService(Context.NOTIFICATION_SERVICE);
+                assert mNotificationManager != null;
+                if (!mNotificationManager.isNotificationPolicyAccessGranted()) {
+                    Intent intent = new Intent(
+                            android.provider.Settings
+                                    .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                    // startActivity(intent);
+                    startActivityForResult(intent, 55);
+                }
+
+
+            }
+        }
+    }
+
+
     public void positionView() {
         timer.setVisibility(View.GONE);
         btnSwitch.setEnabled(false);
@@ -224,6 +250,17 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         totalPercentageOutput.setVisibility(View.VISIBLE);
         positionsPercentageOutput.setVisibility(View.VISIBLE);
         displayPositionPercentage();
+    }
+
+    public void standardView() {
+        timer.setVisibility(View.VISIBLE);
+        btnSwitch.setEnabled(true);
+        makeText.setVisibility(View.VISIBLE);
+        missText.setVisibility(View.VISIBLE);
+        makeOutput.setVisibility(View.VISIBLE);
+        missOutput.setVisibility(View.VISIBLE);
+        totalPercentageOutput.setVisibility(View.VISIBLE);
+        positionsPercentageOutput.setVisibility(View.GONE);
     }
 
     private Runnable updateTimerThread = new Runnable() {
@@ -260,7 +297,8 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
             speech.destroy();
             Log.i("destroy", "destroy");
         }
-        amanager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_UNMUTE, 0);
+        if (amanager != null && notificationManager.isNotificationPolicyAccessGranted())
+            amanager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_UNMUTE, 0);
     }
 
     @Override
@@ -268,7 +306,8 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
 
         super.onResume();
         Log.i("resume", "onResume: ");
-        amanager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
+        if (amanager != null && notificationManager.isNotificationPolicyAccessGranted())
+            amanager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
     }
 
 
@@ -506,7 +545,28 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
     public void setPositionName(String pos) {
         positionName = pos;
     }
-
+    @Override
+    public void onBackPressed() {
+        
+//        if (getFragmentManager().getBackStackEntryCount() == 0) {
+//            this.finish();
+//        } else {
+          //  getFragmentManager().popBackStack();
+       // }
+//        switch (currentFragment) {
+//            case "FragmentOne":
+//                // your code here
+//                return;
+//            case "FragmentTwo":
+//                // your code here
+//                return;
+//            default:
+//                fragmentManager.popBackStack();
+//                // default action for any other fragment (return to previous)
+//        }
+//        super.onBackPressed();
+//        standardView();
+    }
 
 }
 
