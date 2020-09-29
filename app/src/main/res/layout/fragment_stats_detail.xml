@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="20dp"
         style="?android:attr/buttonBarStyle"
         android:showDividers="middle"
         android:divider="?android:listDivider"
@@ -53,4 +53,11 @@
             android:text="@string/y"
             android:textColor="@color/purple" />
     </LinearLayout>
+    <TextView
+        android:id="@+id/stats_detail_total_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="15sp"
+        android:fontFamily="@font/permanent_marker_reg" />
 </LinearLayout>
