@@ -115,7 +115,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
             case "positionFragment":
                 Log.i("here", "onCreate: position intent");
                 positionView();
-                loadFragment(new PositionFragment());
+                loadFragment(new PositionFragment(), "positionFragment");
                 break;
             case "regularAccess":
                 standardView();
@@ -123,7 +123,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
                 quickstart_position_mode = false;
                 break;
             case "statsFragment":
-                loadFragment(new StatsFragment());
+                loadFragment(new StatsFragment(), "statsFragment");
             default:
                 positionsPercentageOutput.setVisibility(View.INVISIBLE);
                 standardView();
@@ -188,14 +188,14 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
                         //btnSwitch.setEnabled(false);
                         //timer.setVisibility(View.GONE);
                         //positionView();
-                        loadFragment(new PositionFragment());
+                        loadFragment(new PositionFragment(), "positionFragment");
                     break;
                     case R.id.home:
                         finish();
                         break;
 
                     case R.id.stats:
-                        loadFragment(new StatsFragment());
+                        loadFragment(new StatsFragment(), "statsFragment");
                         break;
 
                 }
@@ -522,10 +522,10 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
 
 
 
-    public void loadFragment(Fragment fragment) {
+    public void loadFragment(Fragment fragment, String tag) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout, fragment);
+        fragmentTransaction.replace(R.id.frameLayout, fragment, tag);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
@@ -547,7 +547,19 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
     }
     @Override
     public void onBackPressed() {
-        
+        PositionFragment positionFragment = (PositionFragment)getSupportFragmentManager().findFragmentByTag("positionFragment");
+        StatsFragment statsFragment = (StatsFragment)getSupportFragmentManager().findFragmentByTag("statsFragment");
+
+        if (positionFragment != null && positionFragment.isVisible()) {
+            standardView();
+            super.onBackPressed();
+        }
+        else if (statsFragment != null && statsFragment.isVisible()) {
+            standardView();
+            super.onBackPressed();
+        }
+        else
+            super.onBackPressed();
 //        if (getFragmentManager().getBackStackEntryCount() == 0) {
 //            this.finish();
 //        } else {
