@@ -166,6 +166,34 @@ public class DBHelper extends SQLiteOpenHelper {
         return num;
     }
 
+    public int totalYearShotsMade(String myPosition, int currYear) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int num = 0;
+        // Cursor res =  db.rawQuery("SELECT *,SUM(made) as totalMade FROM scores", null);
+        Cursor res =  db.rawQuery("SELECT SUM(made) as totalMade FROM scores WHERE position = '" + myPosition + "' AND year = '" + currYear + "'", null );
+        res.moveToFirst();
+
+        Log.i(TAG, "totalShotsMade: " + res.getInt(res.getColumnIndex("totalMade")));
+        num = res.getInt(res.getColumnIndex("totalMade"));
+
+        //num = res.getInt(res.getColumnIndex("sumMade"));
+        return num;
+    }
+
+    public int totalYearShotsMissed(String myPosition, int currYear) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int num = 0;
+        // Cursor res =  db.rawQuery("SELECT *,SUM(made) as totalMade FROM scores", null);
+        Cursor res =  db.rawQuery("SELECT SUM(missed) as totalMissed FROM scores WHERE position = '" + myPosition + "' AND year = '" + currYear + "'", null );
+        res.moveToFirst();
+
+        Log.i(TAG, "totalShotsMade: " + res.getInt(res.getColumnIndex("totalMissed")));
+        num = res.getInt(res.getColumnIndex("totalMissed"));
+
+        //num = res.getInt(res.getColumnIndex("sumMade"));
+        return num;
+    }
+
     public ArrayList<Integer> shotsMadeWithinLastMonth(String myPosition) {
         ArrayList<Integer> arrayList = new ArrayList<Integer>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -212,7 +240,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return arrayList;
     }
 
-    public ArrayList<Integer> shotsMadeWithinLastYear() {
+    public ArrayList<Integer> shotsMadeWithinLastYear(String myPosition) {
         ArrayList<Integer> arrayList = new ArrayList<Integer>();
         SQLiteDatabase db = this.getReadableDatabase();
         int year1 = LocalDate.now().getYear();
@@ -223,13 +251,36 @@ public class DBHelper extends SQLiteOpenHelper {
             arrayList.add(0);
         }
 
-        Cursor res =  db.rawQuery("SELECT *,SUM(phone) as sumPhone FROM scores WHERE year = '" + year1  + "' GROUP BY month", null );
+        Cursor res =  db.rawQuery("SELECT *,SUM(made) as sumMade FROM scores WHERE position = '" + myPosition + "' AND year = '" + year1  + "' GROUP BY month", null );
         res.moveToFirst();
 
         while(res.isAfterLast() == false){
             Log.i(TAG, "withinLastMonth: " + res);
 
-            arrayList.set(res.getInt(res.getColumnIndex("month"))-1, res.getInt(res.getColumnIndex("sumPhone")));
+            arrayList.set(res.getInt(res.getColumnIndex("month"))-1, res.getInt(res.getColumnIndex("sumMade")));
+            res.moveToNext();
+        }
+        return arrayList;
+    }
+
+    public ArrayList<Integer> shotsMissedWithinLastYear(String myPosition) {
+        ArrayList<Integer> arrayList = new ArrayList<Integer>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        int year1 = LocalDate.now().getYear();
+        int month1 = LocalDate.now().getMonthValue();
+        Log.i(TAG, "shotsMadeWithinLastMonth: " + month1);
+
+        for (int i = 0; i < month1; i++) {
+            arrayList.add(0);
+        }
+
+        Cursor res =  db.rawQuery("SELECT *,SUM(missed) as sumMissed FROM scores WHERE position = '" + myPosition + "' AND year = '" + year1  + "' GROUP BY month", null );
+        res.moveToFirst();
+
+        while(res.isAfterLast() == false){
+            Log.i(TAG, "withinLastMonth: " + res);
+
+            arrayList.set(res.getInt(res.getColumnIndex("month"))-1, res.getInt(res.getColumnIndex("sumMissed")));
             res.moveToNext();
         }
         return arrayList;

@@ -206,6 +206,19 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
 
     }
 
+    public void clearDisplay() {
+        timer.setText(R.string.timer_txt);
+        makeOutput.setText("0");
+        missOutput.setText("0");
+        makeCount = 0;
+        missCount = 0;
+        stopWatchHandler.removeCallbacks(updateTimerThread);
+        btnSwitch.setText(R.string.start_txt);
+        positionMakePrev = 0;
+        positionMissPrev = 0;
+        turnOn = false;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

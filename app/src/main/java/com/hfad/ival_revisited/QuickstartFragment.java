@@ -30,8 +30,10 @@ public class QuickstartFragment extends Fragment {
 
         ((QuickstartActivity) getActivity()).setPositionName(position);
         ((QuickstartActivity) getActivity()).showView();
+        ((QuickstartActivity) getActivity()).clearDisplay();
         String str = getResources().getString(R.string.you_have_selected, position);
         positionTxt.setText(str);
+
 
         return view;
     }

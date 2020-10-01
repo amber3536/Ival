@@ -38,6 +38,7 @@ public class StatsDetailFragment extends Fragment {
     private String position;
     private TextView totalPercent;
     private Button monthBtn;
+    private Button yearBtn;
     private Description description;
     private BarChart chart;
     private BarData data;
@@ -52,6 +53,7 @@ public class StatsDetailFragment extends Fragment {
 
         chart = (BarChart) view.findViewById(R.id.chart);
         monthBtn = view.findViewById(R.id.stats_month_btn);
+        yearBtn = view.findViewById(R.id.stats_year_btn);
         totalPercent = view.findViewById(R.id.stats_detail_total_percent);
 
         Bundle bundle = this.getArguments();
@@ -122,6 +124,26 @@ public class StatsDetailFragment extends Fragment {
                 int totalMonthMade = dbHelper.totalMonthShotsMade(position, month);
                 int totalMonthMissed = dbHelper.totalMonthShotsMissed(position, month);
                 setTotalPercentDisplay(totalMonthMade, totalMonthMissed);
+            }
+        });
+
+        yearBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //removeDataSet(data);
+                chart.clearValues();
+                //chart.setData(null);
+                chart.notifyDataSetChanged();
+                chart.invalidate();
+                BarData data1 = new BarData(getYearDataSet());
+                chart.setData(data1);
+                chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(getXAxisValues3()));
+                chart.invalidate();
+
+                int year = LocalDate.now().getYear();
+                int totalYearMade = dbHelper.totalYearShotsMade(position, year);
+                int totalYearMissed = dbHelper.totalYearShotsMissed(position, year);
+                setTotalPercentDisplay(totalYearMade, totalYearMissed);
             }
         });
 
@@ -238,6 +260,37 @@ public class StatsDetailFragment extends Fragment {
         return dataSets;
     }
 
+    private ArrayList getYearDataSet() {
+
+        ArrayList valueSet1 = new ArrayList();
+
+        ArrayList<Integer> madeList = dbHelper.shotsMadeWithinLastYear(position);
+        ArrayList<Integer> missedList = dbHelper.shotsMissedWithinLastYear(position);
+        ArrayList<Float> list = new ArrayList<>();
+
+        for (int i = 0; i < madeList.size(); i++) {
+            if (madeList.get(i) > 0)
+                list.add(((float) madeList.get(i)/(madeList.get(i)+missedList.get(i))));
+            else
+                list.add(0f);
+        }
+
+        Log.i("statsDetail", "getDataSet: " + list);
+        Log.i("statsDetail", "getDataSet: " + list.get(6));
+
+        for (int i = 0; i < list.size(); i++) {
+            BarEntry barEntry = new BarEntry(i, list.get(i));
+            valueSet1.add(barEntry);
+        }
+
+        BarDataSet barDataSet1 = new BarDataSet(valueSet1, "Past year");
+        barDataSet1.setDrawValues(false);
+        barDataSet1.setColors(ColorTemplate.JOYFUL_COLORS);
+
+        dataSets.add(barDataSet1);
+        return dataSets;
+    }
+
     private ArrayList getXAxisValues() {
         ArrayList xAxis = new ArrayList();
         LocalDate localDate = LocalDate.now();
@@ -277,6 +330,45 @@ public class StatsDetailFragment extends Fragment {
         }
 
         Log.i("statsDetail", "getXAxisValues: " + xAxis);
+        return xAxis;
+    }
+
+    private ArrayList getXAxisValues3() {
+        ArrayList xAxis = new ArrayList();
+        LocalDate localDate = LocalDate.now();
+        Log.i("statsDetail", "getXAxisValues: " + localDate.minusDays(0).getDayOfWeek());
+        int monthNum = localDate.getMonthValue();
+
+        for (int i = monthNum-1; i >= 0; i--) {
+            // xAxis.add(localDate.minusDays(i).getDayOfWeek());
+            //String month = localDate.minusDays(i).getDayOfWeek().toString();
+            String month = localDate.minusMonths(i).getMonth().toString();
+
+            if (month.equals("JANUARY"))
+                xAxis.add("JAN");
+            else if (month.equals("FEBRUARY"))
+                xAxis.add("FEB");
+            else if (month.equals("MARCH"))
+                xAxis.add("MAR");
+            else if (month.equals("APRIL"))
+                xAxis.add("APR");
+            else if (month.equals("MAY"))
+                xAxis.add("MAY");
+            else if (month.equals("JUNE"))
+                xAxis.add("JUN");
+            else if (month.equals("JULY"))
+                xAxis.add("JUL");
+            else if (month.equals("AUGUST"))
+                xAxis.add("AUG");
+            else if (month.equals("SEPTEMBER"))
+                xAxis.add("SEP");
+            else if (month.equals("OCTOBER"))
+                xAxis.add("OCT");
+            else if (month.equals("NOVEMBER"))
+                xAxis.add("NOV");
+            else
+                xAxis.add("DEC");
+        }
         return xAxis;
     }
 }
