@@ -40,6 +40,7 @@ public class StatsDetailFragment extends Fragment {
     private TextView totalPercent;
     private Button monthBtn;
     private Button yearBtn;
+    private Button weekBtn;
     private Description description;
     private BarChart chart;
     private BarData data;
@@ -56,6 +57,7 @@ public class StatsDetailFragment extends Fragment {
         chart = (BarChart) view.findViewById(R.id.chart);
         monthBtn = view.findViewById(R.id.stats_month_btn);
         yearBtn = view.findViewById(R.id.stats_year_btn);
+        weekBtn = view.findViewById(R.id.stats_week_btn);
         totalPercent = view.findViewById(R.id.stats_detail_total_percent);
 
         Bundle bundle = this.getArguments();
@@ -80,6 +82,11 @@ public class StatsDetailFragment extends Fragment {
         yAxis.setAxisMaximum(1f);
         yAxis1.setAxisMinimum(0f);
         yAxis1.setAxisMaximum(1f);
+       // chart.setVisibleYRangeMaximum(.9f, YAxis.AxisDependency.RIGHT);
+//      yAxis.setSpaceMax(.1f);
+//        yAxis1.setSpaceMax(.1f);
+//        yAxis.setSpaceTop(1);
+//        yAxis1.setSpaceTop(1);
 
 //        DisplayMetrics ds = new DisplayMetrics();
 //        ((QuickstartActivity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(ds);
@@ -107,6 +114,17 @@ public class StatsDetailFragment extends Fragment {
        // chart.animateXY(2000, 2000);
         chart.invalidate();
 
+        weekBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chart.clearValues();
+                chart.notifyDataSetChanged();
+                chart.invalidate();
+                weekDisplay();
+                chart.invalidate();
+            }
+        });
+
         monthBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,7 +141,7 @@ public class StatsDetailFragment extends Fragment {
                 int month = LocalDate.now().getMonthValue();
                 int totalMonthMade = dbHelper.totalMonthShotsMade(position, month);
                 int totalMonthMissed = dbHelper.totalMonthShotsMissed(position, month);
-                setTotalPercentDisplay(totalMonthMade, totalMonthMissed);
+                setTotalPercentDisplay(position, totalMonthMade, totalMonthMissed);
             }
         });
 
@@ -143,15 +161,15 @@ public class StatsDetailFragment extends Fragment {
                 int year = LocalDate.now().getYear();
                 int totalYearMade = dbHelper.totalYearShotsMade(position, year);
                 int totalYearMissed = dbHelper.totalYearShotsMissed(position, year);
-                setTotalPercentDisplay(totalYearMade, totalYearMissed);
+                setTotalPercentDisplay(position, totalYearMade, totalYearMissed);
             }
         });
 
         return view;
     }
     
-    private void setTotalPercentDisplay(int totalMade, int totalMissed) {
-        String str = getContext().getResources().getString(R.string.stats_detail_total_made, totalMade, totalMade + totalMissed);
+    private void setTotalPercentDisplay(String pos, int totalMade, int totalMissed) {
+        String str = getContext().getResources().getString(R.string.stats_detail_total_made, pos, totalMade, totalMade + totalMissed);
         totalPercent.setText(str);
     }
 
@@ -163,7 +181,7 @@ public class StatsDetailFragment extends Fragment {
         int day = LocalDate.now().getDayOfYear();
         int totalMade = dbHelper.totalWeekShotsMade(position, day-6, day);
         int totalMissed = dbHelper.totalShotsMissed(position, day-6, day);
-        setTotalPercentDisplay(totalMade, totalMissed);
+        setTotalPercentDisplay(position, totalMade, totalMissed);
     }
 
     private ArrayList getWeekDataSet() {
@@ -303,7 +321,7 @@ public class StatsDetailFragment extends Fragment {
     }
 
     private ArrayList getXAxisValues() {
-        ArrayList xAxis = new ArrayList();
+        ArrayList xAxisArray = new ArrayList();
         LocalDate localDate = LocalDate.now();
         Log.i("statsDetail", "getXAxisValues: " + localDate.minusDays(0).getDayOfWeek());
         for (int i = 6; i >= 0; i--) {
@@ -311,21 +329,24 @@ public class StatsDetailFragment extends Fragment {
             String day = localDate.minusDays(i).getDayOfWeek().toString();
 
             if (day.equals("MONDAY"))
-                xAxis.add("MON");
+                xAxisArray.add("MON");
             else if (day.equals("TUESDAY"))
-                xAxis.add("TUES");
+                xAxisArray.add("TUES");
             else if (day.equals("WEDNESDAY"))
-                xAxis.add("WED");
+                xAxisArray.add("WED");
             else if (day.equals("THURSDAY"))
-                xAxis.add("THUR");
+                xAxisArray.add("THUR");
             else if (day.equals("FRIDAY"))
-                xAxis.add("FRI");
+                xAxisArray.add("FRI");
             else if (day.equals("SATURDAY"))
-                xAxis.add("SAT");
+                xAxisArray.add("SAT");
             else
-                xAxis.add("SUN");
+                xAxisArray.add("SUN");
         }
-        return xAxis;
+
+        xAxis.setLabelCount(7, false);
+
+        return xAxisArray;
     }
 
     private ArrayList getXAxisValues2() {
@@ -340,24 +361,9 @@ public class StatsDetailFragment extends Fragment {
             xAxisArray.add(Integer.toString(i));
         }
 
-
-
-//        if (currDay <= 5) {
-//            xAxis.setGranularity(1);
-//        }
-//        else if (currDay <= 10) {
-//            xAxis.setGranularity(2);
-//        }
-//        else if (currDay <= 20) {
-//            xAxis.setGranularity(3);
-//        }
-//        else
-//            xAxis.setGranularity(4);
-//
-//        xAxis.setGranularityEnabled(true);
-//
+        
         if (currDay < 5) {
-            xAxis.setLabelCount(currDay, true);
+            xAxis.setLabelCount(currDay, false);
         }
         else
             xAxis.setLabelCount(5, false);
@@ -372,6 +378,7 @@ public class StatsDetailFragment extends Fragment {
         LocalDate localDate = LocalDate.now();
         Log.i("statsDetail", "getXAxisValues: " + localDate.minusDays(0).getDayOfWeek());
         int monthNum = localDate.getMonthValue();
+        //int monthNum = 2;
 
 
         for (int i = monthNum-1; i >= 0; i--) {
