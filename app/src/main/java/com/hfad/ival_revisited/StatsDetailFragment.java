@@ -361,7 +361,7 @@ public class StatsDetailFragment extends Fragment {
             xAxisArray.add(Integer.toString(i));
         }
 
-        
+
         if (currDay < 5) {
             xAxis.setLabelCount(currDay, false);
         }
