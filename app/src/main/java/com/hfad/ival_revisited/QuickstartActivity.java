@@ -95,9 +95,9 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         totalPercentageOutput = findViewById(R.id.total_percentage);
         positionsPercentageOutput = findViewById(R.id.position_percentage);
         timer = (TextView) findViewById(R.id.simpleTimer);
-        displayPercentage();
         stopWatchHandler = new Handler();
         mydb = new DBHelper(this);
+        displayPercentage();
 
         speech = SpeechRecognizer.createSpeechRecognizer(this);
         Log.i("speech", "onCreate: " + SpeechRecognizer.isRecognitionAvailable(this));
@@ -444,55 +444,68 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
     }
 
     public void save() {
-        SharedPreferences sharedPreferences = getSharedPreferences("num_shots", MODE_PRIVATE);
-        totalMakeCount = sharedPreferences.getInt("make_num", 0);
+//        SharedPreferences sharedPreferences = getSharedPreferences("num_shots", MODE_PRIVATE);
+//        totalMakeCount = sharedPreferences.getInt("make_num", 0);
+//        int makeNum = parseInt(makeOutput.getText().toString()) - totalMakePrev;
+//        totalMakeCount += makeNum;
+//        totalMissCount = sharedPreferences.getInt("miss_num", 0);
+//        int missNum = parseInt(missOutput.getText().toString()) - totalMissPrev;
+//        totalMissCount += missNum;
+//
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putInt("make_num", totalMakeCount);
+//        editor.putInt("miss_num", totalMissCount);
+//
+//        Log.i("saved", "save make count: " + totalMakeCount);
+//        editor.apply();
+//        totalMakePrev = parseInt(makeOutput.getText().toString());
+//        totalMissPrev = parseInt(missOutput.getText().toString());
         int makeNum = parseInt(makeOutput.getText().toString()) - totalMakePrev;
-        totalMakeCount += makeNum;
-        totalMissCount = sharedPreferences.getInt("miss_num", 0);
         int missNum = parseInt(missOutput.getText().toString()) - totalMissPrev;
-        totalMissCount += missNum;
 
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("make_num", totalMakeCount);
-        editor.putInt("miss_num", totalMissCount);
+        LocalDate localDate = LocalDate.now();
+        mydb.insertContact("Total accuracy", makeNum, missNum, localDate.getDayOfMonth(), localDate.getMonthValue(), localDate.getYear(), localDate.getDayOfYear());
 
-        Log.i("saved", "save make count: " + totalMakeCount);
-        editor.apply();
         totalMakePrev = parseInt(makeOutput.getText().toString());
         totalMissPrev = parseInt(missOutput.getText().toString());
     }
 
     public void savePosition(String posName) {
-        SharedPreferences sharedPreferences = getSharedPreferences(posName, MODE_PRIVATE);
-        positionMakeCount = sharedPreferences.getInt("pos_make_num", 0);
-        Log.i("saved", "savePosition: " + positionMakeCount + " " + makeOutput.getText().toString());
-        Log.i("saved", "savePosition: " + LocalDateTime.now());
+//        SharedPreferences sharedPreferences = getSharedPreferences(posName, MODE_PRIVATE);
+//        positionMakeCount = sharedPreferences.getInt("pos_make_num", 0);
+//        Log.i("saved", "savePosition: " + positionMakeCount + " " + makeOutput.getText().toString());
+//        Log.i("saved", "savePosition: " + LocalDateTime.now());
+//
+//        int madeNum = parseInt(makeOutput.getText().toString()) - positionMakePrev;
+//        positionMakeCount += madeNum;
+//        positionMissCount = sharedPreferences.getInt("pos_miss_num", 0);
+//        int missedNum = parseInt(missOutput.getText().toString()) - positionMissPrev;
+//        positionMissCount += missedNum;
 
         int madeNum = parseInt(makeOutput.getText().toString()) - positionMakePrev;
-        positionMakeCount += madeNum;
-        positionMissCount = sharedPreferences.getInt("pos_miss_num", 0);
-        int missedNum = parseInt(missOutput.getText().toString()) - positionMissPrev;
-        positionMissCount += missedNum;
+        int missNum = parseInt(missOutput.getText().toString()) - positionMissPrev;
 
         LocalDate localDate = LocalDate.now();
-        mydb.insertContact(posName, madeNum, missedNum, localDate.getDayOfMonth(), localDate.getMonthValue(), localDate.getYear(), localDate.getDayOfYear());
+        mydb.insertContact(posName, madeNum, missNum, localDate.getDayOfMonth(), localDate.getMonthValue(), localDate.getYear(), localDate.getDayOfYear());
 
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("pos_make_num", positionMakeCount);
-        editor.putInt("pos_miss_num", positionMissCount);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putInt("pos_make_num", positionMakeCount);
+//        editor.putInt("pos_miss_num", positionMissCount);
 
        // editor.putLong("timestamp", System.currentTimeMillis());
 
-        Log.i("saved", "save pos make count: " + positionMakeCount);
-        editor.apply();
+      //  Log.i("saved", "save pos make count: " + positionMakeCount);
+//        editor.apply();
         positionMakePrev = parseInt(makeOutput.getText().toString());
         positionMissPrev = parseInt(missOutput.getText().toString());
     }
 
     public void displayPositionPercentage() {
-        SharedPreferences sharedPreferences = getSharedPreferences(positionName, MODE_PRIVATE);
-        positionMakeCount = sharedPreferences.getInt("pos_make_num", 0);
-        positionMissCount = sharedPreferences.getInt("pos_miss_num", 0);
+//        SharedPreferences sharedPreferences = getSharedPreferences(positionName, MODE_PRIVATE);
+//        positionMakeCount = sharedPreferences.getInt("pos_make_num", 0);
+//        positionMissCount = sharedPreferences.getInt("pos_miss_num", 0);
+        positionMakeCount = mydb.totalShotsMade(positionName);
+        positionMissCount = mydb.totalShotsMissed(positionName);
         Log.i("percent", "displayPositionPercentage: makeCount" + positionMakeCount);
         Log.i("percent", "displayPositionPercentage: missCount" + positionMissCount);
         float accuracyCount = (float) positionMakeCount / (positionMissCount + positionMakeCount) * 100;
@@ -502,9 +515,11 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
     }
 
     public int returnPositionAccuracy(String pos) {
-        SharedPreferences sharedPreferences = getSharedPreferences(pos, MODE_PRIVATE);
-        positionMakeCount = sharedPreferences.getInt("pos_make_num", 0);
-        positionMissCount = sharedPreferences.getInt("pos_miss_num", 0);
+//        SharedPreferences sharedPreferences = getSharedPreferences(pos, MODE_PRIVATE);
+//        positionMakeCount = sharedPreferences.getInt("pos_make_num", 0);
+//        positionMissCount = sharedPreferences.getInt("pos_miss_num", 0);
+        positionMakeCount = mydb.totalShotsMade(pos);
+        positionMissCount = mydb.totalShotsMissed(pos);
         Log.i("percent", "displayPositionPercentage: makeCount" + positionMakeCount);
         Log.i("percent", "displayPositionPercentage: missCount" + positionMissCount);
         float accuracyCount = (float) positionMakeCount / (positionMissCount + positionMakeCount) * 100;
@@ -521,9 +536,12 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
     }
 
     public void displayPercentage() {
-        SharedPreferences sharedPreferences = getSharedPreferences("num_shots", MODE_PRIVATE);
-        totalMakeCount = sharedPreferences.getInt("make_num", 0);
-        totalMissCount = sharedPreferences.getInt("miss_num", 0);
+//        SharedPreferences sharedPreferences = getSharedPreferences("num_shots", MODE_PRIVATE);
+//        totalMakeCount = sharedPreferences.getInt("make_num", 0);
+//        totalMissCount = sharedPreferences.getInt("miss_num", 0);
+
+        totalMakeCount = mydb.totalShotsMade("Total accuracy");
+        totalMissCount = mydb.totalShotsMissed("Total accuracy");
         Log.i("percent", "displayPercentage: makeCount" + totalMakeCount);
         Log.i("percent", "displayPercentage: missCount" + totalMissCount);
         float accuracyCount = (float) totalMakeCount / (totalMakeCount + totalMissCount) * 100;

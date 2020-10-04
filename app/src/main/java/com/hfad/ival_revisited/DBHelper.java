@@ -113,6 +113,33 @@ public class DBHelper extends SQLiteOpenHelper {
         return arrayList;
     }
 
+    public int totalShotsMade(String myPosition) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int num = 0;
+        // Cursor res =  db.rawQuery("SELECT *,SUM(made) as totalMade FROM scores", null);
+        Cursor res =  db.rawQuery("SELECT SUM(made) as totalMade FROM scores WHERE position = '" + myPosition + "'", null );
+        res.moveToFirst();
+
+        Log.i(TAG, "totalShotsMade: " + res.getInt(res.getColumnIndex("totalMade")));
+        num = res.getInt(res.getColumnIndex("totalMade"));
+
+        //num = res.getInt(res.getColumnIndex("sumMade"));
+        return num;
+    }
+
+    public int totalShotsMissed(String myPosition) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int num = 0;
+        // Cursor res =  db.rawQuery("SELECT *,SUM(made) as totalMade FROM scores", null);
+        Cursor res =  db.rawQuery("SELECT SUM(missed) as totalMissed FROM scores WHERE position = '" + myPosition + "'", null );
+        res.moveToFirst();
+
+        Log.i(TAG, "totalShotsMade: " + res.getInt(res.getColumnIndex("totalMissed")));
+        num = res.getInt(res.getColumnIndex("totalMissed"));
+
+        return num;
+    }
+
     public int totalWeekShotsMade(String myPosition, int start, int end) {
         SQLiteDatabase db = this.getReadableDatabase();
         int num = 0;
@@ -127,7 +154,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return num;
     }
 
-    public int totalShotsMissed(String myPosition, int start, int end) {
+    public int totalWeekShotsMissed(String myPosition, int start, int end) {
         SQLiteDatabase db = this.getReadableDatabase();
         int num = 0;
         Cursor res =  db.rawQuery("SELECT SUM(missed) as sumMissed FROM scores WHERE position = '" + myPosition + "' AND day_of_year BETWEEN '" + start  + "' AND '" + end + "'", null );

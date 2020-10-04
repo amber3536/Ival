@@ -180,7 +180,7 @@ public class StatsDetailFragment extends Fragment {
 
         int day = LocalDate.now().getDayOfYear();
         int totalMade = dbHelper.totalWeekShotsMade(position, day-6, day);
-        int totalMissed = dbHelper.totalShotsMissed(position, day-6, day);
+        int totalMissed = dbHelper.totalWeekShotsMissed(position, day-6, day);
         setTotalPercentDisplay(position, totalMade, totalMissed);
     }
 
@@ -378,7 +378,7 @@ public class StatsDetailFragment extends Fragment {
         LocalDate localDate = LocalDate.now();
         Log.i("statsDetail", "getXAxisValues: " + localDate.minusDays(0).getDayOfWeek());
         int monthNum = localDate.getMonthValue();
-        //int monthNum = 2;
+       // int monthNum = 3;
 
 
         for (int i = monthNum-1; i >= 0; i--) {
@@ -414,7 +414,7 @@ public class StatsDetailFragment extends Fragment {
 
         if (monthNum < 5) {
 
-            xAxis.setLabelCount(monthNum, true);
+            xAxis.setLabelCount(monthNum, false);
         }
         else
           xAxis.setLabelCount(5, false);

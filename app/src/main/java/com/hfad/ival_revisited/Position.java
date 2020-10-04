@@ -38,7 +38,7 @@ public class Position {
 
     public static ArrayList<Position> createContactsList(String names[], int percent[], int md[], int msd[]) {
         ArrayList<Position> contacts = new ArrayList<Position>();
-
+// contacts.add(new Position("Total accuracy",
         for (int i = 0; i < names.length; i++) {
             contacts.add(new Position(names[i], percent[i], md[i], msd[i]));
         }
