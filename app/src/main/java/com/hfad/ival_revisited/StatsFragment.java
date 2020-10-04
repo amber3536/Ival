@@ -13,9 +13,9 @@ import java.util.ArrayList;
 
 public class StatsFragment extends Fragment {
     private View view;
-    private final int NUM_POS = 18;
+    private final int NUM_POS = 19;
     ArrayList<Position> positions;
-    String positionNames[] = new String[] { "right layup",
+    String positionNames[] = new String[] { "Total accuracy", "right layup",
             "left layup", "form shot", "free throw", "right elbow", "left elbow",
             "right midrange wing", "left midrange wing", "right baseline midrange",
             "left baseline midrange", "center 3pt", "right 3pt wing", "left 3pt wing",
@@ -32,6 +32,10 @@ public class StatsFragment extends Fragment {
         RecyclerView rv = view.findViewById(R.id.rvPositions);
         int makeCount[] = new int[NUM_POS];
         int missCount[] = new int[NUM_POS];
+
+//        positionAccuracy[0] = ((QuickstartActivity)getActivity()).returnPositionAccuracy("Total accuracy");
+//        makeCount[0] = ((QuickstartActivity)getActivity()).getMakeCount();
+//        missCount[0] = ((QuickstartActivity)getActivity()).getMissCount();
 
         for (int i = 0; i < positionNames.length; i++) {
             positionAccuracy[i] = ((QuickstartActivity)getActivity()).returnPositionAccuracy(positionNames[i]);

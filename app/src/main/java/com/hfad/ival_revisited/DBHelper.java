@@ -116,10 +116,16 @@ public class DBHelper extends SQLiteOpenHelper {
     public int totalShotsMade(String myPosition) {
         SQLiteDatabase db = this.getReadableDatabase();
         int num = 0;
+        Cursor res;
         // Cursor res =  db.rawQuery("SELECT *,SUM(made) as totalMade FROM scores", null);
-        Cursor res =  db.rawQuery("SELECT SUM(made) as totalMade FROM scores WHERE position = '" + myPosition + "'", null );
-        res.moveToFirst();
+        if (myPosition.equals("Total accuracy")) {
+            res =  db.rawQuery("SELECT SUM(made) as totalMade FROM scores", null );
+        }
+        else {
+            res =  db.rawQuery("SELECT SUM(made) as totalMade FROM scores WHERE position = '" + myPosition + "'", null );
+        }
 
+        res.moveToFirst();
         Log.i(TAG, "totalShotsMade: " + res.getInt(res.getColumnIndex("totalMade")));
         num = res.getInt(res.getColumnIndex("totalMade"));
 
@@ -130,8 +136,15 @@ public class DBHelper extends SQLiteOpenHelper {
     public int totalShotsMissed(String myPosition) {
         SQLiteDatabase db = this.getReadableDatabase();
         int num = 0;
-        // Cursor res =  db.rawQuery("SELECT *,SUM(made) as totalMade FROM scores", null);
-        Cursor res =  db.rawQuery("SELECT SUM(missed) as totalMissed FROM scores WHERE position = '" + myPosition + "'", null );
+        Cursor res;
+
+        if (myPosition.equals("Total accuracy")) {
+            res =  db.rawQuery("SELECT SUM(missed) as totalMissed FROM scores", null );
+        }
+        else {
+            res =  db.rawQuery("SELECT SUM(missed) as totalMissed FROM scores WHERE position = '" + myPosition + "'", null );
+        }
+
         res.moveToFirst();
 
         Log.i(TAG, "totalShotsMade: " + res.getInt(res.getColumnIndex("totalMissed")));
