@@ -125,15 +125,12 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
                 break;
         }
 
-
-        //TODO Make Do Not Disturb access straightforward
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
                 && !notificationManager.isNotificationPolicyAccessGranted()) {
 
             Intent intent = new Intent(
                     android.provider.Settings
                             .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
-           // startActivity(intent);
             startActivityForResult(intent, 55);
         }
 
@@ -149,10 +146,6 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
             public void onClick(View v) {
 
                 if (!turnOn) {
-                    //if (ContextCompat.checkSelfPermission(QuickstartActivity.this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-
-                    //ActivityCompat.requestPermissions(QuickstartActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_RECORD_PERMISSION);
-                    //}
                     requestAudioPermissions();
                     timer.setText(R.string.timer_txt);
                     makeOutput.setText("0");
@@ -179,9 +172,6 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.position:
-                        //btnSwitch.setEnabled(false);
-                        //timer.setVisibility(View.GONE);
-                        //positionView();
                         loadFragment(new PositionFragment(), "positionFragment");
                     break;
                     case R.id.home:
@@ -255,7 +245,6 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
                         REQUEST_RECORD_PERMISSION);
             }
         }
-        //If permission is granted, then go ahead recording audio
         else if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.RECORD_AUDIO)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -267,8 +256,6 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
             recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE,"US-en");
             recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
             speech.startListening(recognizerIntent);
-            //Go ahead with recording audio now
-
         }
     }
 
@@ -654,24 +641,6 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         }
         else
             super.onBackPressed();
-//        if (getFragmentManager().getBackStackEntryCount() == 0) {
-//            this.finish();
-//        } else {
-          //  getFragmentManager().popBackStack();
-       // }
-//        switch (currentFragment) {
-//            case "FragmentOne":
-//                // your code here
-//                return;
-//            case "FragmentTwo":
-//                // your code here
-//                return;
-//            default:
-//                fragmentManager.popBackStack();
-//                // default action for any other fragment (return to previous)
-//        }
-//        super.onBackPressed();
-//        standardView();
     }
 
 }

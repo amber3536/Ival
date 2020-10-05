@@ -41,12 +41,6 @@ public class PositionAdapter extends RecyclerView.Adapter<PositionAdapter.ViewHo
     // Involves populating data into the item through holder
     @Override
     public void onBindViewHolder(PositionAdapter.ViewHolder holder, final int position) {
-        // Get the data model based on position
-//        Contact contact = mContacts.get(position);
-//
-//        // Set item views based on your views and data model
- //       TextView textView = holder.nameTextView;
-//        textView.setText(contact.getName());
         Position positions = mPositions.get(position);
         final Button positionBtn = holder.positionTV;
         TextView tv2 = holder.percentTV;
@@ -71,7 +65,6 @@ public class PositionAdapter extends RecyclerView.Adapter<PositionAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-       // return mContacts.size();
         return mPositions.size();
     }
 

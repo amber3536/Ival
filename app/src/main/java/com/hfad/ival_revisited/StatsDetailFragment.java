@@ -65,7 +65,6 @@ public class StatsDetailFragment extends Fragment {
             position = bundle.getString("position", "");
             Log.i("statsDetail", "onCreateView: " + position);
         }
-        //BarData data = new BarData(getXAxisValues(), getDataSet());
         dataSets = new ArrayList();
         xAxis = chart.getXAxis();
         xAxis.setDrawGridLines(false);
@@ -76,39 +75,12 @@ public class StatsDetailFragment extends Fragment {
 
         YAxis yAxis = chart.getAxis(YAxis.AxisDependency.LEFT);
         YAxis yAxis1 = chart.getAxis(YAxis.AxisDependency.RIGHT);
-       // yAxis.setStartAtZero(true);
-        //yAxis1.setStartAtZero(true);
         yAxis.setAxisMinimum(0f);
         yAxis.setAxisMaximum(1f);
         yAxis1.setAxisMinimum(0f);
         yAxis1.setAxisMaximum(1f);
-       // chart.setVisibleYRangeMaximum(.9f, YAxis.AxisDependency.RIGHT);
-//      yAxis.setSpaceMax(.1f);
-//        yAxis1.setSpaceMax(.1f);
-//        yAxis.setSpaceTop(1);
-//        yAxis1.setSpaceTop(1);
 
-//        DisplayMetrics ds = new DisplayMetrics();
-//        ((QuickstartActivity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(ds);
-//        int width = ds.widthPixels;
-//        int height = ds.heightPixels;
-
-
-//        YAxis yAxis = chart.getAxisRight();
-//        YAxis yAxis1 = chart.getAxisLeft();
-//        yAxis1.mAxisMinimum = 0;
-//        yAxis.mAxisMinimum = 0;
-
-        //description = new Description();
-       // description.setPosition(width-50, height-175);
-
-
-
-//        description.setTextSize(15f);
-//        Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "permanent_marker_reg.ttf");
-//        description.setTypeface(tf);
         chart.getDescription().setEnabled(false);
-        //chart.setDescription(description);
         chart.getLegend().setEnabled(false);
 
        // chart.animateXY(2000, 2000);

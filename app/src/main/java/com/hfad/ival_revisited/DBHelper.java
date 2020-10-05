@@ -118,12 +118,12 @@ public class DBHelper extends SQLiteOpenHelper {
         int num = 0;
         Cursor res;
         // Cursor res =  db.rawQuery("SELECT *,SUM(made) as totalMade FROM scores", null);
-        if (myPosition.equals("Total accuracy")) {
-            res =  db.rawQuery("SELECT SUM(made) as totalMade FROM scores", null );
-        }
-        else {
+//        if (myPosition.equals("Total accuracy")) {
+//            res =  db.rawQuery("SELECT SUM(made) as totalMade FROM scores", null );
+//        }
+//        else {
             res =  db.rawQuery("SELECT SUM(made) as totalMade FROM scores WHERE position = '" + myPosition + "'", null );
-        }
+       // }
 
         res.moveToFirst();
         Log.i(TAG, "totalShotsMade: " + res.getInt(res.getColumnIndex("totalMade")));
@@ -138,12 +138,12 @@ public class DBHelper extends SQLiteOpenHelper {
         int num = 0;
         Cursor res;
 
-        if (myPosition.equals("Total accuracy")) {
-            res =  db.rawQuery("SELECT SUM(missed) as totalMissed FROM scores", null );
-        }
-        else {
+//        if (myPosition.equals("Total accuracy")) {
+//            res =  db.rawQuery("SELECT SUM(missed) as totalMissed FROM scores", null );
+//        }
+//        else {
             res =  db.rawQuery("SELECT SUM(missed) as totalMissed FROM scores WHERE position = '" + myPosition + "'", null );
-        }
+      //  }
 
         res.moveToFirst();
 

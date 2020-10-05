@@ -33,24 +33,12 @@ public class Position {
 
     public int getMissed() { return missed; }
 
-
-    private static int lastContactId = 0;
-
     public static ArrayList<Position> createContactsList(String names[], int percent[], int md[], int msd[]) {
         ArrayList<Position> contacts = new ArrayList<Position>();
-// contacts.add(new Position("Total accuracy",
+
         for (int i = 0; i < names.length; i++) {
             contacts.add(new Position(names[i], percent[i], md[i], msd[i]));
         }
-
-       // for (int i = 0; i < positionNames.length; i++) {
-            //SharedPreferences sharedPreferences = getSharedPreferences("right layup", MODE_PRIVATE);
-            //positionMakeCount = sharedPreferences.getInt("pos_make_num", 0);
-            //positionMissCount = sharedPreferences.getInt("pos_miss_num", 0);
-            //int accuracy = (positionNames[i]);
-       // }
-            //contacts.add(new Position("left layup"))
-            //contacts.add(new Position("Person " + ++lastContactId, 3));
 
 
         return contacts;
