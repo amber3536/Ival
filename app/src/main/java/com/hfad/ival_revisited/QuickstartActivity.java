@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.app.NotificationManager;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothHeadset;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -100,6 +102,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         displayPercentage();
 
 
+
         //recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3);
 
         amanager=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
@@ -138,6 +141,13 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         if (amanager != null && notificationManager.isNotificationPolicyAccessGranted()) {
             Log.i("here", "onCreate: made it in");
             amanager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
+        }
+
+        if (isBluetoothHeadsetConnected()) {
+            Log.i("bluetooth", "onCreate: YASSSSS");
+            amanager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+            amanager.startBluetoothSco();
+            amanager.setBluetoothScoOn(true);
         }
 
 
@@ -188,6 +198,12 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         });
 
 
+    }
+
+    public static boolean isBluetoothHeadsetConnected() {
+        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        return mBluetoothAdapter != null && mBluetoothAdapter.isEnabled()
+                && mBluetoothAdapter.getProfileConnectionState(BluetoothHeadset.HEADSET) == BluetoothHeadset.STATE_CONNECTED;
     }
 
     public void clearDisplay() {
@@ -361,6 +377,12 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         }
         if (amanager != null && notificationManager.isNotificationPolicyAccessGranted())
             amanager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_UNMUTE, 0);
+
+        if (isBluetoothHeadsetConnected()) {
+            amanager.setMode(AudioManager.MODE_NORMAL);
+            amanager.stopBluetoothSco();
+            amanager.setBluetoothScoOn(false);
+        }
     }
 
     @Override
