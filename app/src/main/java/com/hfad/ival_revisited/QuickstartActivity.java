@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -60,8 +62,6 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
     private TextView missText;
     private TextView totalPercentageOutput;
     private TextView positionsPercentageOutput;
-
-    private Boolean activated = false;
     private Boolean quickstart_position_mode = false;
 
     private String positionName;
@@ -99,12 +99,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         mydb = new DBHelper(this);
         displayPercentage();
 
-        speech = SpeechRecognizer.createSpeechRecognizer(this);
-        Log.i("speech", "onCreate: " + SpeechRecognizer.isRecognitionAvailable(this));
-        speech.setRecognitionListener(this);
-        recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE,"US-en");
-        recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+
         //recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3);
 
         amanager=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
@@ -149,17 +144,16 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         }
 
 
-
-
         btnSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (!turnOn) {
-                    if (!activated) {
-                        ActivityCompat.requestPermissions(QuickstartActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_RECORD_PERMISSION);
-                        activated = true;
-                    }
+                    //if (ContextCompat.checkSelfPermission(QuickstartActivity.this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+
+                    //ActivityCompat.requestPermissions(QuickstartActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_RECORD_PERMISSION);
+                    //}
+                    requestAudioPermissions();
                     timer.setText(R.string.timer_txt);
                     makeOutput.setText("0");
                     missOutput.setText("0");
@@ -219,6 +213,65 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         turnOn = false;
     }
 
+    public void firstTimeUserAdvice() {
+        SharedPreferences sharedPreferences = getSharedPreferences("Ival", MODE_PRIVATE);
+        if (sharedPreferences.getBoolean("firstRun", true)) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("firstRun", false);
+            editor.apply();
+            Toast.makeText(QuickstartActivity.this, "Say \"make\" or \"miss\" when you make or miss a shot", Toast.LENGTH_LONG).show();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(QuickstartActivity.this, "Click start to begin recording", Toast.LENGTH_LONG).show();
+
+                }
+            }, 4000);
+
+        }
+
+    }
+
+    private void requestAudioPermissions() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            //When permission is not granted by user, show them message why this permission is needed.
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.RECORD_AUDIO)) {
+                Toast.makeText(this, "Please grant permissions to record audio", Toast.LENGTH_LONG).show();
+
+                //Give user option to still opt-in the permissions
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.RECORD_AUDIO},
+                        REQUEST_RECORD_PERMISSION);
+
+            } else {
+                // Show user dialog to grant permission to record audio
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.RECORD_AUDIO},
+                        REQUEST_RECORD_PERMISSION);
+            }
+        }
+        //If permission is granted, then go ahead recording audio
+        else if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.RECORD_AUDIO)
+                == PackageManager.PERMISSION_GRANTED) {
+            Log.i("result", "requestAudioPermissions: ");
+            speech = SpeechRecognizer.createSpeechRecognizer(this);
+            Log.i("speech", "onCreate: " + SpeechRecognizer.isRecognitionAvailable(this));
+            speech.setRecognitionListener(this);
+            recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+            recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE,"US-en");
+            recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+            speech.startListening(recognizerIntent);
+            //Go ahead with recording audio now
+
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -233,6 +286,9 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
                                     .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
                     // startActivity(intent);
                     startActivityForResult(intent, 55);
+                }
+                else {
+                    firstTimeUserAdvice();
                 }
 
 
@@ -296,6 +352,12 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
             case REQUEST_RECORD_PERMISSION:
                 if (grantResults.length > 0 && grantResults[0]== PackageManager.PERMISSION_GRANTED) {
                     Log.i("permissions", "onRequestPermissionsResult: ");
+                    speech = SpeechRecognizer.createSpeechRecognizer(this);
+                    Log.i("speech", "onCreate: " + SpeechRecognizer.isRecognitionAvailable(this));
+                    speech.setRecognitionListener(this);
+                    recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                    recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE,"US-en");
+                    recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
                     speech.startListening(recognizerIntent);
                 } else {
                     Toast.makeText(QuickstartActivity.this, "Permission Denied!", Toast .LENGTH_SHORT).show();
@@ -321,6 +383,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         Log.i("resume", "onResume: ");
         if (amanager != null && notificationManager.isNotificationPolicyAccessGranted())
             amanager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
+       // speech.startListening(recognizerIntent);
     }
 
 
