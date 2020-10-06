@@ -13,6 +13,10 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+
 public class HomeActivity extends AppCompatActivity {
 
     private Button quickstartBtn;
@@ -65,6 +69,12 @@ public class HomeActivity extends AppCompatActivity {
         Animation animation1 =
                 AnimationUtils.loadAnimation(getBaseContext(), R.anim.move);
         image.startAnimation(animation1);
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
     }
 
 }
