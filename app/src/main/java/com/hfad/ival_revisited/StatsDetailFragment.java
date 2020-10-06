@@ -16,8 +16,12 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -27,6 +31,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import org.threeten.bp.LocalDate;
@@ -41,6 +46,8 @@ public class StatsDetailFragment extends Fragment {
     private Button monthBtn;
     private Button yearBtn;
     private Button weekBtn;
+    private FrameLayout adContainerView;
+    private AdView adView;
     private Description description;
     private BarChart chart;
     private BarData data;
@@ -59,6 +66,25 @@ public class StatsDetailFragment extends Fragment {
         yearBtn = view.findViewById(R.id.stats_year_btn);
         weekBtn = view.findViewById(R.id.stats_week_btn);
         totalPercent = view.findViewById(R.id.stats_detail_total_percent);
+        adContainerView = view.findViewById(R.id.adView_container);
+
+        adView = new AdView(requireContext());
+        adContainerView.addView(adView);
+        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+       // int height = displayMetrics.heightPixels;
+        float width = displayMetrics.widthPixels;
+        Log.i("statsDetail", "onCreateView: " + width);
+        float density = displayMetrics.density;
+        int adWidth = (int) (width / density);
+        //AdSize size = AdSize.getPortraitAnchoredAdaptiveBannerAdSize(requireContext(), adWidth);
+        AdSize size = AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(requireContext(), adWidth);
+        loadBanner(size);
+
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        adView.loadAd(adRequest);
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -138,6 +164,14 @@ public class StatsDetailFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void loadBanner(AdSize size) {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("A63E5337917032EEDC14740F89B6570C")
+                .build();
+        adView.setAdSize(size);
+        adView.loadAd(adRequest);
     }
     
     private void setTotalPercentDisplay(String pos, int totalMade, int totalMissed) {
