@@ -141,6 +141,7 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
         if (amanager != null && notificationManager.isNotificationPolicyAccessGranted()) {
             Log.i("here", "onCreate: made it in");
             amanager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
+            Log.i("here", "onCreate: " + amanager.getRingerMode());
         }
 
         if (isBluetoothHeadsetConnected()) {
@@ -399,6 +400,8 @@ public class QuickstartActivity extends AppCompatActivity implements Recognition
     @Override
     public void onReadyForSpeech(Bundle arg0) {
         Log.i("ready", "onReadyForSpeech");
+        if (amanager != null && notificationManager.isNotificationPolicyAccessGranted())
+            amanager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, AudioManager.ADJUST_MUTE, 0);
     }
 
     @Override
