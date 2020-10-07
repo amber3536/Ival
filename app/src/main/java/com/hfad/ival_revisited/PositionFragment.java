@@ -111,7 +111,14 @@ public class PositionFragment extends Fragment {
 //                transaction.replace(R.id.frameLayout, quickstartFragment);
 //                transaction.addToBackStack(null);
 //                transaction.commit();
-                loadQuickstartFragment("left baseline midrange");
+                //loadQuickstartFragment("left baseline midrange");
+                position = "left baseline midrange";
+
+                if (interstitialAd.isLoaded()) {
+                    interstitialAd.show();
+                } else {
+                    Log.i("TAG", "onClick: The interstitial wasn't loaded yet.");
+                }
             }
         });
 
@@ -127,7 +134,14 @@ public class PositionFragment extends Fragment {
 //                transaction.replace(R.id.frameLayout, quickstartFragment);
 //                transaction.addToBackStack(null);
 //                transaction.commit();
-                loadQuickstartFragment("left layup");
+               // loadQuickstartFragment("left layup");
+                position = "left layup";
+
+                if (interstitialAd.isLoaded()) {
+                    interstitialAd.show();
+                } else {
+                    Log.i("TAG", "onClick: The interstitial wasn't loaded yet.");
+                }
             }
         });
 
@@ -143,7 +157,14 @@ public class PositionFragment extends Fragment {
 //                transaction.replace(R.id.frameLayout, quickstartFragment);
 //                transaction.addToBackStack(null);
 //                transaction.commit();
-                loadQuickstartFragment("right layup");
+               // loadQuickstartFragment("right layup");
+                position = "right layup";
+
+                if (interstitialAd.isLoaded()) {
+                    interstitialAd.show();
+                } else {
+                    Log.i("TAG", "onClick: The interstitial wasn't loaded yet.");
+                }
             }
         });
 
