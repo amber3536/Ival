@@ -153,6 +153,30 @@ public class DBHelper extends SQLiteOpenHelper {
         return num;
     }
 
+//    public String pleaseErase() {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        String num = "";
+//        Cursor res;
+//       // res = db.rawQuery("SELECT position as total FROM scores WHERE made <= (SELECT MIN(missed) FROM scores WHERE position = 'Total accuracy')", null); //
+//        res = db.rawQuery("SELECT DISTINCT position as total FROM scores WHERE (SELECT position, year FROM scores WHERE COUNT(year) >1)", null); //
+//
+//        res.moveToFirst();
+////        if (myPosition.equals("Total accuracy")) {
+////            res =  db.rawQuery("SELECT SUM(missed) as totalMissed FROM scores", null );
+////        }
+////        else {
+//      //  res =  db.rawQuery("SELECT COUNT(DISTINCT position) AS total FROM scores WHERE (made - missed) > 0", null );
+//
+//      // res =  db.rawQuery("SELECT DISTINCT position FROM scores WHERE COUNT(position) > 1 GROUP BY DAY", null );
+//        while(res.isAfterLast() == false) {
+//            num = res.getString(res.getColumnIndex("total"));
+//            res.moveToNext();
+//        }
+//
+//
+//        return num;
+//    }
+
     public int totalWeekShotsMade(String myPosition, int start, int end) {
         SQLiteDatabase db = this.getReadableDatabase();
         int num = 0;
@@ -160,7 +184,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor res =  db.rawQuery("SELECT SUM(made) as totalMade FROM scores WHERE position = '" + myPosition + "' AND day_of_year BETWEEN '" + start  + "' AND '" + end + "'", null );
         res.moveToFirst();
 
-        Log.i(TAG, "totalShotsMade: " + res.getInt(res.getColumnIndex("totalMade")));
+        Log.i(TAG, "totalShotsMade for week: " + myPosition + ": " + res.getInt(res.getColumnIndex("totalMade")));
         num = res.getInt(res.getColumnIndex("totalMade"));
 
         //num = res.getInt(res.getColumnIndex("sumMade"));

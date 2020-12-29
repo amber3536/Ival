@@ -32,6 +32,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.threeten.bp.LocalDate;
@@ -60,7 +61,7 @@ public class StatsDetailFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_stats_detail, container, false);
         Log.i("statsDetail", "onCreateView: arrived");
         dbHelper = new DBHelper(view.getContext());
-
+        //Log.i("HELP", "onCreateView: " + dbHelper.pleaseErase());
         chart = (BarChart) view.findViewById(R.id.chart);
         monthBtn = view.findViewById(R.id.stats_month_btn);
         yearBtn = view.findViewById(R.id.stats_year_btn);
@@ -81,6 +82,9 @@ public class StatsDetailFragment extends Fragment {
         int adWidth = (int) (width / density);
         //AdSize size = AdSize.getPortraitAnchoredAdaptiveBannerAdSize(requireContext(), adWidth);
         AdSize size = AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(requireContext(), adWidth);
+//        int adHeight = size.getHeight();
+//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(adWidth, adHeight);
+//        adContainerView.setLayoutParams(lp);
         loadBanner(size);
 
 //        AdRequest adRequest = new AdRequest.Builder().build();
@@ -196,6 +200,7 @@ public class StatsDetailFragment extends Fragment {
 
         ArrayList<Integer> madeList = dbHelper.shotsMadeWithinLastWeek(position);
         ArrayList<Integer> missedList = dbHelper.shotsMissedWithinLastWeek(position);
+        Log.i("statsDetail", "getWeekDataSet: "+ madeList + missedList);
         ArrayList<Float> list = new ArrayList<>();
 
         for (int i = 0; i < madeList.size(); i++) {

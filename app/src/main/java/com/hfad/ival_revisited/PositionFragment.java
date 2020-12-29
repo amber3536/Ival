@@ -180,7 +180,15 @@ public class PositionFragment extends Fragment {
 //                transaction.replace(R.id.frameLayout, quickstartFragment);
 //                transaction.addToBackStack(null);
 //                transaction.commit();
-                loadQuickstartFragment("right baseline midrange");
+                //loadQuickstartFragment("right baseline midrange");
+                position = "right baseline midrange";
+
+                if (interstitialAd.isLoaded()) {
+                    interstitialAd.show();
+                } else {
+                    Log.i("TAG", "onClick: The interstitial wasn't loaded yet.");
+                }
+
             }
         });
 
@@ -196,7 +204,14 @@ public class PositionFragment extends Fragment {
 //                transaction.replace(R.id.frameLayout, quickstartFragment);
 //                transaction.addToBackStack(null);
 //                transaction.commit();
-                loadQuickstartFragment("right 3pt corner");
+               // loadQuickstartFragment("right 3pt corner");
+                position = "right 3pt corner";
+
+                if (interstitialAd.isLoaded()) {
+                    interstitialAd.show();
+                } else {
+                    Log.i("TAG", "onClick: The interstitial wasn't loaded yet.");
+                }
             }
         });
 
@@ -212,7 +227,14 @@ public class PositionFragment extends Fragment {
 //                transaction.replace(R.id.frameLayout, quickstartFragment);
 //                transaction.addToBackStack(null);
 //                transaction.commit();
-                loadQuickstartFragment("center deep 3pt");
+               // loadQuickstartFragment("center deep 3pt");
+                position = "center deep 3pt";
+
+                if (interstitialAd.isLoaded()) {
+                    interstitialAd.show();
+                } else {
+                    Log.i("TAG", "onClick: The interstitial wasn't loaded yet.");
+                }
             }
         });
 
@@ -228,7 +250,14 @@ public class PositionFragment extends Fragment {
 //                transaction.replace(R.id.frameLayout, quickstartFragment);
 //                transaction.addToBackStack(null);
 //                transaction.commit();
-                loadQuickstartFragment("center 3pt");
+               // loadQuickstartFragment("center 3pt");
+                position = "center 3pt";
+
+                if (interstitialAd.isLoaded()) {
+                    interstitialAd.show();
+                } else {
+                    Log.i("TAG", "onClick: The interstitial wasn't loaded yet.");
+                }
             }
         });
 
@@ -244,7 +273,14 @@ public class PositionFragment extends Fragment {
 //                transaction.replace(R.id.frameLayout, quickstartFragment);
 //                transaction.addToBackStack(null);
 //                transaction.commit();
-                loadQuickstartFragment("free throw");
+               // loadQuickstartFragment("free throw");
+                position = "free throw";
+
+                if (interstitialAd.isLoaded()) {
+                    interstitialAd.show();
+                } else {
+                    Log.i("TAG", "onClick: The interstitial wasn't loaded yet.");
+                }
             }
         });
 
@@ -260,7 +296,14 @@ public class PositionFragment extends Fragment {
 //                transaction.replace(R.id.frameLayout, quickstartFragment);
 //                transaction.addToBackStack(null);
 //                transaction.commit();
-                loadQuickstartFragment("form shot");
+                //loadQuickstartFragment("form shot");
+                position = "form shot";
+
+                if (interstitialAd.isLoaded()) {
+                    interstitialAd.show();
+                } else {
+                    Log.i("TAG", "onClick: The interstitial wasn't loaded yet.");
+                }
             }
         });
 
@@ -276,7 +319,8 @@ public class PositionFragment extends Fragment {
 //                transaction.replace(R.id.frameLayout, quickstartFragment);
 //                transaction.addToBackStack(null);
 //                transaction.commit();
-                loadQuickstartFragment("right midrange wing");
+               // loadQuickstartFragment("right midrange wing");
+                position = "right midrange wing";
             }
         });
 
