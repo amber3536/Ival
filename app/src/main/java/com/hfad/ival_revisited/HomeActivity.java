@@ -2,8 +2,10 @@ package com.hfad.ival_revisited;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -31,7 +33,18 @@ public class HomeActivity extends AppCompatActivity {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (!notificationManager.isNotificationPolicyAccessGranted()) {
-            Toast.makeText(HomeActivity.this, "Do Not Disturb access must be granted for the app to work", Toast.LENGTH_LONG).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                //builder.setMessage("hey")
+                builder.setMessage("Do Not Disturb access must be granted for the app to work")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                
+                            }
+                        })
+                        .show();
+                //builder.create();
+           // Toast.makeText(HomeActivity.this, "Do Not Disturb access must be granted for the app to work", Toast.LENGTH_LONG).show();
         }
         notificationManager.cancelAll();
 
